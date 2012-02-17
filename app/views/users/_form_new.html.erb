@@ -1,0 +1,11 @@
+<%= simple_form_for @user do |f| %>
+  <%= f.input :name, :label => '名字：' %>
+  <%= f.input :login, :label => '登录名：', :hint => '' %>
+  <%= f.input :password, :label => '密码：', :hint => '' %>
+  <%= f.input :password_confirmation, :label => '验证密码：' %>
+  <%= f.input :user_type, :label => '用户属性：', :collection => return_user_type, :include_blank => true %>
+  &nbsp;&nbsp;用户职位：
+  <p><%= link_to_add_fields "选职位", f, :user_levels %></p>
+
+  <p><%= f.button :submit, '保存' %></p>
+<% end %>

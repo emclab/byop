@@ -1,0 +1,28 @@
+<div id="main_body">
+	<h1>用户名单</h1>
+<div class="emclab_pagination"><%= will_paginate %></div>
+</p>
+<table>
+  <tr>
+  	<th></th>
+    <th>名字</th>
+    <th>登录名</th>
+    <th>状态</th>
+    <th>属性</th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+  </tr>
+  <% for user in @users %>
+    <tr>
+      <td><%= link_to "View", "/view_handler?index=1&url=#{user_path(user)}" %></td>    	
+      <td><%= user.name %></td>
+      <td><%= user.login %></td>
+      <td><%= user.status %></td>
+      <td><%= user.user_type %></td>
+      <td><%= link_to "Edit", "/view_handler?index=1&url=#{edit_user_path(user)}" %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New User", "/view_handler?index=1&url=#{new_user_path}" %></p>
+</div>

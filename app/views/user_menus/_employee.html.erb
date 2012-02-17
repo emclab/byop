@@ -1,0 +1,15 @@
+<div id="tabs">
+	<ul>
+		<% if admin? %>
+		<li><a href="#admin"><span>系统管理</span></a></li><% end %>
+		<% if is_worker?  %>
+		<li><a href="#user"><span>用户菜单</span></a></li><% end %>
+		<% if ceo? or coo? or comp_sec? %>
+		<li><a href="#management"><span>统计</span></a></li><% end %>
+	</ul>
+	<%= render 'admin' if admin? %>
+	<%= render 'user' if is_worker? %>
+	<%= render 'management' if ceo? or coo? or comp_sec? %>
+</div>
+
+
