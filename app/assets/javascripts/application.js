@@ -57,7 +57,6 @@ $(function() {
 		if ($(this).attr('checked')) {
 			$(this).prev().before(user_password_div);		
 		} else {
-			user_password_div = '<div id="user_password">' + $('#user_password').html() + '</div>';
 			$('#user_password').remove();
 		};
 	});
