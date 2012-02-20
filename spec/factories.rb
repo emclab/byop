@@ -23,13 +23,13 @@ Factory.define :customer do |c|
   c.short_name              "test"   
   c.email                   "t@acom.com"
   c.phone                   "12345678"
-  c.cell                    "1234567890"
   c.active                  true
-  c.category1_id            2
-  c.sales_id                1
   c.address                 "1276 S. Highland Ave, Lombard, IL 67034"
-  c.contact                 "Jun C"
-  
+  c.contact_info            "Jun C"
+  c.main_biz                "casting"
+  c.equip_by_by             "a caster in 1997"
+  c.installed_equip         "2 10T casters"
+  c.input_by_id             1  
 end
 
 Factory.define :comm_log do |f|
@@ -37,8 +37,41 @@ Factory.define :comm_log do |f|
   f.log                     'talked with customer'
   f.via                     'phone'
   f.purpose                 'initial call'
-  f.contact_info            "John Smith, phone 12345"
+  f.contact_with            "John Smith, phone 12345"
   f.input_by_id             1
+end
+
+Factory.define :src_plant do |f|
+  f.name                    'sourcing plant'
+  f.short_name              'name'
+  f.primary_contact         'a guy'
+  f.primary_cell            '123455'
+  f.phone                   '23455'
+  f.fax                     '545676'
+  f.address                 '45545,main st'
+  f.input_by_id             1
+  f.sourced_product         'abcd'
+  f.equip                   'stuff'
+  f.active                  true
+  f.quality_system          'ISO9000'
+  f.tech_ability            'great'
+  f.main_product            'value, machinery'
+  f.last_eval_date          '2012/1/1'
+end
+
+Factory.define :supplier do |f|
+  f.name                    'sourcing plant'
+  f.short_name              'name'
+  f.contact                 'a guy'
+  f.cell                    '123455'
+  f.phone                   '23455'
+  f.fax                     '35456'
+  f.address                 '45545,main st'
+  f.input_by_id             1  
+  f.product_supplied        'abcdef'
+  f.active                  true
+  f.quality_system          '无'
+  f.main_product            'valve,shaft'
 end
 
 Factory.sequence :email do |n|

@@ -1,0 +1,2 @@
+module CommLogsHelper
+end

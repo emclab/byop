@@ -74,6 +74,14 @@ describe UsersController do
       get 'update', :id => u.id, :user => {:name => 'a new name'}
       response.should redirect_to URI.escape("/view_handler?index=0&msg=更改已保存！")
     end
+    
+    it "would be OK to update the user level" do
+      u = Factory(:user)      
+      ul = Factory(:user_level, :user_id => u.id)
+      session[:user_id] = 1
+      get 'update', :id => u.id, :user => {:user_levels_attributes => { '0' => {:position => 'a new name'}}}
+      response.should redirect_to URI.escape("/view_handler?index=0&msg=更改已保存！")
+    end    
   end
 
 end

@@ -1,0 +1,98 @@
+<div id="main_body">
+
+<h1>外协厂家内容</h1>
+
+<p>
+  <b>名称:</b>
+  <%= @src_plant.name %>
+</p>
+<p>
+  <b>简称:</b>
+  <%= @src_plant.short_name %>
+</p>
+<p>
+  <b>主联系人:</b>
+  <%= @src_plant.primary_contact %>
+</p>
+<p>
+  <b>手机:</b>
+  <%= @src_plant.primary_cell %>
+</p>
+<p>
+  <b>技术联系人:</b>
+  <%= @src_plant.tech_contact %>
+</p>
+<p>
+  <b>手机:</b>
+  <%= @src_plant.tech_cell %>
+</p>
+<p>
+  <b>电话:</b>
+  <%= @src_plant.phone %>
+</p>
+<p>
+  <b>传真:</b>
+  <%= @src_plant.fax %>
+</p>
+<p>
+  <b>地址:</b>
+  <%= @src_plant.address %>
+</p>
+<p>
+  <b>电邮</b>
+  <%= @src_plant.email %>
+</p>
+<p>
+  <b>主营产品:</b>
+  <%= @src_plant.main_product %>
+</p>
+<p>
+  <b>质量系统:</b>
+  <%= @src_plant.quality_system %>
+</p>
+<p>
+  <b>营业额(RMB):</b>
+  <%= @src_plant.revenue %>
+</p>
+<p>
+  <b>员工人数:</b>
+  <%= @src_plant.employee_num %>
+</p>
+<p>
+  <b>北冶已购设备:</b>
+  <%= @src_plant.sourced_product %>
+</p>
+<p>
+  <b>设备情况:</b>
+  <%= @src_plant.equip %>
+</p>
+<p>
+  <b>技术能力:</b>
+  <%= @src_plant.tech_ability %>
+</p>
+<p>
+  <b>客服能力:</b>
+  <%= @src_plant.customer_service %>
+</p>
+<p>
+  <b>产能:</b>
+  <%= @src_plant.production_capacity %>
+</p>
+<p>
+  <b>上次审厂日期:</b>
+  <%= @src_plant.last_eval_date.strftime("%Y/%m/%d") unless @src_plant.last_eval_date.nil? %>
+</p>
+<p>
+  <b>审厂总结:</b>
+  <%= @src_plant.eval_summary %>
+</p>
+<p>
+  <b>输入/更改:</b>
+  <%= @src_plant.input_by.name %>
+</p>
+</ul>
+</p>
+
+  <%= link_to 'Back', "/view_handler?index=0" %>
+</div>
+

@@ -1,0 +1,23 @@
+<%= simple_form_for @customer do |f| %>    
+ 
+  <%= f.input :name, :label => '名称：' %>  
+  <%= f.input :short_name, :label => '简称：', :hint => '4-8字' %>
+  <%= f.input :contact_info, :label => '联系信息：', :hint => '联系人及电话', :input_html => { :rows => 4} %>  
+  <%= f.input :email, :label => '电邮：' %> 
+  <%= f.input :phone, :label => '电话：' %> 
+  <%= f.input :fax, :label => '传真：' %>      
+  <%= f.input :address, :label => '地址：' %>
+  <%= f.input :country, :label => '国家：', :as => :string %>      
+  <%= f.input :quality_system, :collection => return_quality_system, :label => '质量系统：' %>  
+  <%= f.input :web, :label => '网站：' %>
+  <%= f.input :employee_num, :label => '员工人数：' %> 
+  <%= f.input :revenue, :label => '营业额：', :hint => '注明单位' %> 
+  <%= f.input :main_biz, :label => '主营业务：', :input_html => { :rows => 4} %>   
+  <%= f.input :installed_equip, :label => '设备情况：', :input_html => { :rows => 4} %>   
+  <%= f.input :equip_by_by, :label => '北冶设备：', :input_html => { :rows => 4} %>         
+  <%= f.input :note, :label => '注释：', :input_html => { :rows => 4} %>        
+  
+  <%= f.button :submit, '保存' %>  
+<% end %>  
+
+

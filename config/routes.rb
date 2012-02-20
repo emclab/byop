@@ -1,4 +1,49 @@
 Byop::Application.routes.draw do
+  
+  get "suppliers/index"
+
+  get "suppliers/new"
+
+  get "suppliers/create"
+
+  get "suppliers/edit"
+
+  get "suppliers/update"
+
+  get "suppliers/show"
+
+  get "src_plants/index"
+
+  get "src_plants/new"
+
+  get "src_plants/create"
+
+  get "src_plants/edit"
+
+  get "src_plants/update"
+
+  get "src_plants/show"
+
+  get "comm_logs/new"
+
+  get "comm_logs/create"
+
+  get "comm_logs/show"
+
+  get "comm_logs/destroy"
+
+  get "customers/index"
+
+  get "customers/new"
+
+  get "customers/create"
+
+  get "customers/edit"
+
+  get "customers/update"
+
+  get "customers/show"
+
   get "user_menus/index"
 
   get "users/index"
@@ -22,6 +67,11 @@ Byop::Application.routes.draw do
   resources :users do
     resources :user_levels
   end
+  resources :customers do
+    resources :comm_logs, :only => [:new, :create, :show]
+  end
+  resources :src_plants
+  resources :suppliers
   
   root :to => "sessions#new"
   match '/signin',  :to => 'sessions#new'

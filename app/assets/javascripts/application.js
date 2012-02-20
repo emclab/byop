@@ -17,9 +17,11 @@ $(document).ready(function() {
 
 //datepicker
 $(function() {
-   $("#lease_booking_lease_date").datepicker({dateFormat: 'yy-mm-dd'});
+   $("#src_plant_date_since").datepicker({dateFormat: 'yy-mm-dd'});
 });
-
+$(function() {
+   $("#supplier_date_since").datepicker({dateFormat: 'yy-mm-dd'});
+});
 // for AJAX
 $(function() {
    $("#test_sample_return_date").live('click', function() {
@@ -57,7 +59,6 @@ $(function() {
 		if ($(this).attr('checked')) {
 			$(this).prev().before(user_password_div);		
 		} else {
-			user_password_div = '<div id="user_password">' + $('#user_password').html() + '</div>';
 			$('#user_password').remove();
 		};
 	});

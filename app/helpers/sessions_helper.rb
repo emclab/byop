@@ -102,7 +102,7 @@ module SessionsHelper
   end
   
   def return_unit
-    ['个', '台', '套', '支', '组', '件', '根', '米', '升', '立方米']
+    ['个', '台', '套', '支', '组', '件', '根', '只', '米', '升', '立方米']
   end
   
   def return_yes_no
@@ -175,7 +175,35 @@ module SessionsHelper
       '董事长'
     end
   end
+  
+  def set_contact_via
+    return ["电话", "会面/议", "电邮" ,"传真"]
+  end
+  
+  def set_contact_purpose
+    return ["具体业务", "联络感情", "初次联系", "销售推广", "追踪联系", "产品介绍"]
+  end  
    
+  def return_quality_system
+    ['无', 'ISO9000', 'ISO14001', 'TS16949']  
+  end
+  
+  def return_active_plant
+    SrcPlant.active_plant  
+  end
+  
+  def returen_active_supplier
+    Supplier.active_supplier
+  end
+  
+  def is_eng?
+    mech_eng? || elec_eng? || hydr_eng? || src_eng? || inst_eng? || pur_eng? 
+  end
+  
+  def is_tech_eng?
+    mech_eng? || elec_eng? || hydr_eng? || src_eng? || inst_eng? 
+  end
+  
   private
 
    def user_from_remember_token
