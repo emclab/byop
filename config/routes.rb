@@ -1,5 +1,17 @@
 Byop::Application.routes.draw do
   
+  get "projects/index"
+
+  get "projects/new"
+
+  get "projects/create"
+
+  get "projects/edit"
+
+  get "projects/update"
+
+  get "projects/show"
+
   get "suppliers/index"
 
   get "suppliers/new"
@@ -72,6 +84,9 @@ Byop::Application.routes.draw do
   end
   resources :src_plants
   resources :suppliers
+  resources :projects do
+   
+  end
   
   root :to => "sessions#new"
   match '/signin',  :to => 'sessions#new'
