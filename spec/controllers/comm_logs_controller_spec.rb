@@ -57,7 +57,7 @@ describe CommLogsController do
   end
 
   describe "GET 'show'" do
-    it "should be successful for sales" do
+    it "should be successful for comp sec" do
       session[:comp_sec] = true
       customer = Factory(:customer)
       user = Factory(:user)

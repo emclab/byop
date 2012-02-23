@@ -1,0 +1,2 @@
+module InstallationLogsHelper
+end

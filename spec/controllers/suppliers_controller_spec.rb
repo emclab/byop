@@ -18,7 +18,7 @@ describe SuppliersController do
       response.should be_success
     end
     
-    it "should OK for src eng" do
+    it "should OK for pur eng" do
       supl = Factory(:supplier)
       session[:pur_eng] = true
       get 'index'

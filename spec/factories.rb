@@ -41,6 +41,97 @@ Factory.define :comm_log do |f|
   f.input_by_id             1
 end
 
+Factory.define :installation do |f|
+  f.install_name            'a equip'
+  f.inst_eng_id              1
+  f.project_id               1
+  f.start_date               '2012-2-1'
+  f.finish_date              '2012-3-2' 
+  f.completed                false
+  f.input_by_id              1 
+end
+
+Factory.define :manufacturer do |f|
+  f.name                    'mfg'
+  f.product                 'product abc' 
+  f.input_by_id              1 
+end
+
+Factory.define :production do |f|
+  f.name                    'a prod plan'
+  f.eng_id                   1
+  f.project_id               1
+  f.start_date               '2012-2-1'
+  f.finish_date              '2012-3-2' 
+  f.completed                false
+  f.input_by_id              1   
+end
+
+Factory.define :purchasing do |f|
+  f.prod_name                'a prod plan'
+  f.spec                     'must have size'
+  f.qty                      2
+  f.unit                     'pcs'
+  f.manufacturer_id          2
+  f.pur_eng_id               1
+  f.project_id               1
+  f.order_date               '2012-2-1'
+  f.delivery_date            '2012-3-2' 
+  f.input_by_id              1
+  f.delivered                false  
+end
+
+Factory.define :sourcing do |f| 
+  f.prod_name                'a prod plan'
+  f.spec                     'must have size'
+  f.qty                      2
+  f.unit                     'pcs'  
+  f.src_eng_id               1
+  f.project_id               1  
+  f.start_date               '2012-2-1'
+  f.finish_date              '2012-3-2' 
+  f.completed                false     
+end
+
+Factory.define :project do |f|
+  f.name                    'project A'
+  f.customer_id              1
+  f.customer_contact_info   'a guy, cell 12345'
+  f.status                  'info collecting'
+  f.tech_spec               '35T, 2000pcs/min'  
+end
+
+Factory.define :project_log do |f|
+  f.project_id              1
+  f.subject                 'log name'
+  f.log                     'blaaaaa'
+  f.input_by_id             1
+end
+
+Factory.define :production_log do |f|
+  f.production_id           1
+  f.log                     'blaaaaa'
+  f.input_by_id             1
+end
+
+Factory.define :sourcing_log do |f|
+  f.sourcing_id             1
+  f.log                     'blaaaaa'
+  f.input_by_id             1
+end
+
+Factory.define :purchasing_log do |f|
+  f.purchasing_id           1
+  f.log                     'blaaaaa'
+  f.input_by_id             1
+end
+
+Factory.define :installation_log do |f|
+  f.installation_id         1
+  f.log                     'blaaaaa'
+  f.input_by_id             1
+end
+
 Factory.define :src_plant do |f|
   f.name                    'sourcing plant'
   f.short_name              'name'

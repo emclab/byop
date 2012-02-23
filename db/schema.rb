@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120220190020) do
+ActiveRecord::Schema.define(:version => 20120223045701) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -48,6 +48,137 @@ ActiveRecord::Schema.define(:version => 20120220190020) do
     t.datetime "updated_at"
   end
 
+  create_table "installation_logs", :force => true do |t|
+    t.integer  "installation_id"
+    t.text     "log"
+    t.integer  "input_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "installations", :force => true do |t|
+    t.string   "install_name"
+    t.date     "start_date"
+    t.date     "finish_date"
+    t.integer  "input_by_id"
+    t.boolean  "completed",    :default => false
+    t.integer  "inst_eng_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "project_id"
+  end
+
+  create_table "manufacturers", :force => true do |t|
+    t.string   "name"
+    t.integer  "input_by_id"
+    t.string   "product"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "production_logs", :force => true do |t|
+    t.integer  "production_id"
+    t.text     "log"
+    t.integer  "input_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "productions", :force => true do |t|
+    t.string   "name"
+    t.text     "desp"
+    t.integer  "project_id"
+    t.date     "start_date"
+    t.date     "finish_date"
+    t.integer  "eng_id"
+    t.boolean  "completed",   :default => false
+    t.integer  "input_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "project_logs", :force => true do |t|
+    t.text     "log"
+    t.integer  "input_by_id"
+    t.string   "subject"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "project_id"
+  end
+
+  create_table "projects", :force => true do |t|
+    t.string   "name"
+    t.integer  "customer_id"
+    t.text     "customer_contact_info"
+    t.string   "status"
+    t.string   "install_address"
+    t.string   "budget"
+    t.string   "tonnage"
+    t.text     "tech_spec"
+    t.text     "subsys_spec"
+    t.text     "other_tech_requirement"
+    t.text     "construction_requirement"
+    t.text     "test_run_requirement"
+    t.text     "turn_over_requirement"
+    t.date     "bid_doc_available_date"
+    t.date     "bid_deadline"
+    t.date     "bid_opening_date"
+    t.date     "contract_date"
+    t.date     "production_start_date"
+    t.date     "construction_finish_date"
+    t.date     "install_start_date"
+    t.date     "test_run_date"
+    t.date     "turn_over_date"
+    t.boolean  "completed",                :default => false
+    t.boolean  "cancelled",                :default => false
+    t.text     "note"
+    t.text     "review_after"
+    t.integer  "input_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "awarded"
+  end
+
+  create_table "purchasing_logs", :force => true do |t|
+    t.integer  "purchasing_id"
+    t.text     "log"
+    t.integer  "input_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "purchasings", :force => true do |t|
+    t.string   "prod_name"
+    t.string   "part_num"
+    t.string   "spec"
+    t.integer  "project_id"
+    t.integer  "qty"
+    t.string   "unit"
+    t.decimal  "unit_price"
+    t.integer  "pur_eng_id"
+    t.integer  "manufacturer_id"
+    t.integer  "supplier_id"
+    t.date     "order_date"
+    t.date     "delivery_date"
+    t.boolean  "delivered",            :default => false
+    t.integer  "subsys_id"
+    t.integer  "input_by_id"
+    t.boolean  "approved_by_eng"
+    t.integer  "approve_eng_id"
+    t.date     "approve_date_eng"
+    t.boolean  "approved_by_vp_eng"
+    t.integer  "approve_vp_eng_id"
+    t.date     "approve_date_vp_eng"
+    t.boolean  "approved_by_pur_eng"
+    t.integer  "approve_pur_eng_id"
+    t.date     "approve_date_pur_eng"
+    t.boolean  "approved_by_ceo"
+    t.integer  "approve_ceo_id"
+    t.date     "approve_date_ceo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -57,6 +188,39 @@ ActiveRecord::Schema.define(:version => 20120220190020) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "sourcing_logs", :force => true do |t|
+    t.integer  "sourcing_id"
+    t.text     "log"
+    t.integer  "input_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sourcings", :force => true do |t|
+    t.string   "prod_name"
+    t.string   "part_num"
+    t.text     "spec"
+    t.integer  "qty"
+    t.string   "unit"
+    t.decimal  "unit_price"
+    t.integer  "subsys_id"
+    t.integer  "src_plant_id"
+    t.date     "start_date"
+    t.date     "finish_date"
+    t.boolean  "completed",           :default => false
+    t.integer  "src_eng_id"
+    t.integer  "input_by_id"
+    t.boolean  "approved_by_vp_eng"
+    t.integer  "approve_vp_eng_id"
+    t.date     "approve_date_vp_eng"
+    t.boolean  "approved_by_ceo"
+    t.integer  "approve_ceo_id"
+    t.date     "approve_date_ceo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "project_id"
+  end
 
   create_table "src_plants", :force => true do |t|
     t.string   "name"

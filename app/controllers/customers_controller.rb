@@ -24,7 +24,7 @@ class CustomersController < ApplicationController
 
   def create
     if has_create_right?
-      @customer = Customer.new(params[:customer], :as => :role_new_update)
+      @customer = Customer.new(params[:customer], :as => :role_new)
       @customer.input_by_id = session[:user_id]
       if @customer.save
         redirect_to URI.escape("/view_handler?index=0&msg=已保存!")        
@@ -47,7 +47,7 @@ class CustomersController < ApplicationController
     if has_update_right?
       @customer = Customer.find(params[:id])
       @customer.input_by_id = session[:user_id]
-      if @customer.update_attributes(params[:customer], :as => :role_new_update)
+      if @customer.update_attributes(params[:customer], :as => :role_update)
         redirect_to URI.escape("/view_handler?index=0&msg=更改已保存！")
       else
         flash[:notice] = '无法保存！'
@@ -83,7 +83,8 @@ class CustomersController < ApplicationController
   end
   
   def return_last_contact_date(customer_id)
-    CommLog.where("customer_id = ?", customer_id).order("created_at DESC").first.created_at
+    log = CommLog.where("customer_id = ?", customer_id).last
+    return log.created_at unless log.nil?
   end
   
 end

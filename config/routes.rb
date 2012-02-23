@@ -1,5 +1,93 @@
 Byop::Application.routes.draw do
   
+  get "installation_logs/index"
+
+  get "installation_logs/new"
+
+  get "installation_logs/create"
+
+  get "sourcing_logs/index"
+
+  get "sourcing_logs/new"
+
+  get "sourcing_logs/create"
+
+  get "purchasing_logs/index"
+
+  get "purchasing_logs/new"
+
+  get "purchasing_logs/create"
+
+  get "production_logs/index"
+
+  get "production_logs/new"
+
+  get "production_logs/create"
+
+  get "installations/index"
+
+  get "installations/new"
+
+  get "installations/create"
+
+  get "installations/edit"
+
+  get "installations/update"
+
+  get "sourcings/index"
+
+  get "sourcings/new"
+
+  get "sourcings/create"
+
+  get "sourcings/edit"
+
+  get "sourcings/update"
+
+  get "sourcings/show"
+
+  get "purchasings/index"
+
+  get "purchasings/new"
+
+  get "purchasings/create"
+
+  get "purchasings/edit"
+
+  get "purchasings/update"
+
+  get "purchasings/show"
+
+  get "productions/index"
+
+  get "productions/new"
+
+  get "productions/create"
+
+  get "productions/edit"
+
+  get "productions/update"
+
+  get "productions/show"
+
+  get "manufacturers/index"
+
+  get "manufacturers/new"
+
+  get "manufacturers/create"
+
+  get "manufacturers/edit"
+
+  get "manufacturers/update"
+
+  get "project_logs/new"
+
+  get "project_logs/create"
+
+  get "project_logs/show"
+
+  get "project_logs/destroy"
+
   get "projects/index"
 
   get "projects/new"
@@ -76,16 +164,34 @@ Byop::Application.routes.draw do
   
   resource :session
   resources :user_menus, :only => [:index]
+  resources :manufacturers, :only => [:index, :new, :create, :edit, :update]
   resources :users do
     resources :user_levels
   end
   resources :customers do
-    resources :comm_logs, :only => [:new, :create, :show]
+    resources :comm_logs, :only => [:new, :create, :show, :destroy]
   end
   resources :src_plants
   resources :suppliers
   resources :projects do
-   
+    resources :project_logs, :only => [:new, :create, :show, :destroy]
+    resources :productions, :only => [:index, :new, :create, :edit, :update, :show]
+    resources :sourcings, :only => [:index, :new, :create, :edit, :update, :show]
+    resources :purchasings, :only => [:index, :new, :create, :edit, :update, :show]
+    resources :installations, :only => [:index, :new, :create, :edit, :update]
+  end
+  
+  resources :productions do
+    resources :production_logs, :only => [:index, :new, :create]
+  end
+  resources :purchasings do
+    resources :purchasing_logs, :only => [:index, :new, :create]
+  end
+  resources :sourcings do
+    resources :sourcing_logs, :only => [:index, :new, :create]
+  end
+  resources :installations do
+    resources :installation_logs, :only => [:index, :new, :create]
   end
   
   root :to => "sessions#new"

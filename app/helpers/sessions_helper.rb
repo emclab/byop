@@ -101,12 +101,40 @@ module SessionsHelper
     session[:src_eng]
   end
   
+  def return_mfg
+    Manufacturer.order("name")  
+  end
+  
+  def return_active_customer
+    Customer.active_cust.order("id DESC")  
+  end
+  
+  def return_tech_eng
+    User.where("user_type = ? AND　status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => ['mech_eng','hydr_eng','inst_eng','elec_eng','src_eng']})  
+  end
+  
+  def return_project_status
+    ['项目资料收集','投标前接触客户', '通过投标资格审查', '收到标书','已投标','投标后交流', '未中标','再投标', '已中标','中标-技术谈判','中标-合同谈判','合同已签','生产计划', '设备设计等开始','设备设计等完成过半','甲方设计审查','设备外协&外购开始','设备生产完成过半','甲方出厂前设备验收','设备准备发运', '设备已发运','设备安装中','设备调试中','设备试生产','设备验收合格','设备交付']
+  end
+  
   def return_unit
     ['个', '台', '套', '支', '组', '件', '根', '只', '米', '升', '立方米']
   end
   
   def return_yes_no
-    [['Yes',true ],['No', false]]
+    [['是',true ],['否', false]]
+  end
+  
+  def return_yes_no_name(b)
+    case b
+    when true || 'true' || 1 || '1'
+      return '是'
+    when false || 'false' || 0 || '0'
+      return '否'
+    else
+      return '未定'
+    end
+    
   end
   
   def return_user_status

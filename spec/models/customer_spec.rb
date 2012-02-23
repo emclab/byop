@@ -55,11 +55,11 @@ describe Customer do
       customer1 = Factory.build(:customer, :short_name => "Test User")
       customer1.should_not be_valid      
     end
-    
-    it "should be OK with duplicate short_name in different active status" do
+
+    it "should not be OK with duplicate short_name in different active status" do
       customer = Factory(:customer, :active => false, :short_name => "test user")
       customer1 = Factory.build(:customer, :active => true, :short_name => "Test user")
-      customer1.should be_valid           
+      customer1.should_not be_valid           
     end
     
     it "should return error with no contact" do

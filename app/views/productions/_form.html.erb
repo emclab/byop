@@ -1,0 +1,14 @@
+<%= simple_form_for([@project, @production]) do |f| %>    
+
+  <div style="padding-left:32px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
+  <%= f.input :name, :label => '名称：' %> 
+  <%= f.input :desp, :label => '内容：', :input_html => {:rows => 3} %>  
+  <%= f.input :eng_id, :label => '责任工程师：', :collectionc=> return_tech_eng, :label_method => :name, :value_method => :id %>
+  <%= f.input :completed, :label => '完成?：', :as => :radio %> 
+  <%= f.input :start_date, :label => '开始日期：', :as => :string %> 
+  <%= f.input :finish_date, :label => '完成日期：', :as => :string %> 
+  
+  <%= f.button :submit, '保存' %>  
+<% end %>  
+
+

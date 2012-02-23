@@ -1,0 +1,47 @@
+<div id="main_body">
+
+<h1>计划-<%=@production.name%>内容</h1>
+
+<p>
+  <b>名称:</b>
+  <%= @production.name %>
+</p>
+<p>
+  <b>责任工程师:</b>
+  <%= @production.eng.name %>
+</p>
+<p>
+  <b>完成？：</b>
+  <%= @production.completed %>
+</p>
+<p>
+  <b>开始日期:</b>
+  <%= @production.start_date.strftime("%Y/%m/%d") %>
+</p>
+<p>
+  <b>结束日期:</b>
+  <%= @production.finish_date.strftime("%Y/%m/%d") %>
+</p>
+
+
+<p>
+  <b>输入/更改人:</b>
+  <%= @production.input_by.name %>
+</p>
+<p>
+  <b>状态Log:</b>	
+  <ul>
+<% @production.production_logs.order("created_at DESC").each do |f| %>
+  <li>
+  <%= link_to "关于:" + f.subject + ", " + f.created_at.strftime("%Y-%m-%d").to_s, "/view_handler?index=1&url=#{production_production_log_path(f.production_id, f.id)}" %>
+  </li>
+<% end %>
+</ul>
+</p>
+
+  <%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+<% if has_log_right? %>
+  <%= link_to '输入联系Log', new_production_production_log_path(@production, :format => :js), :remote => true, :id => 'new_log_link' %>
+<% end %>
+</div>
+
