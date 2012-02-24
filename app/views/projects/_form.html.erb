@@ -1,0 +1,34 @@
+<%= simple_form_for @project do |f| %>    
+ 
+  <div style="padding-left:62px">客户：&nbsp;&nbsp;<%= @project.customer.name %></div>
+  <%= f.input :name, :label => '项目名称：' %>  
+  <%= f.input :customer_contact_info, :label => '联系信息：', :hint => '联系人及电话', :input_html => { :rows => 4} %> 
+  <%= f.input :awarded, :label => '签合同了？：', :collection => return_yes_no, :include_blank => true %>   
+  <%= f.input :status, :label => '项目状态：', :collection => return_project_status %>
+  <%= f.input :budget, :label => '预计合同金额（￥）：' %>
+  <%= f.input :install_address, :label => '设备安装地点：' %> 
+  <%= f.input :tech_spec, :label => '技术参数要求：', :input_html => { :rows => 8} %> 
+  <%= f.input :subsys_spec, :label => '分系统技术要求：', :input_html => { :rows => 8} %>      
+  <%= f.input :other_tech_requirement, :label => '其他技术要求：', :input_html => { :rows => 6} %>
+  <%= f.input :tonnage, :label => '设备吨位：', :as => :string %>       
+  <%= f.input :bid_doc_available_date, :label => '标书发放日期：', :as => :string %>
+  <%= f.input :bid_deadline, :label => '投标截止日期：', :as => :string %> 
+  <%= f.input :bid_opening_date, :label => '开标日期：', :as => :string %> 
+  <%= f.input :contract_date, :label => '合同日期：', :as => :string %>  
+  <%= f.input :construction_finish_date, :label => '客户土建完成日期：', :as => :string %>  
+  <%= f.input :production_start_date, :label => '生产开始日期：', :as => :string %>
+  <%= f.input :install_start_date, :label => '安装开始日期：', :as => :string %>   
+  <%= f.input :test_run_date, :label => '试生产日期：', :as => :string %>  
+  <%= f.input :turn_over_date, :label => '交付日期：', :as => :string %>    
+  <%= f.input :construction_requirement, :label => '土建要求：', :input_html => { :rows => 4} %>   
+  <%= f.input :test_run_requirement, :label => '试生产要求：', :input_html => { :rows => 4} %> 
+  <%= f.input :turn_over_requirement, :label => '验收合格要求：', :input_html => { :rows => 4} %>  
+  <%= f.input :completed, :label => '完成？：', :as => :radio %>  
+  <%= f.input :cancelled, :label => '项目取消？：', :as => :radio %>             
+  <%= f.input :note, :label => '注释：', :input_html => { :rows => 4} %>
+  <%= f.input :review_after, :label => '项目总结：', :input_html => {:rows => 6} %>          
+  
+  <%= f.button :submit, '保存' %>  
+<% end %>  
+
+

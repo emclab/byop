@@ -1,0 +1,41 @@
+<div id="main_body">
+<h1>设备项目</h1>
+<div class="emclab_pagination"><%= will_paginate %></div>
+<table>
+  <tr>
+    <th></th>
+    <th>项目名称</th>
+    <th>开始日期</th>
+    <th>客户</th>
+    <th>项目状态</th> 
+    <th>完成?</th>
+    <th></th>
+    <th></th> 
+    <th></th> 
+    <th></th> 
+    <th></th> 
+  </tr>
+
+<% @projects.each do |proj| %>
+  <tr>
+  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{project_path(proj)}" if has_show_right? %></td>
+    <td><%= proj.name %></td>
+    <td><%= proj.created_at.strftime("%Y/%m/%d") %></td>
+    <td><%= proj.customer.name %></td>
+    <td><%= proj.status %></td>
+    <td><%= proj.completed %></td>  
+    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_project_path(proj)}" if has_update_right? %></td>
+    <% if proj.awarded %>
+      <td><%= link_to '', "/view_handler?index=1&url=#{project_productions_path(proj)}" %></td>
+      <td><%= link_to '', "/view_handler?index=1&url=#{project_sourcings_path(proj)}" %></td>
+      <td><%= link_to '', "/view_handler?index=1&url=#{project_purchasings_path(proj)}" %></td>
+      <td><%= link_to '', "/view_handler?index=1&url=#{project_installations_path(proj)}" %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+  <%= link_to 'Back', "/view_handler?index=0" %>
+  &nbsp;<%= link_to '输入项目', "/view_handler?index=1&url=#{new_project_path}" if has_create_right? %>
+
+</div>
+

@@ -1,0 +1,51 @@
+<div id='main_body'>
+<h1>客户交流Log内容</h1>
+ 
+<p class="notice"><%= notice %></p>
+
+<p>
+  <b>客户名称:</b>
+  <%= @customer.name %>
+</p> 
+
+<p>
+  <b>联系人:</b>
+  <%= @comm_log.input_by.name %>
+</p>
+
+<p>
+  <b>联系日期:</b>
+  <%= @comm_log.created_at %>
+</p> 
+<p>
+  <b>关于:</b>
+  <%= @comm_log.subject %>
+</p>
+ 
+<p>
+  <b>客户联系人名&电话:</b>
+  <%= @comm_log.contact_with %>
+</p>
+
+ 
+<p>
+  <b>内容:</b>
+  <%= @comm_log.log %>
+</p>
+ 
+<p>
+  <b>联系方式:</b>
+  <%= @comm_log.via %>
+</p>
+ 
+<p>
+  <b>联系目的:</b>
+  <%= @comm_log.purpose %>
+</p>
+
+ 
+<%= link_to 'Back', "/view_handler?index=0" %>
+<% if has_destroy_right? %>
+  <%= link_to '删除', customer_comm_log_path(@customer, @comm_log), :remote => true, :method => :delete, :confirm => '删除log?' %>
+<% end %>
+</div>

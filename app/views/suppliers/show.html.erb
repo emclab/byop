@@ -1,0 +1,70 @@
+<div id="main_body">
+
+<h1>供应商内容</h1>
+
+<p>
+  <b>名称:</b>
+  <%= @supplier.name %>
+</p>
+<p>
+  <b>简称:</b>
+  <%= @supplier.short_name %>
+</p>
+<p>
+  <b>联系人:</b>
+  <%= @supplier.contact %>
+</p>
+<p>
+  <b>手机:</b>
+  <%= @supplier.cell %>
+</p>
+<p>
+  <b>电话:</b>
+  <%= @supplier.phone %>
+</p>
+<p>
+  <b>传真:</b>
+  <%= @supplier.fax %>
+</p>
+<p>
+  <b>地址:</b>
+  <%= @supplier.address %>
+</p>
+<p>
+  <b>电邮</b>
+  <%= @supplier.email %>
+</p>
+<p>
+  <b>主营产品:</b>
+  <%= @supplier.main_product %>
+</p>
+<p>
+  <b>质量系统:</b>
+  <%= @supplier.quality_system %>
+</p>
+<p>
+  <b>北冶已购零件:</b>
+  <%= @supplier.product_supplied %>
+</p>
+<p>
+  <b>客服能力:</b>
+  <%= @supplier.customer_service %>
+</p>
+<p>
+  <b>上次审厂日期:</b>
+  <%= @supplier.last_eval_date.strftime("%Y/%m/%d") unless @supplier.last_eval_date.nil? %>
+</p>
+<p>
+  <b>审厂总结:</b>
+  <%= @supplier.eval_summary %>
+</p>
+<p>
+  <b>输入/更改人:</b>
+  <%= @supplier.input_by.name %>
+</p>
+</ul>
+</p>
+
+  <%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+
+</div>

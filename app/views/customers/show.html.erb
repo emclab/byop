@@ -1,0 +1,80 @@
+<div id="main_body">
+
+<h1>客户</h1>
+
+<p>
+  <b>名称:</b>
+  <%= @customer.name %>
+</p>
+<p>
+  <b>简称:</b>
+  <%= @customer.short_name %>
+</p>
+<p>
+  <b>联系信息:</b>
+  <%= @customer.contact_info %>
+</p>
+<p>
+  <b>电话:</b>
+  <%= @customer.phone %>
+</p>
+<p>
+  <b>电邮</b>
+  <%= @customer.email %>
+</p>
+<p>
+  <b>传真:</b>
+  <%= @customer.fax %>
+</p>
+<p>
+  <b>地址:</b>
+  <%= @customer.address %>
+</p>
+<p>
+  <b>主营业务:</b>
+  <%= @customer.main_biz %>
+</p>
+<p>
+  <b>质量系统:</b>
+  <%= @customer.quality_system %>
+</p>
+<p>
+  <b>营业额(RMB):</b>
+  <%= @customer.revenue %>
+</p>
+<p>
+  <b>员工人数:</b>
+  <%= @customer.employee_num %>
+</p>
+<p>
+  <b>北冶设备:</b>
+  <%= @customer.equip_by_by %>
+</p>
+<p>
+  <b>客户设备情况:</b>
+  <%= @customer.installed_equip %>
+</p>
+<p>
+  <b>注释:</b>
+  <%= @customer.note %>
+</p>
+<p>
+  <b>输入/更改:</b>
+  <%= @customer.input_by.name %>
+</p>
+<p>
+  <b>客户联系Log:</b>	
+  <ul>
+<% @customer.comm_logs.order("created_at DESC").each do |f| %>
+  <li>
+  <%= link_to "关于:" + f.subject + ", " + f.created_at.strftime("%Y-%m-%d").to_s, "/view_handler?index=1&url=#{customer_comm_log_path(f.customer_id, f.id)}" %>
+  </li>
+<% end %>
+</ul>
+</p>
+
+  <%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+<% if has_log_right? %>
+  <%= link_to '输入联系Log', new_customer_comm_log_path(@customer, :format => :js), :remote => true, :id => 'new_log_link' %>
+<% end %>
+</div>

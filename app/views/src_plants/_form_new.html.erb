@@ -1,0 +1,30 @@
+<%= simple_form_for @src_plant do |f| %>    
+ 
+  <%= f.input :name, :label => '名称：' %>  
+  <%= f.input :short_name, :label => '简称：', :hint => '4-8字' %>
+  <%= f.input :src_since, :label => '开始日期：', :as => :string, :hint => '开始外协日期' %>
+  <%= f.input :primary_contact, :label => '总联系人：' %>  
+  <%= f.input :primary_cell, :label => '手机：' %>  
+  <%= f.input :tech_contact, :label => '技术联系人：' %>  
+  <%= f.input :tech_cell, :label => '手机：' %>        
+  <%= f.input :email, :label => '电邮：' %> 
+  <%= f.input :phone, :label => '电话：' %> 
+  <%= f.input :fax, :label => '传真：' %>      
+  <%= f.input :address, :label => '地址：' %>   
+  <%= f.input :quality_system, :collection => return_quality_system, :label => '质量系统：' %>  
+  <%= f.input :web, :label => '网站：' %>
+  <%= f.input :employee_num, :label => '员工人数：' %> 
+  <%= f.input :revenue, :label => '营业额：', :hint => '注明单位' %> 
+  <%= f.input :main_product, :label => '主营产品：', :input_html => { :rows => 4} %>   
+  <%= f.input :equip, :label => '设备情况：', :input_html => { :rows => 4} %> 
+  <%= f.input :tech_ability, :label => '技术能力：', :input_html => { :rows => 4} %>  
+  <%= f.input :last_eval_date, :label => '上次审厂日期：', :as => :string %>  
+  <%= f.input :eval_summary, :label => '审厂总结：', :input_html => { :rows => 4} %>   
+  <%= f.input :production_capacity, :label => '产能：', :input_html => { :rows => 4} %>      
+  <%= f.input :customer_service, :label => '客服情况：', :input_html => { :rows => 4} %>         
+  <%= f.input :sourced_product, :label => '北冶设备：', :hint => '给北冶制造过的设备', :input_html => { :rows => 4} %>              
+  
+  <%= f.button :submit, '保存' %>  
+<% end %>  
+
+

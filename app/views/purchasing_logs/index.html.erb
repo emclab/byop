@@ -1,0 +1,23 @@
+<div id="main_body">
+<h1>外购计划Log</h1>
+<table>
+  <tr>
+  	<th>输入日期</th>
+    <th>输入人</th>
+    <th>内容</th>   
+  </tr>
+
+<% @purchasing_logs.each do |log| %>
+  <tr>
+    <td><%= log.created_at.strftime("%Y/%m/%d") %></td> 	
+    <td><%= log.input_by.name %></td> 
+    <td><%= log.log %></td> 
+  </tr>
+<% end %>
+
+</table>
+
+  <%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+  <%= link_to "输入Log", new_purchasing_purchasing_log_path(@purchasing, :format => :js), :remote => true, :id => 'new_log_link' if has_create_right? %>
+
+</div>

@@ -1,0 +1,40 @@
+<div id="main_body">
+<h1>外协厂家</h1>
+<div class="emclab_pagination"><%= will_paginate %></div>
+<table>
+  <tr>
+    <th></th>
+    <th>简称</th>
+    <th>外协开始日期</th>
+      <th>联系信息</th>
+      <th>电话</th>
+      <% if has_create_right? %>
+      <th>Active?</th>
+      <% end %>
+    <th>北冶产品</th>
+    <th>上次审厂日期</th>
+    <th></th>
+ 
+  </tr>
+
+<% @src_plants.each do |plant| %>
+  <tr>
+  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{src_plant_path(plant)}" if has_show_right? %></td>
+    <td><%= plant.short_name %></td>
+    <td><%= plant.src_since.strftime("%Y/%m/%d") unless plant.src_since.nil? %></td>
+    <td><%= plant.primary_contact %></td>
+    <td><%= plant.phone %></td>
+    <% if has_create_right? %>
+      <td><%= plant.active %></td>
+    <% end %>
+    <td><%= plant.sourced_product %></td> 
+    <td><%= plant.last_eval_date.strftime("%Y/%m/%d") unless plant.last_eval_date.nil? %></td> 
+    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_src_plant_path(plant)}" if has_update_right? %></td>
+
+  </tr>
+<% end %>
+</table>
+
+  <%= link_to 'Back', "/view_handler?index=0" %>
+  &nbsp;<%= link_to '输入外协厂', "/view_handler?index=1&url=#{new_src_plant_path}" if has_create_right? %>  
+</div>

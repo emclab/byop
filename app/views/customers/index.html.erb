@@ -1,0 +1,42 @@
+<div id="main_body">
+<h1>客户</h1>
+<table>
+  <tr>
+    <th></th>
+    <th>简称</th>
+    <th>开始日期</th>
+    <% if has_create_right? %>
+      <th>联系信息</th>
+      <th>电话</th>
+      <th>Active?</th>
+    <% end %>
+    <th>主营业务</th>
+    <th>北冶设备</th>
+    <th>上次联系日期</th>
+    <th></th>
+ 
+  </tr>
+
+<% @customers.each do |cust| %>
+  <tr>
+  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{customer_path(cust)}" if has_show_right? %></td>
+    <td><%= cust.short_name %></td>
+    <td><%= cust.created_at.strftime("%Y/%m/%d") %></td>
+    <% if has_create_right? %>
+      <td><%= cust.contact_info[0..20] %></td>
+      <td><%= cust.phone %></td>
+      <td><%= cust.active %></td>
+    <% end %>
+    <td><%= cust.main_biz[0..20] %></td>
+    <td><%= cust.equip_by_by[0..20] %></td>    
+    <td><%= return_last_contact_date(cust.id).strftime("%Y/%m/%d") unless return_last_contact_date(cust.id).nil? %></td> 
+    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_customer_path(cust)}" if has_update_right? %></td>
+
+  </tr>
+<% end %>
+</table>
+  <%= link_to 'Back', "/view_handler?index=0" %>
+  &nbsp;<%= link_to '输入客户', "/view_handler?index=1&url=#{new_customer_path}" if has_create_right? %>
+
+</div>
+

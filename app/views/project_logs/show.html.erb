@@ -1,0 +1,29 @@
+<div id='main_body'>
+<h1>项目Log内容</h1>
+ 
+<p class="notice"><%= notice %></p>
+
+<p>
+  <b>联系人:</b>
+  <%= @project_log.input_by.name %>
+</p>
+
+<p>
+  <b>联系日期:</b>
+  <%= @project_log.created_at %>
+</p> 
+<p>
+  <b>关于:</b>
+  <%= @project_log.subject %>
+</p>
+ 
+<p>
+  <b>内容:</b>
+  <%= @project_log.log %>
+</p>
+ 
+<%= link_to 'Back', project_path(@project) %>
+<% if has_destroy_right? %>
+  <%= link_to '删除', project_project_log_path(@project, @project_log), :remote => true, :method => :delete, :confirm => '删除log?' %>
+<% end %>
+</div>

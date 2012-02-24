@@ -1,0 +1,130 @@
+<div id="main_body">
+
+<h1>项目设备</h1>
+
+<p>
+  <b>项目名称:</b>
+  <%= @project.name %>
+</p>
+<p>
+  <b>客户:</b>
+  <%= @project.customer.name %>
+</p>
+<p>
+  <b>项目完成？:</b>
+  <%= @project.completed %>
+</p>
+<p>
+  <b>项目取消？:</b>
+  <%= @project.cancelled %>
+</p>
+<p>
+  <b>签合同了？:</b>
+  <%= @project.awarded %>
+</p>
+<p>
+  <b>项目状态:</b>
+  <%= @project.status %>
+</p>
+<p>
+  <b>安装地点:</b>
+  <%= @project.install_address %>
+</p>
+<p>
+  <b>设备吨位:</b>
+  <%= @project.tonnage %>
+</p>
+<p>
+  <b>技术参数要求:</b>
+  <%= @project.tech_spec %>
+</p>
+<p>
+  <b>分系统技术要求</b>
+  <%= @project.subsys_spec %>
+</p>
+<p>
+  <b>其他技术要求:</b>
+  <%= @project.other_tech_requirement %>
+</p>
+<p>
+  <b>土建要求:</b>
+  <%= @project.construction_requirement %>
+</p>
+<p>
+  <b>试生产要求:</b>
+  <%= @project.test_run_requirement %>
+</p>
+<p>
+  <b>验收交付要求:</b>
+  <%= @project.turn_over_requirement %>
+</p>
+<p>
+  <b>开始生产日期</b>
+  <%= @project.production_start_date.strftime("%Y/%m/%d") unless @project.production_start_date.nil? %>
+</p>
+<p>
+  <b>客户土建完成日期</b>
+  <%= @project.construction_finish_date.strftime("%Y/%m/%d") unless @project.construction_finish_date.nil? %>
+</p>
+<p>
+  <b>开始设备安装日期</b>
+  <%= @project.install_start_date.strftime("%Y/%m/%d") unless @project.install_start_date.nil? %>
+</p>
+<p>
+  <b>试生产日期</b>
+  <%= @project.test_run_date.strftime("%Y/%m/%d") unless @project.test_run_date.nil? %>
+</p>
+<p>
+  <b>设备交付日期</b>
+  <%= @project.turn_over_date.strftime("%Y/%m/%d") unless @project.turn_over_date.nil? %>
+</p>
+<p>
+  <b>注释:</b>
+  <%= @project.note %>
+</p>
+<p>
+  <b>输入/更改:</b>
+  <%= @project.input_by.name %>
+</p>
+<% if has_create_right? %>
+  <p>
+    <b>联系信息:</b>
+    <%= @project.customer_contact_info %>
+  </p>
+  <p>
+    <b>预计合同金额（￥）</b>
+    <%= @project.budget %>
+  </p>
+  <p>
+    <b>发放标书日期:</b>
+    <%= @project.bid_doc_available_date.strftime("%Y/%m/%d") unless @project.bid_doc_available_date.nil? %>
+  </p>
+  <p>
+    <b>投标截止日期:</b>
+    <%= @project.bid_deadline.strftime("%Y/%m/%d") unless @project.bid_deadline.nil? %>
+  </p>
+  <p>
+    <b>开标日期:</b>
+    <%= @project.bid_opening_date.strftime("%Y/%m/%d") unless @project.bid_opening_date.nil? %>
+  </p>
+  <p>
+    <b>合同日期</b>
+    <%= @project.contract_date.strftime("%Y/%m/%d") unless @project.contract_date.nil? %>
+  </p>
+  <p>
+    <b>项目联系Log:</b>	
+    <ul>
+  <% @project.project_logs.order("created_at DESC").each do |f| %>
+    <li>
+    <%= link_to "关于:" + f.subject + ", " + f.created_at.strftime("%Y-%m-%d").to_s, project_project_log_path(f.project_id, f.id, :format => :js), :remote => true %>
+    </li>
+  <% end %>
+  </ul>
+  </p>
+<% end %>
+
+<%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+<%= link_to '输入联系Log', new_project_project_log_path(@project, :format => :js), :remote => true, :id => 'new_log_link' if has_log_right? %>
+
+</div>
+
