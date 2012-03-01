@@ -35,8 +35,8 @@ server "76.195.225.93", :web, :app, :db, :primary => true
 # these http://github.com/rails/irs_process_scripts
 
 # If you are using Passenger mod_rails uncomment this:
-after "deploy", "deploy:bundle_gems"
-after "deploy:bundle_gems", "deploy:restart"
+#after "deploy", "deploy:bundle_gems"
+#after "deploy:bundle_gems", "deploy:restart"
 
 after "deploy", "deploy:copy_files"
 
@@ -52,7 +52,7 @@ after "deploy", "deploy:copy_files"
    task :copy_files,:roles => :app do
      #run "cp /home/cjadmin/shared/production.rb /var/www/byop/current/config/environments/production.rb"
      run "cp /home/cjadmin/shared/database.yml /var/www/byop/current/config/database.yml"
-     run "cp /home/cjadmin/shared/Gemfile /var/www/byop/current/Gemfile"
+     #run "cp /home/cjadmin/shared/Gemfile /var/www/byop/current/Gemfile"
  
    end
 end

@@ -4,9 +4,13 @@ gem 'rails', '3.1.3'
 gem 'database_cleaner'
 
 gem 'sqlite3'
-#gem 'mysql2', '>=0.2.6'
 gem 'simple_form'
 gem 'will_paginate', '~> 3.0'
+
+# Gemfile
+group :production do
+  gem 'mysql2', '>=0.2.6'
+end
 
 #   Gems used only for assets and not required
 # in production environments by default.
