@@ -79,6 +79,7 @@ Factory.define :purchasing do |f|
   f.delivery_date            '2012-3-2' 
   f.input_by_id              1
   f.delivered                false  
+  f.eng_id                   1
 end
 
 Factory.define :sourcing do |f| 
@@ -163,6 +164,11 @@ Factory.define :supplier do |f|
   f.active                  true
   f.quality_system          '无'
   f.main_product            'valve,shaft'
+end
+
+Factory.define :proj_module do |f|
+  f.project_id              1
+  f.name                    'blaaaa'  
 end
 
 Factory.sequence :email do |n|

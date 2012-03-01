@@ -1,2 +1,91 @@
-<h1>Sourcings#show</h1>
-<p>Find me in app/views/sourcings/show.html.erb</p>
+<div id="main_body">
+
+<h1>计划内容-<%=@sourcing.prod_name %></h1>
+
+<p>
+  <b>名称:</b>
+  <%= @sourcing.prod_name %>
+</p>
+<p>
+  <b>零件#:</b>
+  <%= @sourcing.part_num %>
+</p>
+<p>
+  <b>规格:</b>
+  <%= @sourcing.spec %>
+</p>
+<p>
+  <b>数量/单位:</b>
+  <%= @sourcing.qty %><%= @sourcing.unit %>
+</p>
+<p>
+  <b>单价（￥）:</b>
+  <%= @sourcing.unit_price %>
+</p>
+<p>
+  <b>外协厂:</b>
+  <%= @sourcing.src_plant.name if @sourcing.src_plant_id.present? %>
+</p>
+<p>
+  <b>责任工程师:</b>
+  <%= @sourcing.eng.name if @sourcing.eng_id.present? %>
+</p>
+<p>
+  <b>完成：</b>
+  <%= @sourcing.completed %>
+</p>
+<p>
+  <b>开工日期:</b>
+  <%= @sourcing.start_date.strftime("%Y/%m/%d") %>
+</p>
+<p>
+  <b>完成日期:</b>
+  <%= @sourcing.finish_date.strftime("%Y/%m/%d") %>
+</p>
+
+<p>
+  <b>工程付总签字:</b>
+  <%= @sourcing.approved_by_vp_eng %>
+</p>
+<p>
+  <b>签字人:</b>
+  <%= @sourcing.approve_vp_eng.name if @sourcing.approve_vp_eng_id.present? %>
+</p>
+<p>
+  <b>签字日期:</b>
+  <%= @sourcing.approve_date_vp_eng.strftime("%Y/%m/%d") if @sourcing.approve_date_vp_eng.present? %>
+</p>
+<p>
+  <b>厂长签字:</b>
+  <%= @sourcing.approved_by_ceo %>
+</p>
+<p>
+  <b>签字人:</b>
+  <%= @sourcing.approve_ceo.name if @sourcing.approve_ceo_id.present? %>
+</p>
+<p>
+  <b>签字日期:</b>
+  <%= @sourcing.approve_date_ceo.strftime("%Y/%m/%d") if @sourcing.approve_date_ceo.present? %>
+</p>
+<p>
+  <b>输入/更改人:</b>
+  <%= @sourcing.input_by.name %>
+</p>
+<p>
+  <b>状态Log:</b>	
+  <ul>
+<% @sourcing.sourcing_logs.order("created_at DESC").each do |f| %>
+  <li>
+  <%= link_to f.created_at.strftime("%Y-%m-%d").to_s, "/view_handler?index=1&url=#{sourcing_sourcing_log_path(f.sourcing_id, f.id)}" %>
+  </li>
+<% end %>
+</ul>
+</p>
+
+<%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+<% link_to '批准采购', approve_project_sourcing_path(@project, @sourcing), :id => 'sourcing_need_approve' if need_approve?(@sourcing) %>
+<% if has_log_right? %>
+  <%= link_to '输入联系Log', new_sourcing_sourcing_log_path(@sourcing, :format => :js), :remote => true, :id => 'new_log_link' %>
+<% end %>
+</div>
+

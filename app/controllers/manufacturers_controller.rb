@@ -23,7 +23,7 @@ class ManufacturersController < ApplicationController
     if has_create_right?
       @mfg = Manufacturer.new(params[:manufacturer], :as => :role_new)
       @mfg.input_by_id = session[:user_id]
-      if @mfg.save!
+      if @mfg.save
         redirect_to URI.escape("/view_handler?index=0&msg=制造商已保存！")
       else
         flash.now[:error] = "无法保存！"

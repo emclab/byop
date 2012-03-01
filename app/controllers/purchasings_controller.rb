@@ -3,12 +3,13 @@ class PurchasingsController < ApplicationController
   before_filter :require_signin
   before_filter :require_employee  
   
-  helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?
-  
+  helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?,
+                :need_approve?
+                
   def index
     @title = '外购计划'
     @project = Project.find(params[:project_id])
-    @purchasings = @project.purchasings.order("completed, start_date, finish_date")   
+    @purchasings = @project.purchasings.order("delivered, order_date, delivery_date")   
   end
 
   def new
@@ -66,7 +67,44 @@ class PurchasingsController < ApplicationController
     end
   end
   
+  def approve
+    @project = Project.find(params[:project_id])
+    @purchasing = @project.purchasings.find(params[:id])
+    if need_approve?(@purchasing)
+      if @purchasing.eng_id == session[:user_id]
+        @purchasing.update_attributes(:approved_by_eng => true, :approve_eng_id => session[:user_id],
+                                       :approve_date_eng => Time.now)
+      elsif vp_eng?
+        @purchasing.update_attributes(:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
+                                       :approve_date_vp_eng => Time.now)  
+      elsif pur_eng?
+        @purchasing.update_attributes(:approved_by_eng => true, :approve_pur_eng_id => session[:user_id],
+                                       :approve_date_pur_eng => Time.now)   
+      elsif ceo?
+        @purchasing.update_attributes(:approved_by_eng => true, :approve_ceo_id => session[:user_id],
+                                       :approve_date_ceo => Time.now) 
+      end
+    
+      redirect_to project_purchasings_path(@project, @purchasing)
+    else
+      redirect_to URI.escape("/view_handler?index=0&msg=权限不足!") 
+    end
+  end
+  
   protected
+  
+  def need_approve?(purchasing)
+    if is_eng? && purchasing.eng_id == session[:user_id] && !purchasing.approved_by_eng
+      return true
+    elsif vp_eng? && purchasing.approved_by_eng && !purchasing.approved_by_pur_eng && !purchasing.approved_by_ceo
+      return true
+    elsif pur_eng? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng && !purchasing.approved_by_ceo
+      return true
+    elsif ceo? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng && purchasing.approved_by_pur_eng 
+      return true
+    end
+    return false
+  end
   
   def has_show_right?
     is_eng? || acct? || comp_sec? || vp_eng? || vp_sales? || coo? || ceo?
@@ -83,6 +121,5 @@ class PurchasingsController < ApplicationController
   def has_log_right?
     pur_eng? || vp_eng? || comp_sec? || vp_sales? || coo? || ceo?
   end
-
-
+  
 end

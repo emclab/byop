@@ -110,7 +110,35 @@ module SessionsHelper
   end
   
   def return_tech_eng
-    User.where("user_type = ? AND　status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => ['mech_eng','hydr_eng','inst_eng','elec_eng','src_eng']})  
+    User.where("user_type =? AND status =?", 'employee', 'active').joins(:user_levels).where(:user_levels => { :position => ['mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng']}) 
+  end
+  
+  def return_pur_eng
+    User.where("user_type = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => 'pur_eng'})
+  end
+  
+  def return_src_eng
+    User.where("user_type = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => 'src_eng'})
+  end
+  
+  def return_inst_eng
+    User.where("user_tyep = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => 'inst_eng'})
+  end
+  
+  def return_mfg
+    Manufacturer.order("name")
+  end
+  
+  def return_supplier
+    Supplier.active_supplier.order("name")
+  end
+
+  def return_src_plant
+    SrcPlant.active_plant.order("name")
+  end
+  
+  def return_proj_module(project)
+    project.proj_modules.order("name")  
   end
   
   def return_project_status

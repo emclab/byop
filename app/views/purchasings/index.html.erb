@@ -1,2 +1,31 @@
-<h1>Purchasings#index</h1>
-<p>Find me in app/views/purchasings/index.html.erb</p>
+<div id="main_body">
+<h1>外购计划-<%=@project.name %></h1>
+<table>
+  <tr>
+    <th></th>
+    <th>产品名称</th>
+    <th>订购日期</th>
+    <th>到货日期</th>
+    <th>到货?</th>
+    <th></th>
+    <th></th> 
+    <th></th>
+  </tr>
+
+<% @purchasings.each do |pur| %>
+  <tr>
+  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{project_purchasings_path(@project, pur)}" if has_show_right? %></td>
+    <td><%= pur.prod_name %></td>
+    <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
+    <td><%= pur.delivery_date.strftime("%Y/%m/%d") %></td>
+    <td><%= pur.delivered %></td>  
+    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_project_puruction_path(@project, pur)}" if has_update_right? %></td>
+    <td><%= link_to '批准', approve_project_purchasing_path(@project, pur), :method => :put if need_approve?(pur) %></td>
+    <td><%= link_to '状态', "/view_handler?index=1&url=#{purchasing_purchasing_logs_path(pur)}" %></td>
+  </tr>
+<% end %>
+</table>
+  <%= link_to 'Back', "/view_handler?index=0" %>
+  &nbsp;<%= link_to '输入计划', "/view_handler?index=1&url=#{new_project_purchasing_path(@project)}" if has_create_right? %>
+
+</div>

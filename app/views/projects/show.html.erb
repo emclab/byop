@@ -86,6 +86,16 @@
   <b>输入/更改:</b>
   <%= @project.input_by.name %>
 </p>
+<p>
+  <b>项目分系统:</b>	
+  <ol>
+ <% @project.proj_modules.order("created_at DESC").each do |f| %>
+   <li>
+     <%= f.name %>&nbsp;<%= f.created_at.strftime("%Y-%m-%d")%>
+   </li>
+ <% end %>
+  </ol>
+</p>
 <% if has_create_right? %>
   <p>
     <b>联系信息:</b>
@@ -124,6 +134,7 @@
 <% end %>
 
 <%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+<%= link_to '生成分系统', new_project_proj_module_path(@project, :format => :js), :remote => true, :id => 'new_module_link' if vp_eng? %>
 <%= link_to '输入联系Log', new_project_project_log_path(@project, :format => :js), :remote => true, :id => 'new_log_link' if has_log_right? %>
 
 </div>

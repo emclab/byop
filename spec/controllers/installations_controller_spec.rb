@@ -13,16 +13,18 @@ describe InstallationsController do
   
   describe "'index'" do
     it "returns http success for eng" do
+      u = Factory(:user)
       session[:hydr_eng] = true
       proj = Factory(:project)
-      inst = Factory(:installation, :project_id => proj.id)
+      inst = Factory(:installation, :project_id => proj.id, :inst_eng_id => u.id)
       get 'index', :project_id => proj.id
       response.should be_success
     end
     
     it "should OK for mech eng" do
+      u = Factory(:user)
       proj = Factory(:project)
-      inst = Factory(:installation, :project_id => proj.id)
+      inst = Factory(:installation, :project_id => proj.id, :inst_eng_id => u.id)
       session[:mech_eng] = true
       get 'index', :project_id => proj.id
       response.should be_success      

@@ -18,8 +18,8 @@ describe Purchasing do
     s.should_not be_valid
   end  
   
-  it "should reject nil pur eng id" do
-    s = Factory.build(:purchasing, :pur_eng_id => nil)
+  it "should reject nil eng id" do
+    s = Factory.build(:purchasing, :eng_id => nil)
     s.should_not be_valid
   end  
 

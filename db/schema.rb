@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120223045701) do
+ActiveRecord::Schema.define(:version => 20120224163159) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -97,6 +97,14 @@ ActiveRecord::Schema.define(:version => 20120223045701) do
     t.datetime "updated_at"
   end
 
+  create_table "proj_modules", :force => true do |t|
+    t.integer  "project_id"
+    t.string   "name"
+    t.integer  "input_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "project_logs", :force => true do |t|
     t.text     "log"
     t.integer  "input_by_id"
@@ -161,7 +169,7 @@ ActiveRecord::Schema.define(:version => 20120223045701) do
     t.date     "order_date"
     t.date     "delivery_date"
     t.boolean  "delivered",            :default => false
-    t.integer  "subsys_id"
+    t.integer  "proj_module_id"
     t.integer  "input_by_id"
     t.boolean  "approved_by_eng"
     t.integer  "approve_eng_id"
@@ -177,6 +185,7 @@ ActiveRecord::Schema.define(:version => 20120223045701) do
     t.date     "approve_date_ceo"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "eng_id"
   end
 
   create_table "sessions", :force => true do |t|
@@ -204,7 +213,7 @@ ActiveRecord::Schema.define(:version => 20120223045701) do
     t.integer  "qty"
     t.string   "unit"
     t.decimal  "unit_price"
-    t.integer  "subsys_id"
+    t.integer  "proj_module_id"
     t.integer  "src_plant_id"
     t.date     "start_date"
     t.date     "finish_date"
@@ -220,6 +229,7 @@ ActiveRecord::Schema.define(:version => 20120223045701) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "project_id"
+    t.integer  "eng_id"
   end
 
   create_table "src_plants", :force => true do |t|
@@ -250,6 +260,14 @@ ActiveRecord::Schema.define(:version => 20120223045701) do
     t.string   "email"
     t.string   "fax"
     t.text     "main_product"
+  end
+
+  create_table "subsys", :force => true do |t|
+    t.integer  "project_id"
+    t.string   "name"
+    t.integer  "input_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "suppliers", :force => true do |t|

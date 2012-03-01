@@ -1,0 +1,33 @@
+<%= simple_form_for([@project, @purchasing]) do |f| %>    
+
+  <div style="padding-left:32px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
+  <%= f.input :prod_name, :label => '名称：' %> 
+  <%= f.input :part_num, :label => '产品#：' %>
+  <%= f.input :spec, :label => '规格：', :input_html => {:rows => 4} %>  
+  <%= f.input :qty, :label => '数量：' %><%= f.input :unit, :label => false %>
+  <%= f.input :unit_price, :label => '单价：', :collection => return_unit, :selected => @purchasing.unit %>
+  <%= f.input :manufacturer_id, :label => '制造厂家：', :collection => return_mfg, :label_method => :name, :value_method => :id, :include_blank => true %>
+  <%= f.input :supplier_id, :label => '供应商：', :collection => return_supplier, :label_method => :name, :value_method => :id, :include_blank => true %>
+  <%= f.input :eng_id, :label => '责任工程师：', :collectionc=> return_tech_eng, :label_method => :name, :value_method => :id %>
+  <%= f.input :pur_eng_id, :label => '外购工程师：', :collectionc=> return_pur_eng, :label_method => :name, :value_method => :id %>
+  <%= f.input :proj_module_id, :label => '分系统：', :collectionc=> return_proj_module(@project), :label_method => :name, :value_method => :id %>
+  <%= f.input :delivered, :label => '到货？：', :as => :radio %>
+  <%= f.input :order_date, :label => '订购日期：', :as => :string %> 
+  <%= f.input :delivery_date, :label => '到货日期：', :as => :string %>   
+  <div style="padding-left:32px">工程师批准：&nbsp;&nbsp;<%= @purchasing.approved_by_eng %></div>
+  <div style="padding-left:32px">批准人：&nbsp;&nbsp;<%= @purchasing.approve_eng.name if @purchasing.approve_eng_id.present? %></div> 
+  <div style="padding-left:32px">批准日期：&nbsp;&nbsp;<%= @purchasing.approve_date_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_eng.present? %></div>  
+  <div style="padding-left:32px">工程付总批准：&nbsp;&nbsp;<%= @purchasing.approved_by_vp_eng %></div> 
+  <div style="padding-left:32px">批准人：&nbsp;&nbsp;<%= @purchasing.approve_vp_eng.name if @purchasing.approve_vp_eng_id.present?  %></div> 
+  <div style="padding-left:32px">批准日期：&nbsp;&nbsp;<%= @purchasing.approve_date_vp_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_vp_eng.present? %></div>  
+  <div style="padding-left:32px">采购批准：&nbsp;&nbsp;<%= @purchasing.approved_by_pur_eng %></div> 
+  <div style="padding-left:32px">批准人：&nbsp;&nbsp;<%= @purchasing.pur_eng.name if @purchasing.approve_pur_eng_id.present? %></div> 
+  <div style="padding-left:32px">批准日期：&nbsp;&nbsp;<%= @purchasing.approve_date_pur_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_pur_eng.present? %></div>  
+  <div style="padding-left:32px">厂长批准：&nbsp;&nbsp;<%= @purchasing.approved_by_ceo %></div> 
+  <div style="padding-left:32px">批准人：&nbsp;&nbsp;<%= @purchasing.approve_ceo.name if @purchasing.approve_ceo_id.present?  %></div> 
+  <div style="padding-left:32px">批准日期：&nbsp;&nbsp;<%= @purchasing.approve_date_ceo.strftime("%Y/%m/%d") if @purchasing.approve_date_ceo.present? %></div>   
+  
+  <%= f.button :submit, '保存' %>  
+<% end %>  
+
+

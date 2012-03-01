@@ -117,20 +117,33 @@ describe PurchasingsController do
         
   end
 
+  describe "approve" do
+    it "should nothing happens for those without rights" do
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:user_id] = u.id
+      src= Factory(:purchasing, :input_by_id => u.id, :approved_by_vp_eng => false)
+      put 'approve', :project_id => proj.id, :id => src.id, :purchasing => {:approved_by_vp_eng => true}
+      response.should redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")
+    end
+    
+  end
+  
   describe "GET 'show'" do
     it "should reject those without right" do
       u = Factory(:user)
       proj = Factory(:project)
-      pur = Factory(:purchasing, :input_by_id => u.id, :project_id => proj.id)
+      pur = Factory(:purchasing, :input_by_id => u.id, :project_id => proj.id, :eng_id => u.id)
       get 'show', :project_id => proj.id, :id => pur.id      
       response.should redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")  
     end
     
     it "returns http success for those with right" do
+      m = Factory(:manufacturer)
       proj = Factory(:project)
       session[:elec_eng] = true
       u = Factory(:user)
-      pur = Factory(:purchasing, :input_by_id => u.id, :project_id => proj.id)
+      pur = Factory(:purchasing, :input_by_id => u.id, :project_id => proj.id, :manufacturer_id => m.id, :eng_id => u.id)
       get 'show', :project_id => proj.id, :id => pur.id
       response.should be_success
     end

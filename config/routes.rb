@@ -1,5 +1,9 @@
 Byop::Application.routes.draw do
   
+  get "proj_modules/new"
+
+  get "proj_modules/create"
+
   get "installation_logs/index"
 
   get "installation_logs/new"
@@ -45,6 +49,8 @@ Byop::Application.routes.draw do
   get "sourcings/update"
 
   get "sourcings/show"
+  
+  get "sourcings/approve"
 
   get "purchasings/index"
 
@@ -176,19 +182,30 @@ Byop::Application.routes.draw do
   resources :projects do
     resources :project_logs, :only => [:new, :create, :show, :destroy]
     resources :productions, :only => [:index, :new, :create, :edit, :update, :show]
-    resources :sourcings, :only => [:index, :new, :create, :edit, :update, :show]
-    resources :purchasings, :only => [:index, :new, :create, :edit, :update, :show]
+    resources :sourcings, :only => [:index, :new, :create, :edit, :update, :show] do
+      member do
+        put :approve
+      end
+    end
+    resources :purchasings, :only => [:index, :new, :create, :edit, :update, :show] do
+      member do
+        put :approve
+      end 
+    end
     resources :installations, :only => [:index, :new, :create, :edit, :update]
+    resources :proj_modules, :only => [:new, :create]
   end
   
   resources :productions do
     resources :production_logs, :only => [:index, :new, :create]
   end
   resources :purchasings do
-    resources :purchasing_logs, :only => [:index, :new, :create]
+    resources :purchasing_logs, :only => [:index, :new, :create] 
   end
+  #resources :purchasings, :member => {:approve_eng => :put}
+  
   resources :sourcings do
-    resources :sourcing_logs, :only => [:index, :new, :create]
+    resources :sourcing_logs, :only => [:index, :new, :create]   
   end
   resources :installations do
     resources :installation_logs, :only => [:index, :new, :create]

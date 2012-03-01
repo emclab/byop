@@ -8,12 +8,17 @@ class Sourcing < ActiveRecord::Base
                    
   #has_and_belongs_to_many :categories
   belongs_to :input_by, :class_name => 'User' 
+  belongs_to :eng, :class_name => 'User'
+  belongs_to :src_eng, :class_name => 'User'
+  belongs_to :approve_vp_eng, :class_name => 'User', :foreign_key => 'approve_vp_eng_id'
+  belongs_to :approve_ceo, :class_name => 'User', :foreign_key => 'approve_ceo_id'  
   belongs_to :project
   has_many :sourcing_logs
+  has_many :proj_modules
   
   validates :prod_name, :presence => true, :uniqueness => {:case_sensitive => false}
   validates_numericality_of :project_id, :greater_than => 0
-  validates_numericality_of :src_eng_id, :greater_than => 0
+  #validates_numericality_of :src_eng_id, :greater_than => 0
   validates :spec, :presence => true
   validates :qty, :numericality => { :only_integer => true } 
   validates :unit, :presence => true

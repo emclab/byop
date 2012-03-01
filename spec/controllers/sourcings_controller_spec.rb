@@ -117,6 +117,32 @@ describe SourcingsController do
         
   end
 
+  describe "approve" do
+    it "should nothing happens for those without rights" do
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:user_id] = u.id
+      src= Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => false)
+      put 'approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_vp_eng => true}
+      response.should redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")
+    end
+    
+    it "should approve for vp_eng" do
+      session[:vp_eng] = true
+      session[:ceo] = false
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:user_id] = u.id
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => false, :approved_by_ceo => false)
+      put 'approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
+                                                                          :approve_date_vp_eng => Time.now }
+      src.reload.approve_vp_eng_id.should == session[:user_id]
+      src.reload.approve_date_vp_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+      response.should redirect_to project_sourcing_path(proj, src)      
+    end
+    
+  end
+  
   describe "GET 'show'" do
     it "should reject those without right" do
       u = Factory(:user)
@@ -130,9 +156,11 @@ describe SourcingsController do
       proj = Factory(:project)
       session[:elec_eng] = true
       u = Factory(:user)
-      src = Factory(:sourcing, :input_by_id => u.id, :project_id => proj.id)
+      src = Factory(:sourcing, :input_by_id => u.id, :project_id => proj.id, :eng_id => u.id)
       get 'show', :project_id => proj.id, :id => src.id
       response.should be_success
     end
   end
+  
+
 end

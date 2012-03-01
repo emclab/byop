@@ -18,11 +18,6 @@ describe Sourcing do
     s.should_not be_valid
   end  
   
-  it "should reject nil src eng id" do
-    s = Factory.build(:sourcing, :src_eng_id => nil)
-    s.should_not be_valid
-  end  
-  
   it "should reject nil spec" do
     s = Factory.build(:sourcing, :spec => nil)
     s.should_not be_valid

@@ -1,2 +1,30 @@
-<h1>Installations#index</h1>
-<p>Find me in app/views/installations/index.html.erb</p>
+<div id="main_body">
+<h1>安装计划-<%=@project.name %></h1>
+<table>
+  <tr>
+    <th>产品名称</th>
+    <th>开始日期</th>
+    <th>完成日期</th>
+    <th>工程师</th>
+    <th>完成</th>
+    <th></th>
+    <th></th> 
+    <th></th>
+  </tr>
+
+<% @installations.each do |inst| %>
+  <tr>
+    <td><%= inst.install_name %></td>
+    <td><%= inst.start_date.strftime("%Y/%m/%d") %></td>
+    <td><%= inst.finish_date.strftime("%Y/%m/%d") %></td>
+    <td><%= inst.inst_eng.name %></td>
+    <td><%= inst.completed %></td>  
+    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_project_installation_path(@project, inst)}" if has_update_right? %></td>
+    <td><%= link_to '状态', "/view_handler?index=1&url=#{installation_installation_logs_path(inst)}" %></td>
+  </tr>
+<% end %>
+</table>
+  <%= link_to 'Back', "/view_handler?index=0" %>
+  &nbsp;<%= link_to '输入计划', "/view_handler?index=1&url=#{new_project_installation_path(@project)}" if has_create_right? %>
+
+</div>

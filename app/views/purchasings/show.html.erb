@@ -1,2 +1,117 @@
-<h1>Purchasings#show</h1>
-<p>Find me in app/views/purchasings/show.html.erb</p>
+<div id="main_body">
+
+<h1>计划内容-<%=@purchasing.prod_name%></h1>
+
+<p>
+  <b>名称:</b>
+  <%= @purchasing.prod_name %>
+</p>
+<p>
+  <b>零件#:</b>
+  <%= @purchasing.part_num %>
+</p>
+<p>
+  <b>规格:</b>
+  <%= @purchasing.spec %>
+</p>
+<p>
+  <b>数量/单位:</b>
+  <%= @purchasing.qty %><%= @purchasing.unit %>
+</p>
+<p>
+  <b>单价（￥）:</b>
+  <%= @purchasing.unit_price %>
+</p>
+<p>
+  <b>制造商:</b>
+  <%= @purchasing.manufacturer.name if @purchasing.manufacturer_id.present? %>
+</p>
+<p>
+  <b>供应商:</b>
+  <%= @purchasing.supplier.name if @purchasing.supplier_id.present? %>
+</p>
+<p>
+  <b>责任工程师:</b>
+  <%= @purchasing.eng.name %>
+</p>
+<p>
+  <b>到货？：</b>
+  <%= @purchasing.delivered %>
+</p>
+<p>
+  <b>定购日期:</b>
+  <%= @purchasing.order_date.strftime("%Y/%m/%d") %>
+</p>
+<p>
+  <b>到货日期:</b>
+  <%= @purchasing.delivery_date.strftime("%Y/%m/%d") %>
+</p>
+<p>
+  <b>责任工程师签字:</b>
+  <%= @purchasing.approved_by_eng %>
+</p>
+<p>
+  <b>签字人:</b>
+  <%= @purchasing.approve_eng.name if @purchasing.approve_eng_id.present? %>
+</p>
+<p>
+  <b>签字日期:</b>
+  <%= @purchasing.approve_date_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_eng.present? %>
+</p>
+<p>
+  <b>工程付总签字:</b>
+  <%= @purchasing.approved_by_vp_eng %>
+</p>
+<p>
+  <b>签字人:</b>
+  <%= @purchasing.approve_vp_eng.name if @purchasing.approve_vp_eng_id.present? %>
+</p>
+<p>
+  <b>签字日期:</b>
+  <%= @purchasing.approve_date_vp_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_vp_eng.present? %>
+</p>
+<p>
+  <b>采购工程师签字:</b>
+  <%= @purchasing.approved_by_pur_eng %>
+</p>
+<p>
+  <b>签字人:</b>
+  <%= @purchasing.approve_pur_eng.name if @purchasing.approve_pur_eng_id.present? %>
+</p>
+<p>
+  <b>签字日期:</b>
+  <%= @purchasing.approve_date_pur_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_pur_eng.present? %>
+</p>
+<p>
+  <b>厂长签字:</b>
+  <%= @purchasing.approved_by_ceo %>
+</p>
+<p>
+  <b>签字人:</b>
+  <%= @purchasing.approve_ceo.name if @purchasing.approve_ceo_id.present? %>
+</p>
+<p>
+  <b>签字日期:</b>
+  <%= @purchasing.approve_date_ceo.strftime("%Y/%m/%d") if @purchasing.approve_date_ceo.present? %>
+</p>
+<p>
+  <b>输入/更改人:</b>
+  <%= @purchasing.input_by.name %>
+</p>
+<p>
+  <b>状态Log:</b>	
+  <ul>
+<% @purchasing.purchasing_logs.order("created_at DESC").each do |f| %>
+  <li>
+  <%= link_to f.created_at.strftime("%Y-%m-%d").to_s, "/view_handler?index=1&url=#{purchasing_purchasing_log_path(f.purchasing_id, f.id)}" %>
+  </li>
+<% end %>
+</ul>
+</p>
+
+<%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+<% link_to '批准采购', approve_project_purchasing_path(@project, @purchasing), :id => 'purchasing_need_approve' if need_approve?(@purchasing) %>
+<% if has_log_right? %>
+  <%= link_to '输入Log', new_purchasing_purchasing_log_path(@purchasing, :format => :js), :remote => true, :id => 'new_log_link' %>
+<% end %>
+</div>
