@@ -142,7 +142,7 @@ describe SourcingsController do
     end
     
   end
-  
+
   describe "GET 'show'" do
     it "should reject those without right" do
       u = Factory(:user)
@@ -161,6 +161,5 @@ describe SourcingsController do
       response.should be_success
     end
   end
-  
 
 end

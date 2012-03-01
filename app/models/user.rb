@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'digest'
 class User < ActiveRecord::Base
+
   attr_accessor :password, :update_password_checkbox
   has_many :user_levels, :dependent => :destroy
   belongs_to :input_by, :class_name => "User"

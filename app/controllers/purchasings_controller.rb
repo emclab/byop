@@ -121,5 +121,5 @@ class PurchasingsController < ApplicationController
   def has_log_right?
     pur_eng? || vp_eng? || comp_sec? || vp_sales? || coo? || ceo?
   end
-  
+
 end

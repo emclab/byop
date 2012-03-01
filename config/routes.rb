@@ -194,6 +194,7 @@ Byop::Application.routes.draw do
     end
     resources :installations, :only => [:index, :new, :create, :edit, :update]
     resources :proj_modules, :only => [:new, :create]
+
   end
   
   resources :productions do

@@ -139,6 +139,7 @@ module SessionsHelper
   
   def return_proj_module(project)
     project.proj_modules.order("name")  
+
   end
   
   def return_project_status
