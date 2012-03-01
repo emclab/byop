@@ -12,13 +12,13 @@ ssh_options[:paranoid] = false
 ssh_options[:port] = 22
 
 #
-set :default_environment, {
-  'PATH' => "/home/cjadmin/.rvm/gems/ruby-1.9.3-p125/bin:/home/cjadmin/.rvm/bin:/home/cjadmin/.rvm/rubies/ruby-1.9.3-p125/bin:$PATH",
-  'RUBY_VERSION' => 'ruby 1.9.3',
-  'GEM_HOME'     => '/home/cjadmin/.rvm/gems/ruby-1.9.3-p125',
-  'GEM_PATH'     => '/home/cjadmin/.rvm/gems/ruby-1.9.3-p125/gems',
-  'BUNDLE_PATH'  => '/home/cjadmin/.rvm/gems/ruby-1.9.3-p125/bin'  # If you are using bundler.
-}
+#set :default_environment, {
+#  'PATH' => "/home/cjadmin/.rvm/gems/ruby-1.9.3-p125/bin:/home/cjadmin/.rvm/bin:/home/cjadmin/.rvm/rubies/ruby-1.9.3-p125/bin:$PATH",
+#  'RUBY_VERSION' => 'ruby 1.9.3',
+ # 'GEM_HOME'     => '/home/cjadmin/.rvm/gems/ruby-1.9.3-p125',
+ # 'GEM_PATH'     => '/home/cjadmin/.rvm/gems/ruby-1.9.3-p125/gems',
+#  'BUNDLE_PATH'  => '/home/cjadmin/.rvm/gems/ruby-1.9.3-p125/bin'  # If you are using bundler.
+#}
 
 
 #set :deploy_via, :remote_cache
