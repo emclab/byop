@@ -1,24 +1,30 @@
-require "bundler/capistrano"
+
+default_run_options[:pty] = true
 set :application, "byop"
 set :repository,  "git://github.com/emclab/byop.git"
 set :scm, :git
 set :user, "cjadmin"
-set :use_sudo, true
+set :use_sudo, false
 set :scm_passphrase, "kpmg11"
 set :branch, "master"
 set :deploy_to, "/var/www/#{application}"
+set :deploy_via, :remote_cache
+set :rails_env, 'production'
 set :keep_releases, 3
 ssh_options[:paranoid] = false
 ssh_options[:port] = 22
 
+set :rvm_ruby_string, '1.9.3'
+set :rvm_type, :user  # Don't use system-wide RVM
+
 #
-#set :default_environment, {
-#  'PATH' => "/home/cjadmin/.rvm/gems/ruby-1.9.3-p125/bin:/home/cjadmin/.rvm/bin:/home/cjadmin/.rvm/rubies/ruby-1.9.3-p125/bin:$PATH",
-#  'RUBY_VERSION' => 'ruby 1.9.3',
- # 'GEM_HOME'     => '/home/cjadmin/.rvm/gems/ruby-1.9.3-p125',
- # 'GEM_PATH'     => '/home/cjadmin/.rvm/gems/ruby-1.9.3-p125/gems',
-#  'BUNDLE_PATH'  => '/home/cjadmin/.rvm/gems/ruby-1.9.3-p125/bin'  # If you are using bundler.
-#}
+set :default_environment, {
+  'PATH' => "/home/cjadmin/.rvm/rubies/ruby-1.9.3-p125/bin/:/home/cjadmin/.rvm/bin/:$PATH",
+  'RUBY_VERSION' => 'ruby 1.9.3',
+  'GEM_HOME'     => '/home/cjadmin/.rvm/rubies/ruby-1.9.3-p125/',
+  'GEM_PATH'     => '/home/cjadmin/.rvm/rubies/ruby-1.9.3-p125/bin',
+  'BUNDLE_PATH'  => '/home/cjadmin/.rvm/gems/ruby-1.9.3-p125/bin/'  # If you are using bundler.
+}
 
 
 #set :deploy_via, :remote_cache
@@ -37,13 +43,13 @@ server "76.195.225.93", :web, :app, :db, :primary => true
 # If you are using Passenger mod_rails uncomment this:
 #after "deploy", "deploy:bundle_gems"
 #after "deploy:bundle_gems", "deploy:restart"
-
+after "deploy", "rvm:trust_rvmrc"
 after "deploy", "deploy:copy_files"
 
  namespace :deploy do
-   task :bundle_gems do
-     run "cd #{deploy_to}/current && rvmsudo /home/cjadmin/.rvm/gems/ruby-1.9.3-p125/bin/bundle install vendor/gems"
-   end
+   #task :bundle_gems do
+    # run "cd #{deploy_to}/current && rvmsudo /home/cjadmin/.rvm/gems/ruby-1.9.3-p125/bin/bundle install vendor/gems"
+   #end
    task :start do ; end
    task :stop do ; end
    task :restart, :roles => :app, :except => { :no_release => true } do
@@ -55,4 +61,10 @@ after "deploy", "deploy:copy_files"
      #run "cp /home/cjadmin/shared/Gemfile /var/www/byop/current/Gemfile"
  
    end
+   
+   namespace :rvm do
+    task :trust_rvmrc do
+      run "\'rvm rvmrc trust \#\{release_path\}\'"
+   end
+end
 end
