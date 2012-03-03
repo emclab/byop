@@ -11,7 +11,6 @@ class Purchasing < ActiveRecord::Base
                    
   #has_and_belongs_to_many :categories
   belongs_to :input_by, :class_name => 'User' 
-<<<<<<< HEAD
   belongs_to :eng, :class_name => 'User', :foreign_key => "eng_id"
   belongs_to :pur_eng, :class_name => 'User', :foreign_key => 'pur_eng_id'
   belongs_to :approve_pur_eng, :class_name => 'User', :foreign_key => 'approve_pur_eng_id'
@@ -27,14 +26,6 @@ class Purchasing < ActiveRecord::Base
   validates :prod_name, :presence => true, :uniqueness => {:case_sensitive => false}
   validates_numericality_of :project_id, :greater_than => 0
   validates_numericality_of :eng_id, :greater_than => 0
-=======
-  belongs_to :project
-  has_many :purchasing_logs
-  
-  validates :prod_name, :presence => true, :uniqueness => {:case_sensitive => false}
-  validates_numericality_of :project_id, :greater_than => 0
-  validates_numericality_of :pur_eng_id, :greater_than => 0
->>>>>>> 29060a9b49f5ea79a23abedfb3f82845dd44d786
   validates_numericality_of :manufacturer_id, :greater_than => 0
   validates :qty, :numericality => { :only_integer => true } 
   validates :unit, :presence => true
