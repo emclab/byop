@@ -2,7 +2,7 @@
   <%= f.input :name, :label => '名字：' %>
   <%= f.input :login, :label => '登录名：' %>
   
-  <%= f.input :password, :label => '密码：', :hint => '6位或以上'  %>
+  <%= f.input :password, :label => '密码：', :hint => '6位或以上', :input_html => {:id => 'new_user_password'}  %>
   <%= f.input :password_confirmation, :label => '验证密码：' %>
   
 
