@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20120224163159) do
-=======
-ActiveRecord::Schema.define(:version => 20120223045701) do
->>>>>>> 29060a9b49f5ea79a23abedfb3f82845dd44d786
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
