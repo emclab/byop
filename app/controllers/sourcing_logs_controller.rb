@@ -40,7 +40,7 @@ class SourcingLogsController < ApplicationController
   protected
   
   def has_create_right?
-    is_eng? || vp_eng? || comp_sec? || coo? || vp_sales? || ceo?
+    is_tech_eng? || vp_eng? || vp_sales? || comp_sec? || coo? || ceo?
   end
 
 end

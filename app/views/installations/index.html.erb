@@ -21,6 +21,7 @@
     <td><%= inst.inst_eng.name %></td>
     <td><%= inst.completed %></td>  
     <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_project_installation_path(@project, inst)}" if has_update_right? %></td>
+    <td><%= link_to '申请物料', "/view_handler?index=1&url=#{new_installation_installation_purchase_path(inst)}" if inst_eng? || vp_eng? %></td>
     <td><%= link_to '状态', "/view_handler?index=1&url=#{installation_installation_logs_path(inst)}" %></td>
   </tr>
 <% end %>

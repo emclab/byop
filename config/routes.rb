@@ -1,5 +1,23 @@
 Byop::Application.routes.draw do
   
+  get "installation_purchase_logs/new"
+
+  get "installation_purchase_logs/create"
+
+  get "installation_purchases/index"
+
+  get "installation_purchases/new"
+
+  get "installation_purchases/create"
+
+  get "installation_purchases/edit"
+
+  get "installation_purchases/update"
+
+  get "installation_purchases/show"
+  
+  get "installation_purchases/approve"
+
   get "proj_modules/new"
 
   get "proj_modules/create"
@@ -63,6 +81,8 @@ Byop::Application.routes.draw do
   get "purchasings/update"
 
   get "purchasings/show"
+  
+  get "purchasings/approve"
 
   get "productions/index"
 
@@ -164,10 +184,6 @@ Byop::Application.routes.draw do
 
   get "users/update"
 
-  #get "sessions/create"
-
-  #get "sessions/destroy"
-  
   resource :session
   resources :user_menus, :only => [:index]
   resources :manufacturers, :only => [:index, :new, :create, :edit, :update]
@@ -192,10 +208,9 @@ Byop::Application.routes.draw do
         put :approve
       end 
     end
-    resources :installations, :only => [:index, :new, :create, :edit, :update]
+    resources :installations, :only => [:index, :new, :create, :edit, :update] 
     resources :proj_modules, :only => [:new, :create]
-
-  end
+  end  #end projects
   
   resources :productions do
     resources :production_logs, :only => [:index, :new, :create]
@@ -203,14 +218,23 @@ Byop::Application.routes.draw do
   resources :purchasings do
     resources :purchasing_logs, :only => [:index, :new, :create] 
   end
-  #resources :purchasings, :member => {:approve_eng => :put}
   
   resources :sourcings do
     resources :sourcing_logs, :only => [:index, :new, :create]   
   end
+  
+  resources :installation_purchases, :only => [:index]  
   resources :installations do
     resources :installation_logs, :only => [:index, :new, :create]
-  end
+    resources :installation_purchases, :only => [:new, :create, :edit, :update, :show] do
+      member do
+        put :approve
+      end
+    end          
+  end  
+  resources :installation_purchases do
+    resources :installation_purchase_logs, :only => [:new, :create]
+  end   
   
   root :to => "sessions#new"
   match '/signin',  :to => 'sessions#new'

@@ -10,7 +10,7 @@ class Installation < ActiveRecord::Base
   belongs_to :inst_eng, :class_name => 'User'
   belongs_to :project
   has_many :installation_logs
-  has_many :field_spendings  
+  has_many :installation_purchases  
   
   validates :install_name, :presence => true, :uniqueness => {:case_sensitive => false}
   validates_numericality_of :project_id, :greater_than => 0

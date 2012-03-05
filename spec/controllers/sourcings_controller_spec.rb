@@ -134,8 +134,9 @@ describe SourcingsController do
       u = Factory(:user)
       session[:user_id] = u.id
       src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => false, :approved_by_ceo => false)
-      put 'approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
+      post 'approve', :project_id => proj.id, :id => src.id ,:method => :put, :sourcing => {:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
                                                                           :approve_date_vp_eng => Time.now }
+      src.reload.approved_by_vp_eng.should == true
       src.reload.approve_vp_eng_id.should == session[:user_id]
       src.reload.approve_date_vp_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
       response.should redirect_to project_sourcing_path(proj, src)      

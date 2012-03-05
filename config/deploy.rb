@@ -52,9 +52,9 @@ after "deploy", "deploy:copy_files"
     # run "cd #{deploy_to}/current && rvmsudo /home/cjadmin/.rvm/gems/ruby-1.9.3-p125/bin/bundle install vendor/gems"
    #end
    task :gems, :roles => :web, :except => { :no_release => true } do 
-     run "cd #{current_path}; #{shared_path}/bin/bundle unlock" 
+     #run "cd #{current_path}; #{shared_path}/bin/bundle unlock" 
      run "cd #{current_path}; nice -19 #{shared_path}/bin/bundle install vendor/" # nice -19 is very important otherwise DH will kill the process! 
-     run "cd #{current_path}; #{shared_path}/bin/bundle lock" 
+     #run "cd #{current_path}; #{shared_path}/bin/bundle lock" 
    end #this task make the uploading possible, after 2 days works which did not going anywhere about missing gem bundler.
    
    task :start do ; end

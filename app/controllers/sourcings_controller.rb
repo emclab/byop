@@ -82,7 +82,6 @@ class SourcingsController < ApplicationController
       end
     
       redirect_to project_sourcing_path(@project, @sourcing)
-      #redirect_to URI.escape("/view_handler?index=0&msg=#{@sourcing.approved_by_vp_eng}=#{@sourcing.changed?}=#{@sourcing.prod_name}")
     else
       redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")    
     end

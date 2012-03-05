@@ -2,8 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.3'
 gem 'database_cleaner'
-
-gem 'sqlite3'
+gem 'jquery-rails', '~>1.0.19'
 gem 'simple_form'
 gem 'will_paginate', '~> 3.0'
 
@@ -15,15 +14,18 @@ end
 #   Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  group :production do
+    gem 'execjs'
+    gem 'therubyracer', :platforms => :ruby
+  end
   gem 'sass-rails',   '~> 3.1.5'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails', '~>1.0.19'
-
 group :development, :test do
 # Pretty printed test output
+  gem 'sqlite3'   #sqlite3-ruby is point to sqlite3
   gem "rspec-rails", ">= 2.0.0"
   #gem "cucumber-rails", ">=0.3.2"
   gem 'webrat', ">= 0.7.2"

@@ -1,0 +1,30 @@
+<div id="main_body">
+<h1>安装物料</h1>
+<table>
+  <tr>
+  	<th></th>
+    <th>物料名称/规格</th>
+    <th>项目</th>
+    <th>需要日期</th>
+    <th>库存量</th>
+    <th>批准</th>
+    <th></th>
+  </tr>
+
+<% @installation_purchases.each do |inst_pur| %>
+  <tr>
+    <td><%= link_to 'View', "/view_handler?index=1&url=#{installation_installation_purchase_path(inst_pur.installation,inst_pur)}" %></td>  	
+    <td><%= inst_pur.part_name %><%= inst_pur.spec %></td>
+    <td><%= inst_pur.installation.project.name %></td>
+    <td><%= inst_pur.need_date.strftime("%Y/%m/%d") %></td>
+    <td><%= inst_pur.qty_in_stock %></td>
+    <td><%= inst_pur.approved_by_vp_eng && inst_pur.approved_by_ceo %></td>  
+    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_installation_installation_purchase_path(inst_pur.installation, inst_pur)}" if has_update_right? %></td>
+
+  </tr>
+<% end %>
+</table>
+  <%= link_to 'Back', "/view_handler?index=0" %>
+  &nbsp;<%= link_to '提交申请', "/view_handler?index=1&url=#{new_installation_installation_purchase_path(@installation)}" if has_create_right? %>
+
+</div>

@@ -109,6 +109,26 @@ Factory.define :project_log do |f|
   f.input_by_id             1
 end
 
+Factory.define :installation_purchase do |f|
+  f.part_name                'a prod plan'
+  f.spec                     'must have size'
+  f.qty                      2
+  f.for_what                 'for labor'
+  f.unit                     'pcs'  
+  f.applicant_id             1
+  f.installation_id          1  
+  f.need_date               '2012-2-1'
+  f.input_by_id              1 
+  f.purchased                false   
+  f.total                    65.90        
+end
+
+Factory.define :installation_purchase_log do |f|
+  f.installation_purchase_id 1
+  f.log                      'blaaaaa'
+  f.input_by_id              1
+end
+
 Factory.define :production_log do |f|
   f.production_id           1
   f.log                     'blaaaaa'

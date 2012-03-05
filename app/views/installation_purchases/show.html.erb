@@ -1,0 +1,91 @@
+<div id="main_body">
+
+<h1>物料申请内容-<%=@installation.install_name %></h1>
+
+<p>
+  <b>物料名称:</b>
+  <%= @installation_purchase.part_name %>
+</p>
+<p>
+  <b>规格:</b>
+  <%= @installation_purchase.spec %>
+</p>
+<p>
+  <b>数量/单位:</b>
+  <%= @installation_purchase.qty %><%= @installation_purchase.unit %>
+</p>
+<p>
+  <b>需要日期:</b>
+  <%= @installation_purchase.need_date.strftime("%Y/%m/%d") %>
+</p>
+<p>
+  <b>单价（￥）:</b>
+  <%= @installation_purchase.unit_price %>
+</p>
+<p>
+  <b>实际购买数量：</b>
+  <%= @installation_purchase.qty_purchased %>
+</p>
+<p>
+  <b>实付总额（￥）：</b>
+  <%= @installation_purchase.total_paid %>
+</p>
+<p>
+  <b>申请工程师:</b>
+  <%= @installation_purchase.applicant.name if @installation_purchase.applicant_id.present? %>
+</p>
+<p>
+  <b>存放地点:</b>
+  <%= @installation_purchase.storage_location %>
+</p>
+<p>
+  <b>库存量:</b>
+  <%= @installation_purchase.qty_in_stock %>
+</p>
+
+<p>
+  <b>工程付总签字:</b>
+  <%= @installation_purchase.approved_by_vp_eng %>
+</p>
+<p>
+  <b>签字人:</b>
+  <%= @installation_purchase.approve_vp_eng.name if @installation_purchase.approve_vp_eng_id.present? %>
+</p>
+<p>
+  <b>签字日期:</b>
+  <%= @installation_purchase.approve_date_vp_eng.strftime("%Y/%m/%d") if @installation_purchase.approve_date_vp_eng.present? %>
+</p>
+<p>
+  <b>厂长签字:</b>
+  <%= @installation_purchase.approved_by_ceo %>
+</p>
+<p>
+  <b>签字人:</b>
+  <%= @installation_purchase.approve_ceo.name if @installation_purchase.approve_ceo_id.present? %>
+</p>
+<p>
+  <b>签字日期:</b>
+  <%= @installation_purchase.approve_date_ceo.strftime("%Y/%m/%d") if @installation_purchase.approve_date_ceo.present? %>
+</p>
+<p>
+  <b>输入/更改人:</b>
+  <%= @installation_purchase.input_by.name %>
+</p>
+<p>
+  <b>状态Log:</b>	
+  <ul>
+<% @installation_purchase.installation_purchase_logs.order("created_at DESC").each do |f| %>
+  <li>
+  <%= f.created_at.strftime("%Y-%m-%d").to_s %>&nbsp;&nbsp;<%= f.log %>
+  </li>
+<% end %>
+</ul>
+</p>
+
+<%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+<% link_to '批准采购物料', approve_installation_installation_purchase_path(@installation, @installation_purchase), :method => :put, :id => 'installation_purchase_need_approve' if need_approve?(@installation_purchase) %>
+<% if has_log_right? %>
+  <%= link_to '输入联系Log', new_installation_purchase_installation_purchase_log_path(@installation_purchase, :format => :js), :remote => true, :id => 'new_log_link' %>
+<% end %>
+</div>
+

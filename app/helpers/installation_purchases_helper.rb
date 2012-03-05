@@ -1,0 +1,2 @@
+module InstallationPurchasesHelper
+end

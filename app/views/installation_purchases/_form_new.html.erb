@@ -1,0 +1,17 @@
+<%= simple_form_for([@installation, @installation_purchase]) do |f| %>    
+
+  <div style="padding-left:32px">安装项目名称：&nbsp;&nbsp;<%= @installation.install_name %></div> 
+  <%= f.input :part_name, :label => '物料名称：' %> 
+  <%= f.input :spec, :label => '规格：' %>
+  <%= f.input :for_what, :lable => '用途：', :input_html => {:rows => 4 } %>
+  <%= f.input :need_date, :label => '需要日期：', :as => :string %> 
+  <%= f.input :qty, :label => '申请数量：' %>
+  <%= f.input :unit, :label => '单位：' %>
+  <%= f.input :unit_price, :label => '单价（￥）：' %>
+  <%= f.input :total, :label => '总额（￥）：' %>
+  <%= f.input :applicant_id, :label => '申请工程师：', :collectionc=> return_inst_eng, :label_method => :name, :value_method => :id %>
+   
+  <%= f.button :submit, '保存' %>  
+<% end %>  
+
+

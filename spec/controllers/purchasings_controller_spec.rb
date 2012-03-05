@@ -122,8 +122,8 @@ describe PurchasingsController do
       proj = Factory(:project)
       u = Factory(:user)
       session[:user_id] = u.id
-      src= Factory(:purchasing, :input_by_id => u.id, :approved_by_vp_eng => false)
-      put 'approve', :project_id => proj.id, :id => src.id, :purchasing => {:approved_by_vp_eng => true}
+      pur= Factory(:purchasing, :input_by_id => u.id, :approved_by_vp_eng => false)
+      put 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_vp_eng => true}, :method => :put
       response.should redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")
     end
     

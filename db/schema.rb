@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20120224163159) do
-=======
-ActiveRecord::Schema.define(:version => 20120223045701) do
->>>>>>> 29060a9b49f5ea79a23abedfb3f82845dd44d786
+ActiveRecord::Schema.define(:version => 20120304150729) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -56,6 +52,41 @@ ActiveRecord::Schema.define(:version => 20120223045701) do
     t.integer  "installation_id"
     t.text     "log"
     t.integer  "input_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "installation_purchase_logs", :force => true do |t|
+    t.integer  "installation_purchase_id"
+    t.integer  "input_by_id"
+    t.text     "log"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "installation_purchases", :force => true do |t|
+    t.integer  "installation_id"
+    t.integer  "input_by_id"
+    t.integer  "applicant_id"
+    t.string   "part_name"
+    t.string   "spec"
+    t.decimal  "qty",                 :precision => 6, :scale => 2
+    t.string   "unit"
+    t.decimal  "unit_price",          :precision => 8, :scale => 2
+    t.decimal  "total",               :precision => 8, :scale => 2
+    t.text     "for_what"
+    t.decimal  "qty_purchased",       :precision => 6, :scale => 2
+    t.decimal  "total_paid",          :precision => 8, :scale => 2
+    t.decimal  "qty_in_stock",        :precision => 6, :scale => 2
+    t.boolean  "approved_by_vp_eng"
+    t.integer  "approve_vp_eng_id"
+    t.date     "approve_date_vp_eng"
+    t.boolean  "approved_by_ceo"
+    t.integer  "approve_ceo_id"
+    t.date     "approve_date_ceo"
+    t.string   "storage_location"
+    t.boolean  "purchased",                                         :default => false
+    t.date     "need_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -108,7 +139,6 @@ ActiveRecord::Schema.define(:version => 20120223045701) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
 
   create_table "project_logs", :force => true do |t|
     t.text     "log"
@@ -191,7 +221,6 @@ ActiveRecord::Schema.define(:version => 20120223045701) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "eng_id"
-
   end
 
   create_table "sessions", :force => true do |t|
