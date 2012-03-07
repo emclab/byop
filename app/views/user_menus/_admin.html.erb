@@ -1,7 +1,6 @@
-
 <div id="admin">
 	<ul>
-		<li><%= link_to '用户管理', users_path %></li>
+		<li><%= link_to '用户管理', "/view_handler?index=1&url=#{users_path}" %></li>
 		<li><%= link_to '查看LOG文件', '#' %></li>
 	</ul>
 </div>
