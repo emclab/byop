@@ -4,10 +4,12 @@ class UsersController < ApplicationController
   before_filter :require_signin
   before_filter :require_employee 
   before_filter :require_admin  
+  
+  helper_method :return_user_positions
     
   def index
     @title = "用户名单"
-    @users = User.order("id DESC").paginate(:per_page => 40, :page => params[:page])
+    @users = User.order("id DESC, status ASC").paginate(:per_page => 40, :page => params[:page])
   end
 
   def show
@@ -45,6 +47,20 @@ class UsersController < ApplicationController
       flash.now[:error] = '修改无法保存！'
       render 'edit'
     end
+  end
+  
+  protected
+  
+  def return_user_positions(user)
+    position = nil
+    user.user_levels.each do |ul| 
+      if position.nil?
+        position = return_position_name(ul.position)
+      else
+        position = position + ', ' + return_position_name(ul.position)
+      end
+    end
+    return position      
   end
   
 
