@@ -8,9 +8,9 @@ class CustomersController < ApplicationController
   def index
     @title = '客户一览'
     if comp_sec? || coo? || ceo? || vp_sales?
-      @customers = Customer.all
+      @customers = Customer.order("id DESC").paginate(:per_page => 30, :page => params[:page])
     else
-      @customers = Customer.active_cust.all
+      @customers = Customer.active_cust.order("id DESC").paginate(:per_page => 30, :page => params[:page])
     end
   end  
 

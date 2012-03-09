@@ -9,7 +9,7 @@ class PurchasingsController < ApplicationController
   def index
     @title = '外购计划'
     @project = Project.find(params[:project_id])
-    @purchasings = @project.purchasings.order("delivered, order_date, delivery_date")   
+    @purchasings = @project.purchasings.order("delivered, order_date, delivery_date").paginate(:per_page => 40, :page => params[:page])    
   end
 
   def new

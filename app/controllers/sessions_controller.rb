@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
   
   def create
     #redirect_to user_menus_path
+    reset_session  #anti session fixation. must before assign session values
     user = User.authenticate(params[:email], params[:password])
     if user.nil?
       flash.now[:error] = "登录名/密码错误！"
