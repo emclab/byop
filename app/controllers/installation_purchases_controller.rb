@@ -8,7 +8,7 @@ class InstallationPurchasesController < ApplicationController
   
   def index
     @title = '安装物料'
-    @installation_purchases = @installation.present? ? @installation.installation_purchases.order("need_date DESC, qty_in_stock DESC, id DESC").paginate(:per_page => 40, :page => params[:page]) : InstallationPurchase.where('created_date > ?', Time.now - 1000.day).order("need_date DESC, qty_in_stock DESC, id DESC").paginate(:per_page => 40, :page => params[:page])        
+    @installation_purchases = @installation.present? ? @installation.installation_purchases.order("need_date DESC, qty_in_stock DESC, id DESC").paginate(:per_page => 40, :page => params[:page]) : InstallationPurchase.where('created_at > ?', Time.now - 1000.day).order("need_date DESC, qty_in_stock DESC, id DESC").paginate(:per_page => 40, :page => params[:page])        
   end
 
   def new
