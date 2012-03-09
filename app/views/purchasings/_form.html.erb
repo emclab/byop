@@ -8,9 +8,9 @@
   <%= f.input :unit_price, :label => '单价：', :collection => return_unit, :selected => @purchasing.unit %>
   <%= f.input :manufacturer_id, :label => '制造厂家：', :collection => return_mfg, :label_method => :name, :value_method => :id, :include_blank => true %>
   <%= f.input :supplier_id, :label => '供应商：', :collection => return_supplier, :label_method => :name, :value_method => :id, :include_blank => true %>
-  <%= f.input :eng_id, :label => '责任工程师：', :collectionc=> return_tech_eng, :label_method => :name, :value_method => :id %>
-  <%= f.input :pur_eng_id, :label => '外购工程师：', :collectionc=> return_pur_eng, :label_method => :name, :value_method => :id %>
-  <%= f.input :proj_module_id, :label => '分系统：', :collectionc=> return_proj_module(@project), :label_method => :name, :value_method => :id %>
+  <%= f.input :eng_id, :label => '责任工程师：', :collection => return_tech_eng, :label_method => :name, :value_method => :id %>
+  <%= f.input :pur_eng_id, :label => '外购工程师：', :collection => return_pur_eng, :label_method => :name, :value_method => :id %>
+  <%= f.input :proj_module_id, :label => '分系统：', :collection => return_proj_module(@project), :label_method => :name, :value_method => :id %>
   <%= f.input :delivered, :label => '到货？：', :as => :radio %>
   <%= f.input :order_date, :label => '订购日期：', :as => :string %> 
   <%= f.input :delivery_date, :label => '到货日期：', :as => :string %>   

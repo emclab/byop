@@ -9,7 +9,7 @@
   <%= f.input :unit, :label => '单位：' %>
   <%= f.input :unit_price, :label => '单价（￥）：' %>
   <%= f.input :total, :label => '总额（￥）：' %>
-  <%= f.input :applicant_id, :label => '申请工程师：', :collectionc=> return_inst_eng, :label_method => :name, :value_method => :id %>
+  <%= f.input :applicant_id, :label => '申请工程师：', :collection => return_inst_eng, :label_method => :name, :value_method => :id %>
    
   <%= f.button :submit, '保存' %>  
 <% end %>  
