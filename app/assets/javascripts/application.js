@@ -24,7 +24,7 @@ $(function() {
    $("#src_plant_last_eval_date").datepicker({dateFormat: 'yy-mm-dd'});
 });
 $(function() {
-   $("#supplier_date_since").datepicker({dateFormat: 'yy-mm-dd'});
+   $('#supplier_supply_since').datepicker({dateFormat: 'yy-mm-dd'});
 });
 $(function() {
    $("#supplier_last_eval_date").datepicker({dateFormat: 'yy-mm-dd'});

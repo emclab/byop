@@ -2,7 +2,7 @@
  
   <%= f.input :name, :label => '名称：' %>  
   <%= f.input :short_name, :label => '简称：', :hint => '4-8字' %>
-  <%= f.input :src_since, :label => '开始日期：', :as => :string, :hint => '开始外协日期' %>
+  <%= f.input :src_since, :label => '开始日期：', :hint => '开始外协日期', :as => :string %>
   <%= f.input :primary_contact, :label => '总联系人：' %>  
   <%= f.input :primary_cell, :label => '手机：' %>  
   <%= f.input :tech_contact, :label => '技术联系人：' %>  
@@ -26,5 +26,3 @@
   
   <%= f.button :submit, '保存' %>  
 <% end %>  
-
-

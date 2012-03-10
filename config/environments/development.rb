@@ -27,4 +27,7 @@ Byop::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  #suppose to fix ruby interpreter crashes
+  config.log_level = :warn
 end
