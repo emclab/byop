@@ -18,7 +18,10 @@ $(document).ready(function() {
 //datepicker
 // src plant/supplier
 $(function() {
-   $("#src_plant_src_since").datepicker({dateFormat: 'yy-mm-dd'});
+   //$("#src_plant_src_since").datepicker({dateFormat: 'yy-mm-dd'});
+   $("#src_plant_src_since").live('click', function() {
+		$(this).datepicker({dateFormat: 'yy-mm-dd', currentText: '', showOn:'focus' }).removeAttr('value').focus();
+	});      
 });
 $(function() {
    $("#src_plant_last_eval_date").datepicker({dateFormat: 'yy-mm-dd'});
