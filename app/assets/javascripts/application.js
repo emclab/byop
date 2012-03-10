@@ -18,10 +18,16 @@ $(document).ready(function() {
 //datepicker
 // src plant/supplier
 $(function() {
-   $("#src_plant_date_since").datepicker({dateFormat: 'yy-mm-dd'});
+   $("#src_plant_src_since").datepicker({dateFormat: 'yy-mm-dd'});
+});
+$(function() {
+   $("#src_plant_last_eval_date").datepicker({dateFormat: 'yy-mm-dd'});
 });
 $(function() {
    $("#supplier_date_since").datepicker({dateFormat: 'yy-mm-dd'});
+});
+$(function() {
+   $("#supplier_last_eval_date").datepicker({dateFormat: 'yy-mm-dd'});
 });
 // end src plant/supplier
 //project

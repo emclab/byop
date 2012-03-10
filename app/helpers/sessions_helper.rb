@@ -122,7 +122,7 @@ module SessionsHelper
   end
   
   def return_inst_eng
-    User.where("user_tyep = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => 'inst_eng'})
+    User.where("user_type = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => 'inst_eng'})
   end
   
   def return_mfg
