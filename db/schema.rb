@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308160119) do
+ActiveRecord::Schema.define(:version => 20120311012536) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -318,7 +318,6 @@ ActiveRecord::Schema.define(:version => 20120308160119) do
     t.string   "fax"
     t.string   "email"
     t.string   "quality_system"
-    t.date     "date_since"
   end
 
   create_table "user_levels", :force => true do |t|
