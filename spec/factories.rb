@@ -67,6 +67,16 @@ Factory.define :production do |f|
   f.input_by_id              1   
 end
 
+Factory.define :quality_issue do |f|
+  f.name                    'a prod plan'
+  f.issue_desp               'this is a blablabla'
+  f.report_by_id             1
+  f.project_id               1
+  f.report_date              '2012-2-1'
+  f.case_closed              false
+  f.input_by_id              1   
+end
+
 Factory.define :purchasing do |f|
   f.prod_name                'a prod plan'
   f.spec                     'must have size'

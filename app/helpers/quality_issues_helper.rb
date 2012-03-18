@@ -1,0 +1,2 @@
+module QualityIssuesHelper
+end

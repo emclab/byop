@@ -1,0 +1,30 @@
+<div id="main_body">
+<h1>质量问题</h1>
+<div class="byop_pagination"><%= will_paginate %></div>
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th>项目</th>
+    <th>问题名称</th>
+    <th>报告日期</th>
+    <th>解决?</th>
+    <th>被告人</th> 
+    <th></th>
+  </tr>
+
+<% @quality_issues.each do |q| %>
+  <tr>
+  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{project_quality_issue_path(q.project, q)}" if has_show_right? %></td>
+    <td><%= q.project.name %></td>
+    <td><%= q.name %></td>
+    <td><%= q.report_date.strftime("%Y/%m/%d") %></td>
+    <td><%= q.case_closed %></td> 
+    <td><%= q.report_by.name %></td> 
+    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_project_quality_issue_path(q.project, q)}" if has_update_right? %></td>
+  </tr>
+<% end %>
+</table>
+  <%= link_to 'Back', "/view_handler?index=0" %>
+  <%= link_to '报告质量问题', new_project_quality_issue_path(@project) if @project.present? %>
+</div>

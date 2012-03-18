@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
 
   include SessionsHelper
   
+  def session_sweep
+   Session.sweep()  
+  end
+  
   def require_employee
     if !employee? 
       flash.now[:error] = "Access denied!"
@@ -24,7 +28,7 @@ class ApplicationController < ActionController::Base
     if !signed_in?  
       flash.now.alert = "必须登录!"
       redirect_to signin_path
-    end  
+    end
   end   
 
   def current_user

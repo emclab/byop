@@ -1,0 +1,76 @@
+<div id="main_body">
+
+<h1>质量问题内容</h1>
+
+<p>
+  <b>项目名称:</b>
+  <%=@project.name%>
+</p>
+<p>
+  <b>客户:</b>
+  <%=@project.customer.name%>
+</p>
+<p>
+  <b>质量问题名称:</b>
+  <%= @quality_issue.name %>
+</p>
+<p>
+  <b>报告工程师:</b>
+  <%= @quality_issue.report_by.name %>
+</p>
+<p>
+  <b>所属计划:</b>
+  <%= @quality_issue.production.name if @quality_issue.production_id.present? %>
+</p>
+<p>
+  <b>所属外协:</b>
+  <%= @quality_issue.sourcing.prod_name if @quality_issue.sourcing_id.present? %>
+</p>
+<p>
+  <b>所属外购:</b>
+  <%= @quality_issue.purchasing.prod_name if @quality_issue.purchasing_id.present? %>
+</p>
+<p>
+  <b>所属安装:</b>
+  <%= @quality_issue.installation.install_name if @quality_issue.installation_id.present? %>
+</p>
+<p>
+  <b>问题描述：</b>
+  <%= @quality_issue.issue_desp %>
+</p>
+<p>
+  <b>问题原因：</b>
+  <%= @quality_issue.root_cause %>
+</p>
+<p>
+  <b>临时措施：</b>
+  <%= @quality_issue.quick_fix %>
+</p>
+<p>
+  <b>解决方案：</b>
+  <%= @quality_issue.solution %>
+</p>
+<p>
+  <b>客户反馈?：</b>
+  <%= @quality_issue.customer_feedback %>
+</p>
+<p>
+  <b>预防措施：</b>
+  <%= @quality_issue.preventative_action %>
+</p>
+<p>
+  <b>报告日期:</b>
+  <%= @quality_issue.report_date.strftime("%Y/%m/%d") %>
+</p>
+<p>
+  <b>解决日期:</b>
+  <%= @quality_issue.close_date.strftime("%Y/%m/%d") if @quality_issue.close_date.present? %>
+</p>
+
+
+<p>
+  <b>输入/更改人:</b>
+  <%= @quality_issue.input_by.name %>
+</p>
+  <%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+</div>

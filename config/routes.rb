@@ -1,5 +1,17 @@
 Byop::Application.routes.draw do
   
+  get "quality_issues/index"
+
+  get "quality_issues/new"
+
+  get "quality_issues/create"
+
+  get "quality_issues/edit"
+
+  get "quality_issues/update"
+
+  get "quality_issues/show"
+
   get "installation_purchase_logs/new"
 
   get "installation_purchase_logs/create"
@@ -195,6 +207,7 @@ Byop::Application.routes.draw do
   end
   resources :src_plants
   resources :suppliers
+  resources :quality_issues, :only  => [:index]
   resources :projects do
     resources :project_logs, :only => [:new, :create, :show, :destroy]
     resources :productions, :only => [:index, :new, :create, :edit, :update, :show]
@@ -210,6 +223,7 @@ Byop::Application.routes.draw do
     end
     resources :installations, :only => [:index, :new, :create, :edit, :update] 
     resources :proj_modules, :only => [:new, :create]
+    resources :quality_issues, :only => [:new, :create, :edit, :update, :show] 
   end  #end projects
   
   resources :productions do
@@ -234,7 +248,9 @@ Byop::Application.routes.draw do
   end  
   resources :installation_purchases do
     resources :installation_purchase_logs, :only => [:new, :create]
-  end   
+  end  
+  
+   
   
   root :to => "sessions#new"
   match '/signin',  :to => 'sessions#new'

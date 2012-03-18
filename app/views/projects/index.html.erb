@@ -14,6 +14,7 @@
     <th></th> 
     <th></th> 
     <th></th> 
+    <th></th>
   </tr>
 
 <% @projects.each do |proj| %>
@@ -30,6 +31,7 @@
       <td><%= link_to '外协', "/view_handler?index=1&url=#{project_sourcings_path(proj)}" %></td>
       <td><%= link_to '外购', "/view_handler?index=1&url=#{project_purchasings_path(proj)}" %></td>
       <td><%= link_to '安装', "/view_handler?index=1&url=#{project_installations_path(proj)}" %></td>
+      <td><%= link_to '质量', "/view_handler?index=1&url=#{quality_issues_path(proj)}" %></td>
     <% end %>
   </tr>
 <% end %>

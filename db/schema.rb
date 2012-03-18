@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120311012536) do
+ActiveRecord::Schema.define(:version => 20120317224358) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -221,6 +221,28 @@ ActiveRecord::Schema.define(:version => 20120311012536) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "eng_id"
+  end
+
+  create_table "quality_issues", :force => true do |t|
+    t.string   "name"
+    t.integer  "project_id"
+    t.integer  "production_id"
+    t.integer  "installation_id"
+    t.integer  "sourcing_id"
+    t.integer  "purchasing_id"
+    t.date     "report_date"
+    t.integer  "report_by_id"
+    t.text     "issue_desp"
+    t.text     "root_cause"
+    t.text     "quick_fix"
+    t.text     "solution"
+    t.text     "preventative_action"
+    t.boolean  "case_closed",         :default => false
+    t.integer  "input_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "customer_feedback"
+    t.date     "close_date"
   end
 
   create_table "sessions", :force => true do |t|

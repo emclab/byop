@@ -1,0 +1,26 @@
+<%= simple_form_for([@project, @quality_issue]) do |f| %>    
+
+  <div style="padding-left:32px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
+  <div style="padding-left:32px">客户：&nbsp;&nbsp;<%= @project.customer.name %></div>
+  <%= f.input :report_by_id, :label => '报告工程师：', :collection => return_tech_eng, :label_method => :name, :value_method => :id %>  
+  <%= f.input :report_date, :label => '报告日期：', :as => :string %> 
+  <%= f.input :name, :label => '问题名称：' %> 
+  <%= f.input :production_id, :label => '所属计划：', :collection => @project.productions, :include_blank => true, 
+                                                      :label_method => :name, :value_method => :id %>
+  <%= f.input :sourcing_id, :label => '所属外协：', :collection => @project.sourcings, :include_blank => true,
+                                                      :label_method => :prod_name, :value_method => :id %>
+  <%= f.input :purchasing_id, :label => '所属外购：', :collection => @project.purchasings, :include_blank => true,
+                                                      :label_method => :prod_name, :value_method => :id %>
+  <%= f.input :installation_id, :label => '所属安装：', :collection => @project.installations, :include_blank => true,
+                                                      :label_method => :install_name, :value_method => :id %>  
+  <%= f.input :issue_desp, :label => '问题描述：', :input_html => {:rows => 6} %>  
+  <%= f.input :quick_fix, :label => '临时措施：', :input_html => {:rows => 6} %> 
+  <%= f.input :root_cause, :label => '问题原因：', :input_html => {:rows => 6} %> 
+  <%= f.input :solution, :label => '解决方案：', :input_html => {:rows => 6} %>  
+  <%= f.input :customer_feedback, :label => '客户反馈：', :input_html => {:rows => 6} %>   
+  <%= f.input :preventative_action, :label => '预防措施：', :input_html => {:rows => 6} %>            
+
+  <%= f.button :submit, '保存' %>  
+<% end %>  
+
+

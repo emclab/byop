@@ -20,7 +20,7 @@
     <td><%= prod.finish_date.strftime("%Y/%m/%d") %></td>
     <td><%= prod.completed %></td>  
     <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_project_production_path(@project, prod)}" if has_update_right? %></td>
-    <td><%= link_to '', "/view_handler?index=1&url=#{production_production_logs_path(prod)}" %></td>
+    <td><%= link_to 'Log状态', "/view_handler?index=1&url=#{production_production_logs_path(prod)}" %></td>
   </tr>
 <% end %>
 </table>

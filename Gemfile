@@ -5,6 +5,7 @@ gem 'database_cleaner'
 gem 'jquery-rails', '~>1.0.19'
 gem 'simple_form'
 gem 'will_paginate', '~> 3.0'
+gem 'rufus-scheduler'
 
 # Gemfile
 group :production do

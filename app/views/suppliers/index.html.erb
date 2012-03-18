@@ -21,7 +21,7 @@
   <tr>
   	<td><%= link_to 'Show', "/view_handler?index=1&url=#{supplier_path(supplier)}" if has_show_right? %></td>
     <td><%= supplier.short_name %></td>
-    <td><%= supplier.date_since.strftime("%Y/%m/%d") unless supplier.date_since.nil? %></td>
+    <td><%= supplier.supply_since.strftime("%Y/%m/%d") unless supplier.supply_since.nil? %></td>
     <td><%= supplier.contact %></td>
     <td><%= supplier.phone %></td>
     <% if has_create_right? %>
