@@ -59,7 +59,7 @@ $(function() {
    $("#project_turn_over_date").datepicker({dateFormat: 'yy-mm-dd'});
 });
 //end project
-//production, sourcing, purchasing, installation
+//production, sourcing, purchasing, installation, quality_issue
 $(function() {
    $("#production_start_date").datepicker({dateFormat: 'yy-mm-dd'});
 });
@@ -84,7 +84,12 @@ $(function() {
 $(function() {
    $("#installation_finish_date").datepicker({dateFormat: 'yy-mm-dd'});
 });
-
+$(function() {
+   $("#quality_issue_report_date").datepicker({dateFormat: 'yy-mm-dd'});
+});
+$(function() {
+   $("#quality_issue_close_date").datepicker({dateFormat: 'yy-mm-dd'});
+});
 // end production, sourcing, purchasing, installation
 // for AJAX
 $(function() {

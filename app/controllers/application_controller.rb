@@ -9,10 +9,6 @@ class ApplicationController < ActionController::Base
 
   include SessionsHelper
   
-  def session_sweep
-   Session.sweep()  
-  end
-  
   def require_employee
     if !employee? 
       flash.now[:error] = "Access denied!"
