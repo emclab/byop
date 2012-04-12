@@ -1,11 +1,11 @@
 # encoding: utf-8
 class Sourcing < ActiveRecord::Base
-  attr_accessible :prod_name, :part_num, :spec, :qty, :unit, :unit_price, :subsys_id, :src_plant_id, :start_date, :finish_date, :src_eng_id, :project_id, 
+  attr_accessible :prod_name, :part_num, :spec, :qty, :unit, :unit_price, :proj_module_id, :src_plant_id, :start_date, :finish_date, :src_eng_id, :project_id, 
                   :as => :role_new
-  attr_accessible :prod_name, :part_num, :spec, :qty, :unit, :unit_price, :subsys_id, :src_plant_id, :start_date, :finish_date, :src_eng_id,
-                  :completed, :approved_by_vp_eng, :approve_vp_eng_id, :approve_date_vp_eng, :approved_by_ceo, :approve_ceo_id, :approve_date_ceo,
-                  :as => :role_update
-                   
+  attr_accessible :prod_name, :part_num, :spec, :qty, :unit, :unit_price, :proj_module_id, :src_plant_id, :start_date, :finish_date, :src_eng_id,
+                  :completed, :approved_by_vp_eng, :approve_vp_eng_id, :approve_date_vp_eng, :approved_by_ceo, :approve_ceo_id, 
+                  :approve_date_ceo, :as => :role_update                 
+                  
   #has_and_belongs_to_many :categories
   belongs_to :input_by, :class_name => 'User' 
   belongs_to :eng, :class_name => 'User'

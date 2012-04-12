@@ -64,6 +64,22 @@ class ProjectsController < ApplicationController
     end
   end
   
+  def cancel
+    if ceo?
+      @project = Project.find(params[:id])
+      @project.update_attributes({:cancelled => true, :cancel_date => Time.now, :input_by_id => session[:user_id]},
+                                 :as => :role_update ) 
+    end
+  end
+  
+  def re_activate
+    if ceo?
+      @project = Project.find(params[:id])
+      @project.update_attributes({:cancelled => false, :cancel_date => Time.now, :input_by_id => session[:user_id]},
+                                 :as => :role_update ) 
+    end
+  end  
+      
   protected
   
   def has_show_right?
@@ -75,7 +91,7 @@ class ProjectsController < ApplicationController
   end
   
   def has_update_right?
-    comp_sec? || vp_sales? || coo? || ceo?
+    inst_eng? || comp_sec? || vp_sales? || coo? || ceo?
   end
   
   def has_log_right?

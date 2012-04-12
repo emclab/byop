@@ -27,8 +27,6 @@ Byop::Application.routes.draw do
   get "installation_purchases/update"
 
   get "installation_purchases/show"
-  
-  get "installation_purchases/approve"
 
   get "proj_modules/new"
 
@@ -79,8 +77,6 @@ Byop::Application.routes.draw do
   get "sourcings/update"
 
   get "sourcings/show"
-  
-  get "sourcings/approve"
 
   get "purchasings/index"
 
@@ -93,8 +89,6 @@ Byop::Application.routes.draw do
   get "purchasings/update"
 
   get "purchasings/show"
-  
-  get "purchasings/approve"
 
   get "productions/index"
 
@@ -209,16 +203,24 @@ Byop::Application.routes.draw do
   resources :suppliers
   resources :quality_issues, :only  => [:index]
   resources :projects do
+    member do
+      put :cancel
+      put :re_activate
+    end
     resources :project_logs, :only => [:new, :create, :show, :destroy]
     resources :productions, :only => [:index, :new, :create, :edit, :update, :show]
     resources :sourcings, :only => [:index, :new, :create, :edit, :update, :show] do
       member do
         put :approve
+        put :dis_approve
+        put :re_approve
       end
     end
     resources :purchasings, :only => [:index, :new, :create, :edit, :update, :show] do
       member do
         put :approve
+        put :dis_approve
+        put :re_approve
       end 
     end
     resources :installations, :only => [:index, :new, :create, :edit, :update] 
@@ -243,6 +245,8 @@ Byop::Application.routes.draw do
     resources :installation_purchases, :only => [:new, :create, :edit, :update, :show] do
       member do
         put :approve
+        put :dis_approve
+        put :re_approve        
       end
     end          
   end  

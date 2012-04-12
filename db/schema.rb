@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120317224358) do
+ActiveRecord::Schema.define(:version => 20120408203949) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -160,8 +160,6 @@ ActiveRecord::Schema.define(:version => 20120317224358) do
     t.text     "tech_spec"
     t.text     "subsys_spec"
     t.text     "other_tech_requirement"
-    t.text     "construction_requirement"
-    t.text     "test_run_requirement"
     t.text     "turn_over_requirement"
     t.date     "bid_doc_available_date"
     t.date     "bid_deadline"
@@ -170,8 +168,6 @@ ActiveRecord::Schema.define(:version => 20120317224358) do
     t.date     "production_start_date"
     t.date     "construction_finish_date"
     t.date     "install_start_date"
-    t.date     "test_run_date"
-    t.date     "turn_over_date"
     t.boolean  "completed",                :default => false
     t.boolean  "cancelled",                :default => false
     t.text     "note"
@@ -180,6 +176,8 @@ ActiveRecord::Schema.define(:version => 20120317224358) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "awarded"
+    t.date     "design_start_date"
+    t.datetime "cancel_date"
   end
 
   create_table "purchasing_logs", :force => true do |t|

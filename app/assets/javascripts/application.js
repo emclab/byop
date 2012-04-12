@@ -53,10 +53,7 @@ $(function() {
    $("#project_install_start_date").datepicker({dateFormat: 'yy-mm-dd'});
 });
 $(function() {
-   $("#project_test_run_date").datepicker({dateFormat: 'yy-mm-dd'});
-});
-$(function() {
-   $("#project_turn_over_date").datepicker({dateFormat: 'yy-mm-dd'});
+   $("#project_design_start_date").datepicker({dateFormat: 'yy-mm-dd'});
 });
 //end project
 //production, sourcing, purchasing, installation, quality_issue

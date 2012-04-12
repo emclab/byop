@@ -19,22 +19,6 @@
   <%= @quality_issue.report_by.name %>
 </p>
 <p>
-  <b>所属计划:</b>
-  <%= @quality_issue.production.name if @quality_issue.production_id.present? %>
-</p>
-<p>
-  <b>所属外协:</b>
-  <%= @quality_issue.sourcing.prod_name if @quality_issue.sourcing_id.present? %>
-</p>
-<p>
-  <b>所属外购:</b>
-  <%= @quality_issue.purchasing.prod_name if @quality_issue.purchasing_id.present? %>
-</p>
-<p>
-  <b>所属安装:</b>
-  <%= @quality_issue.installation.install_name if @quality_issue.installation_id.present? %>
-</p>
-<p>
   <b>问题描述：</b>
   <%= @quality_issue.issue_desp %>
 </p>

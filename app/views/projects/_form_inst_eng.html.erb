@@ -1,0 +1,12 @@
+<%= simple_form_for @project do |f| %>    
+ 
+  <div style="padding-left:62px">客户：&nbsp;&nbsp;<%= @project.customer.name %></div>
+  <div style="padding-left:52px">项目名称：&nbsp;&nbsp;<%= @project.name %></div>
+  <div style="padding-left:52px">项目状态：&nbsp;&nbsp;<%= @project.status %></div>
+  <%= f.input :install_start_date, :label => '安装开始日期：', :as => :string %>   
+  <%= f.input :turn_over_requirement, :label => '验收交付：', :input_html => { :rows => 4} %>         
+  
+  <%= f.button :submit, '保存' %>  
+<% end %>  
+
+

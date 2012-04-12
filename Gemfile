@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.3'
+gem 'sqlite3'  
 gem 'database_cleaner'
 gem 'jquery-rails', '~>1.0.19'
 gem 'simple_form'
@@ -8,9 +9,9 @@ gem 'will_paginate', '~> 3.0'
 gem 'rufus-scheduler'
 
 # Gemfile
-group :production do
-  gem 'mysql2', '>=0.2.6'
-end
+#group :production do
+#  gem 'mysql2', '>=0.2.6'
+#end
 
 #   Gems used only for assets and not required
 # in production environments by default.
@@ -25,8 +26,7 @@ group :assets do
 end
 
 group :development, :test do
-# Pretty printed test output
-  gem 'sqlite3'   #sqlite3-ruby is point to sqlite3
+# Pretty printed test output  
   gem "rspec-rails", ">= 2.0.0"
   #gem "cucumber-rails", ">=0.3.2"
   gem 'webrat', ">= 0.7.2"

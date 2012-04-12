@@ -33,7 +33,7 @@
   <ul>
 <% @production.production_logs.order("created_at DESC").each do |f| %>
   <li>
-  <%= link_to "关于:" + f.subject + ", " + f.created_at.strftime("%Y-%m-%d").to_s, "/view_handler?index=1&url=#{production_production_log_path(f.production_id, f.id)}" %>
+  <%= link_to "关于:" + f.log[0,20] + ", " + f.created_at.strftime("%Y-%m-%d").to_s, "/view_handler?index=1&url=#{production_production_logs_path(f.production_id, f.id)}" %>
   </li>
 <% end %>
 </ul>
@@ -41,7 +41,7 @@
 
   <%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
 <% if has_log_right? %>
-  <%= link_to '输入联系Log', new_production_production_log_path(@production, :format => :js), :remote => true, :id => 'new_log_link' %>
+  <%= link_to '输入Log', new_production_production_log_path(@production, :format => :js), :remote => true, :id => 'new_log_link' %>
 <% end %>
 </div>
 

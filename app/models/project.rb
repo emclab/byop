@@ -1,13 +1,13 @@
 # encoding: utf-8
 class Project < ActiveRecord::Base
-  attr_accessible :name, :customer_id, :status, :install_address, :budget, :tech_spec, :subsys_spec, :other_tech_requirement, :test_run_requirement,
-                  :construction_requirement, :turn_over_requirement, :bid_doc_available_date, :bid_deadline, :bid_opening_date, :contract_date,
-                  :production_start_date, :construction_finish_date, :install_start_date, :test_run_date, :turn_over_date, :note, :customer_contact_info,
+  attr_accessible :name, :customer_id, :status, :install_address, :budget, :tech_spec, 
+                  :bid_doc_available_date, :bid_deadline, :bid_opening_date, :contract_date,
+                  :production_start_date,  :note, :customer_contact_info,
                   :as => :role_new
-  attr_accessible :name,       :status, :install_address, :budget, :tech_spec, :subsys_spec, :other_tech_requirement, :test_run_requirement,
+  attr_accessible :name,       :status, :install_address, :budget, :tech_spec, :subsys_spec, :other_tech_requirement, 
                   :construction_requirement, :turn_over_requirement, :bid_doc_available_date, :bid_deadline, :bid_opening_date, :contract_date,
-                  :production_start_date, :construction_finish_date, :install_start_date, :test_run_date, :turn_over_date, :note, :customer_contact_info,
-                  :review_after, :completed, :cancelled, :awarded,
+                  :production_start_date, :construction_finish_date, :install_start_date, :note, :customer_contact_info,
+                  :review_after, :completed, :cancelled, :awarded, :design_start_date,
                   :as => :role_update    
                                 
   belongs_to :input_by, :class_name => 'User'

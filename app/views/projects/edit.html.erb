@@ -2,7 +2,9 @@
 <div id='main_body'>
 <h1>修改项目设备信息</h1>
  
-<%= render 'form' %>
+<%= render 'form_new' if comp_sec? %>
+<%= render 'form_eng_vp' if vp_eng? %>
+<%= render 'form_inst_eng' if inst_eng? %>
  
 <%= link_to 'Back', "/view_handler?index=0" %>
   

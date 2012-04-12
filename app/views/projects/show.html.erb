@@ -18,6 +18,12 @@
   <b>项目取消？:</b>
   <%= @project.cancelled %>
 </p>
+<% if @project.cancelled %>
+  <p>
+    <b>项目取消日期:</b>
+    <%= @project.cancell_date %>
+  </p>
+<% end %>
 <p>
   <b>签合同了？:</b>
   <%= @project.awarded %>
@@ -35,31 +41,27 @@
   <%= @project.tonnage %>
 </p>
 <p>
-  <b>技术参数要求:</b>
+  <b>技术参数:</b>
   <%= @project.tech_spec %>
 </p>
 <p>
-  <b>分系统技术要求</b>
+  <b>部件技术</b>
   <%= @project.subsys_spec %>
 </p>
 <p>
-  <b>其他技术要求:</b>
+  <b>其他技术:</b>
   <%= @project.other_tech_requirement %>
 </p>
 <p>
-  <b>土建要求:</b>
-  <%= @project.construction_requirement %>
-</p>
-<p>
-  <b>试生产要求:</b>
-  <%= @project.test_run_requirement %>
-</p>
-<p>
-  <b>验收交付要求:</b>
+  <b>验收交付:</b>
   <%= @project.turn_over_requirement %>
 </p>
 <p>
-  <b>开始生产日期</b>
+  <b>设计开始日期</b>
+  <%= @project.design_start_date.strftime("%Y/%m/%d") unless @project.design_start_date.nil? %>
+</p>
+<p>
+  <b>生产开始日期</b>
   <%= @project.production_start_date.strftime("%Y/%m/%d") unless @project.production_start_date.nil? %>
 </p>
 <p>
@@ -67,16 +69,8 @@
   <%= @project.construction_finish_date.strftime("%Y/%m/%d") unless @project.construction_finish_date.nil? %>
 </p>
 <p>
-  <b>开始设备安装日期</b>
+  <b>设备安装开始日期</b>
   <%= @project.install_start_date.strftime("%Y/%m/%d") unless @project.install_start_date.nil? %>
-</p>
-<p>
-  <b>试生产日期</b>
-  <%= @project.test_run_date.strftime("%Y/%m/%d") unless @project.test_run_date.nil? %>
-</p>
-<p>
-  <b>设备交付日期</b>
-  <%= @project.turn_over_date.strftime("%Y/%m/%d") unless @project.turn_over_date.nil? %>
 </p>
 <p>
   <b>注释:</b>
@@ -87,7 +81,7 @@
   <%= @project.input_by.name %>
 </p>
 <p>
-  <b>项目分系统:</b>	
+  <b>项目部件:</b>	
   <ol>
  <% @project.proj_modules.order("created_at DESC").each do |f| %>
    <li>
@@ -134,9 +128,11 @@
 <% end %>
 
 <%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
-<%= link_to '生成分系统', new_project_proj_module_path(@project, :format => :js), :remote => true, :id => 'new_module_link' if vp_eng? %>
+<%= link_to '取消项目', cancel_project_path(@project), :method => :put if ceo? && !@project.cancelled %>
+<%= link_to '激活项目', re_activate_project_path(@project), :method => :put if ceo? && @project.cancelled %>
+<%= link_to '生成部件', new_project_proj_module_path(@project, :format => :js), :remote => true, :id => 'new_module_link' if vp_eng? %>
 <%= link_to '报告质量问题', new_project_quality_issue_path(@project) %>
-<%= link_to '输入联系Log', new_project_project_log_path(@project, :format => :js), :remote => true, :id => 'new_log_link' if has_log_right? %>
+<%= link_to '输入Log', new_project_project_log_path(@project, :format => :js), :remote => true, :id => 'new_log_link' if has_log_right? %>
 
 </div>
 

@@ -71,18 +71,18 @@ class PurchasingsController < ApplicationController
     @project = Project.find(params[:project_id])
     @purchasing = @project.purchasings.find(params[:id])
     if need_approve?(@purchasing)
-      if @purchasing.eng_id == session[:user_id]
-        @purchasing.update_attributes(:approved_by_eng => true, :approve_eng_id => session[:user_id],
-                                       :approve_date_eng => Time.now)
+      if is_tech_eng? && @purchasing.eng_id == session[:user_id]
+        @purchasing.update_attributes({:approved_by_eng => true, :approve_eng_id => session[:user_id],
+                                       :approve_date_eng => Time.now}, :as => :role_update)
       elsif vp_eng?
-        @purchasing.update_attributes(:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
-                                       :approve_date_vp_eng => Time.now)  
+        @purchasing.update_attributes({:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
+                                       :approve_date_vp_eng => Time.now}, :as => :role_update)  
       elsif pur_eng?
-        @purchasing.update_attributes(:approved_by_eng => true, :approve_pur_eng_id => session[:user_id],
-                                       :approve_date_pur_eng => Time.now)   
+        @purchasing.update_attributes({:approved_by_pur_eng => true, :approve_pur_eng_id => session[:user_id],
+                                       :approve_date_pur_eng => Time.now}, :as => :role_update)   
       elsif ceo?
-        @purchasing.update_attributes(:approved_by_eng => true, :approve_ceo_id => session[:user_id],
-                                       :approve_date_ceo => Time.now) 
+        @purchasing.update_attributes({:approved_by_ceo => true, :approve_ceo_id => session[:user_id],
+                                       :approve_date_ceo => Time.now}, :as => :role_update) 
       end
     
       redirect_to project_purchasings_path(@project, @purchasing)
@@ -90,15 +90,55 @@ class PurchasingsController < ApplicationController
       redirect_to URI.escape("/view_handler?index=0&msg=权限不足!") 
     end
   end
-  
+
+  def dis_approve
+    @project = Project.find(params[:project_id])
+    @purchasing = @project.purchasings.find(params[:id])
+    if need_approve?(@purchasing)
+      if is_tech_eng? && @purchasing.eng_id == session[:user_id]
+        @purchasing.update_attributes({:approved_by_eng => false, :approve_eng_id => session[:user_id],
+                                       :approve_date_eng => Time.now}, :as => :role_update)
+      elsif vp_eng?
+        @purchasing.update_attributes({:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
+                                       :approve_date_vp_eng => Time.now}, :as => :role_update)  
+      elsif pur_eng?
+        @purchasing.update_attributes({:approved_by_pur_eng => false, :approve_pur_eng_id => session[:user_id],
+                                       :approve_date_pur_eng => Time.now}, :as => :role_update)   
+      elsif ceo?
+        @purchasing.update_attributes({:approved_by_ceo => false, :approve_ceo_id => session[:user_id],
+                                       :approve_date_ceo => Time.now}, :as => :role_update) 
+      end
+    
+      redirect_to project_purchasings_path(@project, @purchasing)
+    else
+      redirect_to URI.escape("/view_handler?index=0&msg=权限不足!") 
+    end
+  end
+
+  def re_approve
+    @project = Project.find(params[:project_id])
+    @purchasing = @project.purchasings.find(params[:id])
+    if ceo?
+        @purchasing.update_attributes({:approved_by_eng => nil, :approve_eng_id => nil,:approve_date_eng => nil,
+                                       :approved_by_vp_eng => nil, :approve_vp_eng_id => nil, :approve_date_vp_eng => nil,
+                                       :approved_by_pur_eng => nil, :approve_pur_eng_id => nil, :approve_date_pur_eng => nil,
+                                       :approved_by_ceo => nil, :approve_ceo_id => nil, :approve_date_ceo => nil},
+                                       :as => :role_update)
+    
+      redirect_to project_purchasings_path(@project, @purchasing)
+    else
+      redirect_to URI.escape("/view_handler?index=0&msg=权限不足!") 
+    end
+  end
+      
   protected
   
   def need_approve?(purchasing)
-    if is_eng? && purchasing.eng_id == session[:user_id] && !purchasing.approved_by_eng
+    if is_tech_eng? && purchasing.eng_id == session[:user_id] && purchasing.approved_by_vp_eng.nil? && purchasing.approved_by_pur_eng.nil? && purchasing.approved_by_ceo.nil?
       return true
-    elsif vp_eng? && purchasing.approved_by_eng && !purchasing.approved_by_pur_eng && !purchasing.approved_by_ceo
+    elsif vp_eng? && purchasing.approved_by_eng && purchasing.approved_by_pur_eng.nil? && purchasing.approved_by_ceo.nil?
       return true
-    elsif pur_eng? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng && !purchasing.approved_by_ceo
+    elsif pur_eng? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng && purchasing.approved_by_ceo.nil?
       return true
     elsif ceo? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng && purchasing.approved_by_pur_eng 
       return true

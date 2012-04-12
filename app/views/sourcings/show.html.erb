@@ -50,11 +50,11 @@
 </p>
 <p>
   <b>签字人:</b>
-  <%= @sourcing.approve_vp_eng.name if @sourcing.approve_vp_eng_id.present? %>
+  <%= @sourcing.approve_vp_eng.name unless @sourcing.approved_by_vp_eng.nil? %>
 </p>
 <p>
   <b>签字日期:</b>
-  <%= @sourcing.approve_date_vp_eng.strftime("%Y/%m/%d") if @sourcing.approve_date_vp_eng.present? %>
+  <%= @sourcing.approve_date_vp_eng.strftime("%Y/%m/%d") unless @sourcing.approved_by_vp_eng.nil? %>
 </p>
 <p>
   <b>厂长签字:</b>
@@ -62,11 +62,11 @@
 </p>
 <p>
   <b>签字人:</b>
-  <%= @sourcing.approve_ceo.name if @sourcing.approve_ceo_id.present? %>
+  <%= @sourcing.approve_ceo.name unless @sourcing.approved_by_ceo.nil? %>
 </p>
 <p>
   <b>签字日期:</b>
-  <%= @sourcing.approve_date_ceo.strftime("%Y/%m/%d") if @sourcing.approve_date_ceo.present? %>
+  <%= @sourcing.approve_date_ceo.strftime("%Y/%m/%d") unless @sourcing.approved_by_ceo.nil? %>
 </p>
 <p>
   <b>输入/更改人:</b>
@@ -84,9 +84,10 @@
 </p>
 
 <%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
-<% link_to '批准采购', approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_approve' if need_approve?(@sourcing) %>
-<% if has_log_right? %>
-  <%= link_to '输入联系Log', new_sourcing_sourcing_log_path(@sourcing, :format => :js), :remote => true, :id => 'new_log_link' %>
-<% end %>
+<%= link_to '批准', approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_approve' if need_approve?(@sourcing) %>
+<%= link_to '否决', dis_approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_dis_approve' if need_approve?(@sourcing) %>
+<%= link_to '重新外协', re_approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_re_approve' if ceo? %>
+<%= link_to '输入Log', new_sourcing_sourcing_log_path(@sourcing, :format => :js), :remote => true, :id => 'new_log_link' if has_log_right? %>
+
 </div>
 

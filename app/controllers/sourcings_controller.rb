@@ -73,12 +73,12 @@ class SourcingsController < ApplicationController
     @sourcing = @project.sourcings.find(params[:id])
     if need_approve?(@sourcing)  
       if vp_eng?
-        @sourcing.update_attributes!(:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
-                                    :approve_date_vp_eng => Date.today, :as => :role_update) 
-     
+        @sourcing.update_attributes({:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
+                                       :approve_date_vp_eng => Time.now}, :as => :role_update)
+
       elsif ceo?
-        @sourcing.update_attributes(:approved_by_ceo => true, :approve_ceo_id => session[:user_id],
-                                    :approve_date_ceo => Time.now, :as => :role_update) 
+        @sourcing.update_attributes({:approved_by_ceo => true, :approve_ceo_id => session[:user_id],
+                                    :approve_date_ceo => Time.now}, :as => :role_update) 
       end
     
       redirect_to project_sourcing_path(@project, @sourcing)
@@ -86,11 +86,46 @@ class SourcingsController < ApplicationController
       redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")    
     end
   end
+
+  def dis_approve
     
+    @project = Project.find(params[:project_id])
+    @sourcing = @project.sourcings.find(params[:id])
+    if need_approve?(@sourcing)  
+      if vp_eng?
+        @sourcing.update_attributes({:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
+                                       :approve_date_vp_eng => Time.now}, :as => :role_update)
+
+      elsif ceo?
+        @sourcing.update_attributes({:approved_by_ceo => false, :approve_ceo_id => session[:user_id],
+                                    :approve_date_ceo => Time.now}, :as => :role_update) 
+      end
+    
+      redirect_to project_sourcing_path(@project, @sourcing)
+    else
+      redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")    
+    end
+  end
+
+  def re_approve
+    
+    @project = Project.find(params[:project_id])
+    @sourcing = @project.sourcings.find(params[:id])
+    if ceo?  
+      @sourcing.update_attributes({:approved_by_vp_eng => nil, :approve_vp_eng_id => nil, :approve_date_vp_eng => nil, 
+                                   :approved_by_ceo => nil, :approve_ceo_id => nil, :approve_date_ceo => nil},
+                                   :as => :role_update)
+    
+      redirect_to project_sourcing_path(@project, @sourcing)
+    else
+      redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")    
+    end
+  end
+        
   protected
   
   def need_approve?(sourcing)
-    if vp_eng? && !sourcing.approved_by_ceo
+    if vp_eng? && sourcing.approved_by_ceo.nil?
       return true
     elsif ceo? && sourcing.approved_by_vp_eng 
       return true

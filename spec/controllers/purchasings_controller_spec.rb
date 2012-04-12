@@ -127,6 +127,145 @@ describe PurchasingsController do
       response.should redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")
     end
     
+   it "should approve for eng in charge" do
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:mech_eng] = true
+      session[:user_id] = u.id
+      pur = Factory(:purchasing, :input_by_id => u.id, :eng_id => u.id)
+      get 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_eng => true, :approve_eng_id => session[:user_id],
+                                                                          :approve_date_eng => Time.now }
+      pur.reload.approved_by_eng.should == true
+      pur.reload.approve_eng_id.should == session[:user_id]
+      pur.reload.approve_date_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+      response.should redirect_to project_purchasings_path(proj, pur)      
+    end    
+
+   it "should approve for vp eng" do
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:vp_eng] = true
+      session[:user_id] = u.id
+      pur = Factory(:purchasing, :input_by_id => u.id, :approved_by_eng => true)
+      get 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
+                                                                          :approve_date_vp_eng => Time.now }
+      response.should redirect_to project_purchasings_path(proj, pur) 
+      pur.reload.approved_by_vp_eng.should == true
+      pur.reload.approve_vp_eng_id.should == session[:user_id]
+      pur.reload.approve_date_vp_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+           
+    end    
+        
+   it "should approve for pur eng in charge" do
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:pur_eng] = true
+      session[:user_id] = u.id
+      pur = Factory(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :approved_by_vp_eng => true)
+      get 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_pur_eng => true, :approve_pur_eng_id => session[:user_id],
+                                                                          :approve_date_pur_eng => Time.now }
+      response.should redirect_to project_purchasings_path(proj, pur)  
+      pur.reload.approved_by_pur_eng.should == true
+      pur.reload.approve_pur_eng_id.should == session[:user_id]
+      pur.reload.approve_date_pur_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+          
+    end    
+
+   it "should approve for ceo" do
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:ceo] = true
+      session[:user_id] = u.id
+      pur = Factory(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :approved_by_pur_eng => true, :approved_by_vp_eng => true)
+      get 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_ceo => true, :approve_ceo_id => session[:user_id],
+                                                                          :approve_date_ceo => Time.now }
+      response.should redirect_to project_purchasings_path(proj, pur)  
+      pur.reload.approved_by_ceo.should == true
+      pur.reload.approve_ceo_id.should == session[:user_id]
+      pur.reload.approve_date_ceo.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+    
+    end    
+        
+  end
+  
+  describe "dis_approve" do
+   it "should dis_approve for eng in charge" do
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:mech_eng] = true
+      session[:user_id] = u.id
+      pur = Factory(:purchasing, :input_by_id => u.id, :eng_id => u.id)
+      get 'dis_approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_eng => false, :approve_eng_id => session[:user_id],
+                                                                          :approve_date_eng => Time.now }
+      pur.reload.approved_by_eng.should == false
+      pur.reload.approve_eng_id.should == session[:user_id]
+      pur.reload.approve_date_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+      response.should redirect_to project_purchasings_path(proj, pur)      
+    end    
+
+   it "should dis_approve for vp eng" do
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:vp_eng] = true
+      session[:user_id] = u.id
+      pur = Factory(:purchasing, :input_by_id => u.id, :approved_by_eng => true)
+      get 'dis_approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
+                                                                          :approve_date_vp_eng => Time.now }
+      response.should redirect_to project_purchasings_path(proj, pur) 
+      pur.reload.approved_by_vp_eng.should == false
+      pur.reload.approve_vp_eng_id.should == session[:user_id]
+      pur.reload.approve_date_vp_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+           
+    end    
+        
+   it "should dis_approve for pur eng in charge" do
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:pur_eng] = true
+      session[:user_id] = u.id
+      pur = Factory(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :approved_by_vp_eng => true)
+      get 'dis_approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_pur_eng => false, :approve_pur_eng_id => session[:user_id],
+                                                                          :approve_date_pur_eng => Time.now }
+      response.should redirect_to project_purchasings_path(proj, pur)  
+      pur.reload.approved_by_pur_eng.should == false
+      pur.reload.approve_pur_eng_id.should == session[:user_id]
+      pur.reload.approve_date_pur_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+          
+    end    
+
+   it "should dis_approve for ceo" do
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:ceo] = true
+      session[:user_id] = u.id
+      pur = Factory(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :approved_by_pur_eng => true, :approved_by_vp_eng => true)
+      get 'dis_approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_ceo => false, :approve_ceo_id => session[:user_id],
+                                                                          :approve_date_ceo => Time.now }
+      response.should redirect_to project_purchasings_path(proj, pur)  
+      pur.reload.approved_by_ceo.should == false
+      pur.reload.approve_ceo_id.should == session[:user_id]
+      pur.reload.approve_date_ceo.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+    
+    end        
+  end
+  
+  describe "re_approve" do
+    it "should allow ceo to re set the aprpove process" do
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:ceo] = true
+      session[:user_id] = u.id
+      pur = Factory(:purchasing, :input_by_id => u.id)
+      get 're_approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_ceo => nil, :approve_ceo_id => nil, :approve_date_ceo => nil,
+                                                                            :approved_by_pur_eng => nil, :approve_pur_eng_id => nil, :approve_date_pur_eng => nil,
+                                                                            :approved_by_eng => nil, :approve_eng_id => nil, :approve_date_eng => nil, 
+                                                                            :approved_by_vp_eng => nil, :approve_vp_eng_id => nil, :approve_date_vp_eng => nil   }
+      response.should redirect_to project_purchasings_path(proj, pur)  
+      pur.reload.approved_by_ceo.should == nil 
+      pur.reload.approved_by_eng.should == nil
+      pur.reload.approved_by_pur_eng.should == nil
+      pur.reload.approved_by_vp_eng.should == nil     
+    end
   end
   
   describe "GET 'show'" do

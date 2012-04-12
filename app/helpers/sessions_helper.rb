@@ -101,6 +101,14 @@ module SessionsHelper
     session[:src_eng]
   end
   
+  def is_eng?
+    mech_eng? || elec_eng? || hydr_eng? || src_eng? || inst_eng? || pur_eng? 
+  end
+  
+  def is_tech_eng?
+    mech_eng? || elec_eng? || hydr_eng? || src_eng? || inst_eng? 
+  end
+    
   def return_mfg
     Manufacturer.order("name")  
   end
@@ -251,14 +259,6 @@ module SessionsHelper
   
   def returen_active_supplier
     Supplier.active_supplier
-  end
-  
-  def is_eng?
-    mech_eng? || elec_eng? || hydr_eng? || src_eng? || inst_eng? || pur_eng? 
-  end
-  
-  def is_tech_eng?
-    mech_eng? || elec_eng? || hydr_eng? || src_eng? || inst_eng? 
   end
   
   private

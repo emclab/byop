@@ -16,12 +16,12 @@
 
 <% @purchasings.each do |pur| %>
   <tr>
-  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{project_purchasings_path(@project, pur)}" if has_show_right? %></td>
+  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{project_purchasing_path(@project, pur)}" if has_show_right? %></td>
     <td><%= pur.prod_name %></td>
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.delivery_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.delivered %></td>  
-    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_project_puruction_path(@project, pur)}" if has_update_right? %></td>
+    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_project_purchasing_path(@project, pur)}" if has_update_right? %></td>
     <td><%= link_to '批准', approve_project_purchasing_path(@project, pur), :method => :put if need_approve?(pur) %></td>
     <td><%= link_to '状态', "/view_handler?index=1&url=#{purchasing_purchasing_logs_path(pur)}" %></td>
   </tr>

@@ -114,6 +114,15 @@ describe SourcingsController do
       get 'update', :project_id => proj.id, :id => src.id, :sourcing => {:start_date => nil}
       response.should render_template('edit')
     end
+    
+    it "should update approved_by_vp_eng" do
+      proj = Factory(:project)
+      session[:vp_eng] = true
+      u = Factory(:user)
+      src = Factory(:sourcing, :input_by_id => u.id, :project_id => proj.id)
+      get 'update', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_vp_eng => true}
+      response.should redirect_to URI.escape("/view_handler?index=0&msg=计划已更改！")
+    end    
         
   end
 
@@ -133,8 +142,8 @@ describe SourcingsController do
       proj = Factory(:project)
       u = Factory(:user)
       session[:user_id] = u.id
-      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => false, :approved_by_ceo => false)
-      post 'approve', :project_id => proj.id, :id => src.id ,:method => :put, :sourcing => {:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => false)
+      get 'approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
                                                                           :approve_date_vp_eng => Time.now }
       src.reload.approved_by_vp_eng.should == true
       src.reload.approve_vp_eng_id.should == session[:user_id]
@@ -142,6 +151,70 @@ describe SourcingsController do
       response.should redirect_to project_sourcing_path(proj, src)      
     end
     
+    it "should approve for ceo" do
+      session[:ceo] = true
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:user_id] = u.id
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => true)
+      get 'approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_ceo => true, :approve_ceo_id => session[:user_id],
+                                                                          :approve_date_ceo => Time.now }
+      src.reload.approved_by_ceo.should == true
+      src.reload.approve_ceo_id.should == session[:user_id]
+      src.reload.approve_date_ceo.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+      response.should redirect_to project_sourcing_path(proj, src)      
+    end    
+    
+  end
+  
+  describe "dis_apporve" do
+    it "should dis_approve for vp_eng" do
+      session[:vp_eng] = true
+      session[:ceo] = false
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:user_id] = u.id
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => false)
+      get 'dis_approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
+                                                                          :approve_date_vp_eng => Time.now }
+      src.reload.approved_by_vp_eng.should == false
+      src.reload.approve_vp_eng_id.should == session[:user_id]
+      src.reload.approve_date_vp_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+      response.should redirect_to project_sourcing_path(proj, src)      
+    end
+    
+    it "should dis_approve for ceo" do
+      session[:ceo] = true
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:user_id] = u.id
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => true)
+      get 'dis_approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_ceo => false, :approve_ceo_id => session[:user_id],
+                                                                          :approve_date_ceo => Time.now }
+      src.reload.approved_by_ceo.should == false
+      src.reload.approve_ceo_id.should == session[:user_id]
+      src.reload.approve_date_ceo.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+      response.should redirect_to project_sourcing_path(proj, src)      
+    end        
+  end
+  
+  describe "re_approve by ceo" do
+    it "should re_approve for ceo" do
+      session[:ceo] = true
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:user_id] = u.id
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => true)
+      get 're_approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_ceo => nil, :approve_ceo_id => nil, :approve_date_ceo => nil,
+                                                                              :approved_by_vp_eng => nil, :approve_vp_eng_id => nil, :approve_date_vp_eng => nil }
+      src.reload.approved_by_ceo.should == nil
+      src.reload.approve_ceo_id.should == nil
+      src.reload.approve_date_ceo.should == nil
+      src.reload.approved_by_vp_eng.should == nil
+      src.reload.approve_vp_eng_id.should == nil
+      src.reload.approve_date_vp_eng.should == nil      
+      response.should redirect_to project_sourcing_path(proj, src)      
+    end            
   end
 
   describe "GET 'show'" do

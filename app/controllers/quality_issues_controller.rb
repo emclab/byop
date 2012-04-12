@@ -8,7 +8,7 @@ class QualityIssuesController < ApplicationController
   
   def index
     @title = '项目质量问题'
-    @quality_issues = @project.present? ? @project.quality_issues.order("report_date DESC, project_id DESC").paginate(:per_page => 40, :page => params[:page]) : projectPurchase.where('created_at > ?', Time.now - 1000.day).order("report_date DESC, project_id DESC").paginate(:per_page => 40, :page => params[:page])        
+    @quality_issues = @project.present? ? @project.quality_issues.order("report_date DESC, project_id DESC").paginate(:per_page => 40, :page => params[:page]) : QualityIssue.where('created_at > ?', Time.now - 1000.day).order("report_date DESC, project_id DESC").paginate(:per_page => 40, :page => params[:page])        
   end
 
   def new

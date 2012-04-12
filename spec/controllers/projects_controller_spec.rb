@@ -57,6 +57,7 @@ describe ProjectsController do
       lambda do
         get 'create', :project => proj
         response.should redirect_to URI.escape("/view_handler?index=0&msg=项目设备信息已保存！")
+        #response.should render_template("new")
       end.should change(Project, :count).by(1)
     end
     
@@ -110,6 +111,27 @@ describe ProjectsController do
         
   end
 
+  describe "cancel by ceo" do
+    it "should be able to cancell the project by ceo" do
+      session[:ceo] = true
+      session[:user_id] = 1
+      proj = Factory(:project)
+      put 'cancel', :id => proj.id, :project => {:cancelled => true, :cancel_date => Time.now, 
+                                                 :input_by_id => session[:user_id]}
+      proj.reload.cancelled.should == true
+    end
+  end
+  
+  describe "re activate by ceo" do
+    it "should be able to reactivate the project by ceo" do
+      session[:ceo] = true
+      session[:user_id] = 1
+      proj = Factory(:project)
+      put 're_activate', :id => proj.id, :project => {:cancelled => false, :cancel_date => Time.now, :input_by_id => session[:user_id]}
+      proj.reload.cancelled.should == false
+    end
+  end  
+
   describe "GET 'show'" do
     it "should reject those without right" do
       u = Factory(:user)
@@ -127,5 +149,5 @@ describe ProjectsController do
       response.should be_success
     end
   end
-
+  
 end
