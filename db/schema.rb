@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120408203949) do
+ActiveRecord::Schema.define(:version => 20120413011624) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -224,10 +224,6 @@ ActiveRecord::Schema.define(:version => 20120408203949) do
   create_table "quality_issues", :force => true do |t|
     t.string   "name"
     t.integer  "project_id"
-    t.integer  "production_id"
-    t.integer  "installation_id"
-    t.integer  "sourcing_id"
-    t.integer  "purchasing_id"
     t.date     "report_date"
     t.integer  "report_by_id"
     t.text     "issue_desp"

@@ -65,7 +65,7 @@ after "deploy", "deploy:copy_files"
    
    task :copy_files,:roles => :app do
      #run "cp /home/cjadmin/shared/production.rb /var/www/byop/current/config/environments/production.rb"
-     run "cp /home/cjadmin/shared/database.yml /var/www/byop/current/config/database.yml"
+     #run "cp /home/cjadmin/shared/database.yml /var/www/byop/current/config/database.yml"
      #run "cp /home/cjadmin/shared/Gemfile /var/www/byop/current/Gemfile"
  
    end
