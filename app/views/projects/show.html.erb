@@ -21,7 +21,7 @@
 <% if @project.cancelled %>
   <p>
     <b>项目取消日期:</b>
-    <%= @project.cancell_date %>
+    <%= @project.cancel_date %>
   </p>
 <% end %>
 <p>
@@ -96,8 +96,8 @@
     <%= @project.customer_contact_info %>
   </p>
   <p>
-    <b>预计合同金额（￥）</b>
-    <%= @project.budget %>
+    <b>合同金额（￥）</b>
+    <%= number_with_precision(@project.budget, :precision => 2) %>
   </p>
   <p>
     <b>发放标书日期:</b>

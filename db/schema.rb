@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120413011624) do
+ActiveRecord::Schema.define(:version => 20120416170859) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(:version => 20120413011624) do
     t.text     "customer_contact_info"
     t.string   "status"
     t.string   "install_address"
-    t.string   "budget"
+    t.decimal  "budget"
     t.string   "tonnage"
     t.text     "tech_spec"
     t.text     "subsys_spec"

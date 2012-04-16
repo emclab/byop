@@ -4,9 +4,9 @@
   <%= f.input :customer_id, :label => '客户：', :collection => return_active_customer, :label_method => :short_name, :value_method => :id, :include_blank => true %> 
   <%= f.input :status, :label => '项目状态：', :collection => return_project_status %>
   <%= f.input :customer_contact_info, :label => '联系信息：', :hint => '联系人及电话', :input_html => { :rows => 4} %> 
-  <%= f.input :budget, :label => '预计合同金额（￥）：' %>
-  <%= f.input :install_address, :label => '设备安装地点：' %> 
-    
+  <%= f.input :budget, :label => '合同金额（￥）：' %>
+  <%= f.input :install_address, :label => '设备安装地点：' %>  
+  <%= f.input :tech_spec, :label => '技术参数：', :input_html => { :rows => 8} %>    
   <%= f.input :bid_doc_available_date, :label => '标书发放日期：', :as => :string %>
   <%= f.input :bid_deadline, :label => '投标截止日期：', :as => :string %> 
   <%= f.input :bid_opening_date, :label => '开标日期：', :as => :string %> 

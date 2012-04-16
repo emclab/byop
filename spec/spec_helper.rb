@@ -30,5 +30,7 @@ RSpec.configure do |config|
   #render_views in controllers  
   config.render_views
 
-  
+  def test_sign_in(user)
+    controller.sign_in(user)
+  end
 end

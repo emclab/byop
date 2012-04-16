@@ -91,7 +91,7 @@ class ProjectsController < ApplicationController
   end
   
   def has_update_right?
-    inst_eng? || comp_sec? || vp_sales? || coo? || ceo?
+    inst_eng? || vp_eng? || comp_sec? || vp_sales? || coo? || ceo?
   end
   
   def has_log_right?
