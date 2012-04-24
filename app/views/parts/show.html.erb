@@ -1,0 +1,63 @@
+<div id="main_body">
+
+<h1>入库物料内容</h1>
+
+<p>
+  <b>#:</b>
+  <%= @part.id %>
+</p>
+<p>
+  <b>入库日期:</b>
+  <%= @part.in_date.strftime("%Y/%m/%d") %>
+</p>
+<p>
+  <b>物料名称:</b>
+  <%= @part.name %>
+</p>
+<p>
+  <b>规格:</b>
+  <%= @part.spec %>
+</p>
+<p>
+  <b>入库数量:</b>
+  <%= @part.in_qty %><%= @part.unit %>
+</p>
+<p>
+  <b>库存数量:</b>
+  <%= @part.stock_qty %><%= @part.unit %>
+</p>
+<p>
+  <b>供应商:</b>
+  <%= @part.supplier %>
+</p>
+<p>
+  <b>制造商:</b>
+  <%= @part.manufacturer %>
+</p>
+<p>
+  <b>验收记录:</b>
+  <%= @part.inspection %>
+</p>
+<p>
+  <b>存放地点:</b>
+  <%= @part.storage_location %>
+</p>
+<p>
+  <b>输入/更改人:</b>
+  <%= @part.input_by.name %>
+</p>
+<p>
+  <b>出库记录:</b>	
+  <ul>
+<% @part.out_logs.order("created_at DESC").each do |f| %>
+  <li>
+  <%= f.created_at.strftime("%Y-%m-%d").to_s %>&nbsp;&nbsp;<%= f.out_qty %>&nbsp;&nbsp;<%= f.receiver.name %>&nbsp;&nbsp;<%= f.for_what %>
+  </li>
+<% end %>
+</ul>
+</p>
+
+<%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+&nbsp;<%= link_to '出库物料', new_part_out_log_path(@part, :format => :js), :remote => true, :id => 'new_log_link' if has_log_right? %>
+</div>
+

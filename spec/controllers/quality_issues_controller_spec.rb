@@ -96,29 +96,21 @@ describe QualityIssuesController do
   end
 
   describe "GET 'edit'" do
-    it "reject those without rights" do
-      production = Factory(:production)
-      inst = Factory(:installation)
-      src = Factory(:sourcing)
-      pur = Factory(:purchasing)     
+    it "reject those without rights" do  
       cust = Factory(:customer)      
       proj = Factory(:project, :customer_id => cust.id)
-      qi = Factory(:quality_issue, :project_id => proj.id, :production_id => production.id, :installation_id => inst.id,
-                     :sourcing_id => src.id, :purchasing_id => pur.id)
+      qi = Factory(:quality_issue, :project_id => proj.id)
       get 'edit', :project_id => proj.id, :id => qi.id
       response.should redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
     end
     
     it "should OK for vp eng" do
-      production = Factory(:production)
-      inst = Factory(:installation)
-      src = Factory(:sourcing)
-      pur = Factory(:purchasing)     
+   
       cust = Factory(:customer)
       proj = Factory(:project, :customer_id => cust.id)
       session[:vp_eng] = true
       u = Factory(:user)
-      qi = Factory(:quality_issue, :input_by_id => u.id, :project_id => proj.id, :production_id => production.id)
+      qi = Factory(:quality_issue, :input_by_id => u.id, :project_id => proj.id)
       get 'edit', :project_id => proj.id, :id => qi.id
       response.should be_success
     end
@@ -126,27 +118,21 @@ describe QualityIssuesController do
 
   describe "GET 'update'" do
     it "success for ceo" do
-      production = Factory(:production)
-      inst = Factory(:installation)
-      src = Factory(:sourcing)
-      pur = Factory(:purchasing)
       cust = Factory(:customer)
       proj = Factory(:project, :customer_id => cust.id)
       session[:vp_eng] = true
       u = Factory(:user)
-      qi = Factory(:quality_issue, :input_by_id => u.id, :project_id => proj.id, :production_id => production.id, :installation_id => inst.id,
-                     :sourcing_id => src.id, :purchasing_id => pur.id)
+      qi = Factory(:quality_issue, :input_by_id => u.id, :project_id => proj.id)
       get 'update', :project_id => proj.id, :id => qi.id, :quality_issue => {:name => 'new new name'}
       response.should redirect_to URI.escape("/view_handler?index=0&msg=质量问题已更改！")
     end
     
     it "redirect to 'edit' with data error" do
-      installation = Factory(:installation)  
       cust = Factory(:customer)
       proj = Factory(:project, :customer_id => cust.id)
       session[:ceo] = true
       u = Factory(:user)
-      qi = Factory(:quality_issue, :input_by_id => u.id, :project_id => proj.id, :installation_id => installation.id)
+      qi = Factory(:quality_issue, :input_by_id => u.id, :project_id => proj.id)
       get 'update', :project_id => proj.id, :id => qi.id, :quality_issue => {:report_date => nil}
       response.should render_template('edit')
     end

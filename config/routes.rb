@@ -1,5 +1,23 @@
 Byop::Application.routes.draw do
   
+  get "out_logs/new"
+
+  get "out_logs/create"
+
+  get "out_logs/show"
+
+  get "parts/index"
+
+  get "parts/new"
+
+  get "parts/create"
+
+  get "parts/edit"
+
+  get "parts/update"
+
+  get "parts/show"
+
   get "quality_issues/index"
 
   get "quality_issues/new"
@@ -253,6 +271,10 @@ Byop::Application.routes.draw do
   resources :installation_purchases do
     resources :installation_purchase_logs, :only => [:new, :create]
   end  
+  
+  resources :parts do
+    resources :out_logs, :only => [:new, :create, :show]
+  end
   
    
   

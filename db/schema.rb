@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120416170859) do
+ActiveRecord::Schema.define(:version => 20120420031705) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -109,6 +109,35 @@ ActiveRecord::Schema.define(:version => 20120416170859) do
     t.string   "product"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "out_logs", :force => true do |t|
+    t.datetime "out_date"
+    t.integer  "receiver_id"
+    t.integer  "out_qty"
+    t.integer  "project_id"
+    t.string   "for_what"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "input_by_id"
+    t.integer  "part_id"
+  end
+
+  create_table "parts", :force => true do |t|
+    t.string   "name"
+    t.datetime "in_date"
+    t.integer  "in_qty"
+    t.string   "spec"
+    t.integer  "input_by_id"
+    t.integer  "stock_qty"
+    t.string   "manufacturer"
+    t.text     "note"
+    t.string   "storage_location"
+    t.string   "inspection"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "unit"
+    t.string   "supplier"
   end
 
   create_table "production_logs", :force => true do |t|

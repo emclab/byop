@@ -1,0 +1,31 @@
+<div id='main_body'>
+<h1>出库内容</h1>
+ 
+<p class="notice"><%= notice %></p>
+
+<p>
+  <b>出库日期:</b>
+  <%= @out_log.out_date %>
+</p> 
+<p>
+  <b>收件人:</b>
+  <%= @out_log.receiver.name %>
+</p>
+<p>
+  <b>出库数量:</b>
+  <%= @out_log.out_qty %><%= @part.unit %>
+</p> 
+<p>
+  <b>所用项目:</b>
+  <%= @out_log.project.name if @out_log.project_id.present? %>
+</p>
+<p>
+  <b>用途:</b>
+  <%= @out_log.for_what %>
+</p>
+<p>
+  <b>输入/更改:</b>
+  <%= @out_log.input_by.name %>
+</p> 
+<%= link_to 'Back', part_path(@part) %>
+</div>

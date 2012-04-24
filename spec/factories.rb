@@ -196,6 +196,26 @@ Factory.define :supplier do |f|
   f.main_product            'valve,shaft'
 end
 
+Factory.define :part do |f|
+  f.name                    'flow meter'
+  f.spec                    'vse 1040'
+  f.in_qty                  2
+  f.stock_qty               1
+  f.manufacturer            'vse'
+  f.storage_location        'shelf A, 304'
+  f.unit                    'piece'
+  f.in_date                 '2012-2-3'
+end
+
+Factory.define :out_log do |f|
+  f.part_id                 1
+  f.out_date                '2012-3-4'
+  f.receiver_id              1
+  f.out_qty                 1
+  f.project_id              2
+  f.for_what                'for fun'
+end
+
 Factory.define :proj_module do |f|
   f.project_id              1
   f.name                    'blaaaa'  

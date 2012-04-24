@@ -1,0 +1,10 @@
+<%= simple_form_for([@part, @out_log]) do |f| %>    
+ 
+  <%= f.input :out_date, :label => "出库日期：", :as => :string %>
+  <%= f.input :out_qty, :label => "出库数量：" %>
+  <%= f.input :receiver_id, :label => "收件人 ：", :collection => return_eng %> 
+  <%= f.input :project_id, :label => '所用项目:', :collection => Project.ongoing_project.order("created_at DESC") %> 
+  <%= f.input :for_what, :label => '用途:' %> 
+  
+  <%= f.button :submit, '保存' %>  
+<% end %> 

@@ -88,12 +88,19 @@ $(function() {
    $("#quality_issue_close_date").datepicker({dateFormat: 'yy-mm-dd'});
 });
 // end production, sourcing, purchasing, installation
-// for AJAX
+//part
 $(function() {
-   $("#test_sample_return_date").live('click', function() {
+   $("#part_in_date").datepicker({dateFormat: 'yy-mm-dd'});
+});
+//end part
+// for AJAX date picker
+// part out log
+$(function() {
+   $("#out_log_out_date").live('click', function() {
 		$(this).datepicker({dateFormat: 'yy-mm-dd', currentText: '', showOn:'focus' }).removeAttr('value').focus();
 	});   
 });
+//end part out log
 
 // end datepicker
 

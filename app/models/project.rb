@@ -29,7 +29,7 @@ class Project < ActiveRecord::Base
   scope :not_cancelled_project, where(:cancelled => false)
   scope :cancelled_project, where(:cancelled => true) 
   scope :completed_project, where(:completed => true) 
-  scope :ongoing_project, where(:completed => false)                  
+  scope :ongoing_project, where(:completed => false, :cancelled => false)                  
 end
 
  

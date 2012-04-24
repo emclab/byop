@@ -6,7 +6,7 @@
   <%= f.input :for_what, :lable => '用途：', :input_html => {:rows => 4 } %>
   <%= f.input :need_date, :label => '需要日期：', :as => :string %> 
   <%= f.input :qty, :label => '申请数量：' %>
-  <%= f.input :unit, :label => '单位：' %>
+  <%= f.input :unit, :label => '单位：', :collection => return_unit %>
   <%= f.input :unit_price, :label => '单价（￥）：' %>
   <%= f.input :total, :label => '总额（￥）：' %>
   <%= f.input :applicant_id, :label => '申请工程师：', :collection => return_inst_eng, :label_method => :name, :value_method => :id %>
