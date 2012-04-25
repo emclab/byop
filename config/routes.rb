@@ -269,6 +269,9 @@ Byop::Application.routes.draw do
     end          
   end  
   resources :installation_purchases do
+    member do
+      put :warehousing
+    end
     resources :installation_purchase_logs, :only => [:new, :create]
   end  
   

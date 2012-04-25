@@ -2,6 +2,16 @@
 require 'spec_helper'
 
 describe InstallationPurchase do
+  it "should be OK for normal reccord" do
+    s = Factory.build(:installation_purchase)
+    s.should be_valid  
+  end
+  
+  it "should reject non integer qty purchased" do
+    s = Factory.build(:installation_purchase, :qty_purchased => 2.4, :purchased => true)
+    s.should_not be_valid
+  end
+  
   it "should reject nil part name" do
     s = Factory.build(:installation_purchase, :part_name => nil)
     s.should_not be_valid

@@ -2,7 +2,7 @@
 class Project < ActiveRecord::Base
   attr_accessible :name, :customer_id, :status, :install_address, :budget, :tech_spec, 
                   :bid_doc_available_date, :bid_deadline, :bid_opening_date, :contract_date,
-                  :production_start_date,  :note, :customer_contact_info,
+                  :production_start_date,  :note, :customer_contact_info, :awarded,
                   :as => :role_new
   attr_accessible :name,       :status, :install_address, :budget, :tech_spec, :subsys_spec, :other_tech_requirement, 
                   :construction_requirement, :turn_over_requirement, :bid_doc_available_date, :bid_deadline, :bid_opening_date, :contract_date,

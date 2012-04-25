@@ -130,7 +130,8 @@ Factory.define :installation_purchase do |f|
   f.need_date               '2012-2-1'
   f.input_by_id              1 
   f.purchased                false   
-  f.total                    65.90        
+  f.total                    65.90  
+  f.warehoused               false      
 end
 
 Factory.define :installation_purchase_log do |f|

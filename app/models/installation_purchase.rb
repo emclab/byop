@@ -1,12 +1,12 @@
 # encoding: utf-8
 class InstallationPurchase < ActiveRecord::Base
   attr_accessible :installation_id, :applicant_id, :qty, :unit, :unit_price, :total, :for_what,
-                  :part_name, :spec, :need_date,
+                  :part_name, :spec, :need_date, 
                   :as => :role_new
   attr_accessible :applicant_id, :qty, :unit, :unit_price, :total, :for_what, :need_date, 
                   :part_name, :spec, :total_paid, :purchased, :qty_purchased, :qty_in_stock,
                   :approved_by_vp_eng, :approve_vp_eng_id, :approve_date_vp_eng, :approved_by_ceo,
-                  :approve_by_ceo_id, :approve_date_ceo,
+                  :approve_by_ceo_id, :approve_date_ceo, :storage_location, 
                   :as => :role_update
                    
   #has_and_belongs_to_many :categories
@@ -21,9 +21,10 @@ class InstallationPurchase < ActiveRecord::Base
   validates_numericality_of :installation_id, :greater_than => 0
   validates_numericality_of :applicant_id, :greater_than => 0
   validates :need_date, :presence => true
-  validates :qty, :presence => true
+  validates :qty, :presence => true, :numericality => {:only_integer => true}
+  validates :qty_purchased, :numericality => {:only_integer => true }, :if => "purchased"
   validates :unit, :presence => true
   validates :total, :presence => true
-  validates_numericality_of :qty_in_stock, :greater_than => 0, :if => "purchased"
+  validates_numericality_of :qty_in_stock, :greater_than => 0, :only_integer => true, :if => "purchased"
   validates_numericality_of :total_paid, :greater_than => 0, :if => "purchased"
 end

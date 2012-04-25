@@ -155,5 +155,32 @@ describe InstallationPurchasesController do
       response.should redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")
     end    
   end
+  
+  describe "warehousing" do
+    it "should allow warehousing for pur_eng for right record" do
+      session[:pur_eng] = true
+      inst = Factory(:installation)
+      u = Factory(:user)
+      session[:user_id] = u.id     
+      pur = Factory(:installation_purchase, :input_by_id => u.id, :installation_id => inst.id, :qty_in_stock => 2, 
+                    :total_paid => 71.5, :purchased => true, :qty_purchased => 2)
+      lambda do                
+        put 'warehousing', :id => pur.id, :part => {:storage_location => 'somewhere', :in_date => '2012-3-2'}
+        response.should redirect_to installation_installation_purchase_path(inst, pur)
+        flash[:notice].should == '物料已入库！'
+      end.should change(Part, :count).by(1)
+    end
+    
+    it "should reject for those without right" do
+      inst = Factory(:installation)
+      u = Factory(:user)
+      session[:user_id] = u.id  
+      pur = Factory(:installation_purchase, :input_by_id => u.id, :installation_id => inst.id, :qty_in_stock => 2, 
+                    :total_paid => 71.5, :purchased => true, :qty_purchased => 2)   
+      put 'warehousing', :id => pur.id, :part => {:storage_location => 'somewhere', :in_date => '2012-3-2'}
+      response.should be_success   ##no redirect_to
+    end
+  end
 
 end
+

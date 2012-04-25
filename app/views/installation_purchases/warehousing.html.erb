@@ -1,0 +1,9 @@
+<%= simple_form_for @part, :method => :put, :url => {:controller => 'installation_purchases', :action => 'warehousing' } do |f| %>    
+
+  <%= f.input :in_date, :label => '入库日期：', :as => :string %>
+  <%= f.input :storage_location, :label => '存放地点：' %> 
+  <%= f.input :manufacturer, :label => '制造商：' %>
+  <%= f.input :supplier, :label => '供应商：' %>
+   
+  <%= f.button :submit, '入库' %>  
+<% end %>  

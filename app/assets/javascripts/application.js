@@ -100,6 +100,11 @@ $(function() {
 		$(this).datepicker({dateFormat: 'yy-mm-dd', currentText: '', showOn:'focus' }).removeAttr('value').focus();
 	});   
 });
+$(function() {
+   $("#warehousing_in_date").live('click', function() {
+		$(this).datepicker({dateFormat: 'yy-mm-dd', currentText: '', showOn:'focus' }).removeAttr('value').focus();
+	});   
+});
 //end part out log
 
 // end datepicker
