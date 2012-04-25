@@ -10,6 +10,7 @@
   <%= f.input :bid_doc_available_date, :label => '标书发放日期：', :as => :string %>
   <%= f.input :bid_deadline, :label => '投标截止日期：', :as => :string %> 
   <%= f.input :bid_opening_date, :label => '开标日期：', :as => :string %> 
+  <%= f.input :awarded, :label => '签合同了？：', :collection => return_yes_no, :include_blank => true, :selected => @project.awarded %>
   <%= f.input :contract_date, :label => '合同日期：', :as => :string %>  
   <%= f.input :note, :label => '备注：', :input_html => { :rows => 4} %>        
   
