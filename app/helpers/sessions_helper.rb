@@ -109,32 +109,32 @@ module SessionsHelper
     mech_eng? || elec_eng? || hydr_eng? || src_eng? || inst_eng? 
   end
     
-  def return_mfg
-    Manufacturer.order("name")  
-  end
-  
   def return_active_customer
     Customer.active_cust.order("id DESC")  
   end
     
-  def return_eng
-    User.where("user_type =? AND status =?", 'employee', 'active').joins(:user_levels).where(:user_levels => { :position => ['mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng', 'pur_eng']})
-  end
+  #def return_eng
+  #  User.where("user_type =? AND status =?", 'employee', 'active').joins(:user_levels).where(:user_levels => { :position => ['mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng', 'pur_eng']})
+  #end
       
-  def return_tech_eng
-    User.where("user_type =? AND status =?", 'employee', 'active').joins(:user_levels).where(:user_levels => { :position => ['mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng']}) 
-  end
+  #def return_tech_eng
+  #  User.where("user_type =? AND status =?", 'employee', 'active').joins(:user_levels).where(:user_levels => { :position => ['mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng']}) 
+  #end
   
-  def return_pur_eng
-    User.where("user_type = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => 'pur_eng'})
-  end
+  #def return_pur_eng
+  #  User.where("user_type = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => 'pur_eng'})
+  #end
   
-  def return_src_eng
-    User.where("user_type = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => 'src_eng'})
-  end
+  #def return_src_eng
+  #  User.where("user_type = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => 'src_eng'})
+  #end
   
-  def return_inst_eng
-    User.where("user_type = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => 'inst_eng'})
+  #def return_inst_eng
+  #  User.where("user_type = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => 'inst_eng'})
+  #end
+  
+  def return_employee(*list_position)
+    User.where("user_type = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => list_position })
   end
   
   def return_mfg
@@ -159,7 +159,7 @@ module SessionsHelper
   end
   
   def return_unit
-    ['件','个', '台', '套', '支', '组', '根', '只', '公斤', '克', '米', '升', '加仑', '立方米']
+    ['件','个', '台', '套', '支', '组', '根', '只', '公斤', '克', '米', '升', '毫升', '加仑', '立方米']
   end
   
   def return_yes_no
