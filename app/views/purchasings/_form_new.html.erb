@@ -1,6 +1,6 @@
 <%= simple_form_for([@project, @purchasing]) do |f| %>    
 
-  <div style="padding-left:32px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
+  <div style="padding-left:68px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
   <%= f.input :prod_name, :label => '名称：' %> 
   <%= f.input :part_num, :label => '产品#：' %>
   <%= f.input :spec, :label => '规格：', :input_html => {:rows => 4} %>  
@@ -9,8 +9,8 @@
   <%= f.input :unit_price, :label => '单价：' %>
   <%= f.input :manufacturer_id, :label => '制造厂家：', :collection => return_mfg, :label_method => :name, :value_method => :id, :include_blank => true %>
   <%= f.input :supplier_id, :label => '供应商：', :collection => return_supplier, :label_method => :name, :value_method => :id, :include_blank => true %>
-  <%= f.input :eng_id, :label => '责任工程师:', :collection => return_tech_eng, :label_method => :name, :value_method => :id %>
-  <!--%= f.input :pur_eng_id, :label => '外购工程师：', :collectionc=> return_pur_eng, :label_method => :name, :value_method => :id %-->
+  <%= f.input :eng_id, :label => '责任工程师:', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng'), :label_method => :name, :value_method => :id %>
+  <%= f.input :pur_eng_id, :label => '外购工程师：', :collection => return_employee('pur_eng'), :label_method => :name, :value_method => :id %>
   <%= f.input :proj_module_id, :label => '分系统：', :collection => return_proj_module(@project), :label_method => :name, :value_method => :id %>
   <%= f.input :order_date, :label => '订购日期：', :as => :string %> 
   <%= f.input :delivery_date, :label => '到货日期：', :as => :string %> 

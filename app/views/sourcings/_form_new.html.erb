@@ -1,6 +1,6 @@
 <%= simple_form_for([@project, @sourcing]) do |f| %>    
 
-  <div style="padding-left:32px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
+  <div style="padding-left:68px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
   <%= f.input :prod_name, :label => '名称：' %> 
   <%= f.input :part_num, :label => '产品#：' %>
   <%= f.input :spec, :label => '规格：', :input_html => {:rows => 4} %>  
@@ -8,8 +8,8 @@
   <%= f.input :unit, :label => '单位：', :collection => return_unit, :include_blank => true %>
   <%= f.input :unit_price, :label => '单价：' %>
   <%= f.input :src_plant_id, :label => '外协厂：', :collection => return_src_plant, :label_method => :name, :value_method => :id, :include_blank => true %>
-  <%= f.input :eng_id, :label => '责任工程师:', :collection => return_tech_eng, :label_method => :name, :value_method => :id %>
-  <%= f.input :src_eng_id, :label => '外协工程师：', :collection => return_src_eng, :label_method => :name, :value_method => :id %>
+  <%= f.input :eng_id, :label => '责任工程师:', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng'), :label_method => :name, :value_method => :id %>
+  <%= f.input :src_eng_id, :label => '外协工程师：', :collection => return_employee('src_eng'), :label_method => :name, :value_method => :id %>
   <%= f.input :proj_module_id, :label => '分系统：', :collection => return_proj_module(@project), :label_method => :name, :value_method => :id %>
   <%= f.input :start_date, :label => '开工日期：', :as => :string %> 
   <%= f.input :finish_date, :label => '完成日期：', :as => :string %> 

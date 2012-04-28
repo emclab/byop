@@ -2,7 +2,7 @@
  
   <%= f.input :out_date, :label => "出库日期：", :as => :string %>
   <%= f.input :out_qty, :label => "出库数量：" %>
-  <%= f.input :receiver_id, :label => "收件人 ：", :collection => return_eng %> 
+  <%= f.input :receiver_id, :label => "收件人 ：", :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng', 'pur_eng') %> 
   <%= f.input :project_id, :label => '所用项目:', :collection => Project.ongoing_project.order("created_at DESC") %> 
   <%= f.input :for_what, :label => '用途:' %> 
   
