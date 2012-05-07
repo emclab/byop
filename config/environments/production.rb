@@ -23,6 +23,9 @@ Byop::Application.configure do
   #set rails root for suburi /by
   #RAILS_RELATIVE_URL_ROOT="/by"
 
+  #set rails root for suburi /by
+  #RAILS_RELATIVE_URL_ROOT="/by"
+  
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
 
