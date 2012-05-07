@@ -285,7 +285,11 @@ Byop::Application.routes.draw do
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
   match '/user_menus', :to => 'user_menus#index'
-  match '/view_handler', :to => 'application#view_handler'
+  if Rails.env.production?
+    match '/by/view_handler', :to => 'application#view_handler'
+  else
+    match '/view_handler', :to => 'application#view_handler'
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
