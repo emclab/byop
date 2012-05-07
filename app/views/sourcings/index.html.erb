@@ -17,20 +17,20 @@
 
 <% @sourcings.each do |src| %>
   <tr>
-  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{project_sourcing_path(@project, src)}" if has_show_right? %></td>
+  	<td><%= link_to 'Show', SUBURI + "/view_handler?index=1&url=#{project_sourcing_path(@project, src)}" if has_show_right? %></td>
     <td><%= src.prod_name %></td>
     <td><%= src.start_date.strftime("%Y/%m/%d") %></td>
     <td><%= src.finish_date.strftime("%Y/%m/%d") %></td>
     <td><%= src.approved_by_vp_eng && src.approved_by_ceo %></td>
     <td><%= src.completed %></td>  
-    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_project_sourcing_path(@project, src)}" if has_update_right? %></td>
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_sourcing_path(@project, src)}" if has_update_right? %></td>
     <td><%= link_to '批准', approve_project_sourcing_path(@project, src), :method => :put if need_approve?(src) %></td>
-    <td><%= link_to '状态', "/view_handler?index=1&url=#{sourcing_sourcing_logs_path(src)}" %></td>
+    <td><%= link_to '状态', SUBURI + "/view_handler?index=1&url=#{sourcing_sourcing_logs_path(src)}" %></td>
   </tr>
 <% end %>
 </table>
-  <%= link_to 'Back', "/view_handler?index=0" %>
-  &nbsp;<%= link_to '输入外协', "/view_handler?index=1&url=#{new_project_sourcing_path(@project)}" if has_create_right? %>
+  <%= link_to 'Back', SUBURI + "/view_handler?index=0" %>
+  &nbsp;<%= link_to '输入外协', SUBURI + "/view_handler?index=1&url=#{new_project_sourcing_path(@project)}" if has_create_right? %>
 
 </div>
 

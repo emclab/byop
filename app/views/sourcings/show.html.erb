@@ -77,13 +77,13 @@
   <ul>
 <% @sourcing.sourcing_logs.order("created_at DESC").each do |f| %>
   <li>
-  <%= link_to f.created_at.strftime("%Y-%m-%d").to_s, "/view_handler?index=1&url=#{sourcing_sourcing_log_path(f.sourcing_id, f.id)}" %>
+  <%= link_to f.created_at.strftime("%Y-%m-%d").to_s, SUBURI + "/view_handler?index=1&url=#{sourcing_sourcing_log_path(f.sourcing_id, f.id)}" %>
   </li>
 <% end %>
 </ul>
 </p>
 
-<%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+<%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
 <%= link_to '批准', approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_approve' if need_approve?(@sourcing) %>
 <%= link_to '否决', dis_approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_dis_approve' if need_approve?(@sourcing) %>
 <%= link_to '重新外协', re_approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_re_approve' if ceo? %>

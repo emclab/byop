@@ -14,16 +14,16 @@
 
 <% @installation_purchases.each do |inst_pur| %>
   <tr>
-    <td><%= link_to 'View', "/view_handler?index=1&url=#{installation_installation_purchase_path(inst_pur.installation,inst_pur)}" %></td>  	
+    <td><%= link_to 'View', SUBURI + "/view_handler?index=1&url=#{installation_installation_purchase_path(inst_pur.installation,inst_pur)}" %></td>  	
     <td><%= inst_pur.part_name %><%= inst_pur.spec %></td>
     <td><%= inst_pur.installation.project.name %></td>
     <td><%= inst_pur.need_date.strftime("%Y/%m/%d") %></td>
     <td><%= inst_pur.qty_in_stock %></td>
     <td><%= inst_pur.approved_by_vp_eng && inst_pur.approved_by_ceo %></td>  
-    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_installation_installation_purchase_path(inst_pur.installation, inst_pur)}" if has_update_right? %></td>
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_installation_installation_purchase_path(inst_pur.installation, inst_pur)}" if has_update_right? %></td>
 
   </tr>
 <% end %>
 </table>
-  <%= link_to 'Back', "/view_handler?index=0" %>
+  <%= link_to 'Back', SUBURI + "/view_handler?index=0" %>
 </div>

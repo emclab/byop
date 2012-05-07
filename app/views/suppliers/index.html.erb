@@ -19,7 +19,7 @@
 
 <% @suppliers.each do |supplier| %>
   <tr>
-  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{supplier_path(supplier)}" if has_show_right? %></td>
+  	<td><%= link_to 'Show', SUBURI + "/view_handler?index=1&url=#{supplier_path(supplier)}" if has_show_right? %></td>
     <td><%= supplier.short_name %></td>
     <td><%= supplier.supply_since.strftime("%Y/%m/%d") unless supplier.supply_since.nil? %></td>
     <td><%= supplier.contact %></td>
@@ -29,12 +29,12 @@
     <% end %>
     <td><%= supplier.product_supplied %></td> 
     <td><%= supplier.last_eval_date.strftime("%Y/%m/%d") unless supplier.last_eval_date.nil? %></td> 
-    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_supplier_path(supplier)}" if has_update_right? %></td>
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_supplier_path(supplier)}" if has_update_right? %></td>
 
   </tr>
 <% end %>
 </table>
 
-  <%= link_to 'Back', "/view_handler?index=0" %>
-  &nbsp;<%= link_to '输入供应商', "/view_handler?index=1&url=#{new_supplier_path}" if has_create_right? %>
+  <%= link_to 'Back', SUBURI + "/view_handler?index=0" %>
+  &nbsp;<%= link_to '输入供应商', SUBURI + "/view_handler?index=1&url=#{new_supplier_path}" if has_create_right? %>
 </div>

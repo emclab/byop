@@ -57,7 +57,7 @@
 </ul>
 </p>
 
-<%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+<%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
 &nbsp;<%= link_to '出库物料', new_part_out_log_path(@part, :format => :js), :remote => true, :id => 'new_log_link' if has_log_right? %>
 </div>
 

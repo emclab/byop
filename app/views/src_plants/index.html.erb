@@ -19,7 +19,7 @@
 
 <% @src_plants.each do |plant| %>
   <tr>
-  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{src_plant_path(plant)}" if has_show_right? %></td>
+  	<td><%= link_to 'Show', SUBURI + "/view_handler?index=1&url=#{src_plant_path(plant)}" if has_show_right? %></td>
     <td><%= plant.short_name %></td>
     <td><%= plant.src_since.strftime("%Y/%m/%d") unless plant.src_since.nil? %></td>
     <td><%= plant.primary_contact %></td>
@@ -29,12 +29,12 @@
     <% end %>
     <td><%= plant.sourced_product %></td> 
     <td><%= plant.last_eval_date.strftime("%Y/%m/%d") unless plant.last_eval_date.nil? %></td> 
-    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_src_plant_path(plant)}" if has_update_right? %></td>
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_src_plant_path(plant)}" if has_update_right? %></td>
 
   </tr>
 <% end %>
 </table>
 
-  <%= link_to 'Back', "/view_handler?index=0" %>
-  &nbsp;<%= link_to '输入外协厂', "/view_handler?index=1&url=#{new_src_plant_path}" if has_create_right? %>  
+  <%= link_to 'Back', SUBURI + "/view_handler?index=0" %>
+  &nbsp;<%= link_to '输入外协厂', SUBURI + "/view_handler?index=1&url=#{new_src_plant_path}" if has_create_right? %>  
 </div>

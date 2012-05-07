@@ -16,18 +16,18 @@
 
 <% @purchasings.each do |pur| %>
   <tr>
-  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{project_purchasing_path(@project, pur)}" if has_show_right? %></td>
+  	<td><%= link_to 'Show', SUBURI + "/view_handler?index=1&url=#{project_purchasing_path(@project, pur)}" if has_show_right? %></td>
     <td><%= pur.prod_name %></td>
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.delivery_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.delivered %></td>  
-    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_project_purchasing_path(@project, pur)}" if has_update_right? %></td>
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_purchasing_path(@project, pur)}" if has_update_right? %></td>
     <td><%= link_to '批准', approve_project_purchasing_path(@project, pur), :method => :put if need_approve?(pur) %></td>
-    <td><%= link_to '状态', "/view_handler?index=1&url=#{purchasing_purchasing_logs_path(pur)}" %></td>
+    <td><%= link_to '状态', SUBURI + "/view_handler?index=1&url=#{purchasing_purchasing_logs_path(pur)}" %></td>
   </tr>
 <% end %>
 </table>
-  <%= link_to 'Back', "/view_handler?index=0" %>
-  &nbsp;<%= link_to '输入外购', "/view_handler?index=1&url=#{new_project_purchasing_path(@project)}" if has_create_right? %>
+  <%= link_to 'Back', SUBURI + "/view_handler?index=0" %>
+  &nbsp;<%= link_to '输入外购', SUBURI + "/view_handler?index=1&url=#{new_project_purchasing_path(@project)}" if has_create_right? %>
 
 </div>

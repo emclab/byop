@@ -127,7 +127,7 @@
   </p>
 <% end %>
 
-<%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+<%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
 <%= link_to '取消项目', cancel_project_path(@project), :method => :put if ceo? && !@project.cancelled %>
 <%= link_to '激活项目', re_activate_project_path(@project), :method => :put if ceo? && @project.cancelled %>
 <%= link_to '生成部件', new_project_proj_module_path(@project, :format => :js), :remote => true, :id => 'new_module_link' if vp_eng? %>

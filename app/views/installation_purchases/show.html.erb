@@ -83,7 +83,7 @@
 </p>
 
 <%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
-&nbsp;<%= link_to '物料申请', "/view_handler?index=1&url=#{new_installation_installation_purchase_path(@installation)}" if has_create_right? %>
+&nbsp;<%= link_to '物料申请', SUBURI + "/view_handler?index=1&url=#{new_installation_installation_purchase_path(@installation)}" if has_create_right? %>
 &nbsp;<% link_to '批准采购物料', approve_installation_installation_purchase_path(@installation, @installation_purchase), :method => :put, :id => 'installation_purchase_need_approve' if need_approve?(@installation_purchase) %>
 &nbsp;<%= link_to '输入联系Log', new_installation_purchase_installation_purchase_log_path(@installation_purchase, :format => :js), :remote => true, :id => 'new_log_link' if has_log_right? %>
 &nbsp;<%= link_to '入物料库存', warehousing_installation_purchase_path(@installation_purchase, :format => :js), :remote => true, 

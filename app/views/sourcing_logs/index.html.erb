@@ -17,7 +17,7 @@
 
 </table>
 
-  <%= link_to 'Back', "/view_handler?index=0", :id => 'close' %>
+  <%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
   <%= link_to "输入Log", new_sourcing_sourcing_log_path(@sourcing, :format => :js), :remote => true, :id => 'new_log_link' if has_create_right? %>
 
 </div>

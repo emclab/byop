@@ -33,7 +33,7 @@
   <%= @user.input_by.name %>
 </p>
 <p>
-  <%= link_to "Back", "/view_handler?index=0" %>	
-  <%= link_to "Edit", "/view_handler?index=1&url=#{edit_user_path(@user)}" %> 
+  <%= link_to "Back", SUBURI + "/view_handler?index=0" %>	
+  <%= link_to "Edit", SUBURI + "/view_handler?index=1&url=#{edit_user_path(@user)}" %> 
 </p>
 </div>

@@ -16,7 +16,7 @@
 
 <% @parts.each do |part| %>
   <tr>
-  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{part_path(part)}" if has_show_right? %></td>
+  	<td><%= link_to 'Show', SUBURI + "/view_handler?index=1&url=#{part_path(part)}" if has_show_right? %></td>
   	<td><%= part.id %></td>
     <td><%= part.name %></td>
     <td><%= part.spec %></td>
@@ -24,11 +24,11 @@
     <td><%= part.stock_qty%><%= part.unit %></td>   
     <td><%= part.storage_location %></td>
     <td><%= part.supplier %></td>
-    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_part_path(part)}" if has_update_right? %></td>
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_part_path(part)}" if has_update_right? %></td>
   </tr>
 <% end %>
 </table>
-  <%= link_to 'Back', "/view_handler?index=0" %>
-  &nbsp;<%= link_to '入库物料', "/view_handler?index=1&url=#{new_part_path}" if has_create_right? %>
+  <%= link_to 'Back', SUBURI + "/view_handler?index=0" %>
+  &nbsp;<%= link_to '入库物料', SUBURI + "/view_handler?index=1&url=#{new_part_path}" if has_create_right? %>
 
 </div>

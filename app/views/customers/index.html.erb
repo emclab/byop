@@ -20,7 +20,7 @@
 
 <% @customers.each do |cust| %>
   <tr>
-  	<td><%= link_to 'Show', "/view_handler?index=1&url=#{customer_path(cust)}" if has_show_right? %></td>
+  	<td><%= link_to 'Show', SUBURI + "/view_handler?index=1&url=#{customer_path(cust)}" if has_show_right? %></td>
     <td><%= cust.short_name %></td>
     <td><%= cust.created_at.strftime("%Y/%m/%d") %></td>
     <% if has_create_right? %>
@@ -31,13 +31,13 @@
     <td><%= cust.main_biz[0..20] %></td>
     <td><%= cust.equip_by_by[0..20] %></td>    
     <td><%= return_last_contact_date(cust.id).strftime("%Y/%m/%d") unless return_last_contact_date(cust.id).nil? %></td> 
-    <td><%= link_to 'Edit', "/view_handler?index=1&url=#{edit_customer_path(cust)}" if has_update_right? %></td>
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_customer_path(cust)}" if has_update_right? %></td>
 
   </tr>
 <% end %>
 </table>
-  <%= link_to 'Back', "/view_handler?index=0" %>
-  &nbsp;<%= link_to '输入客户', "/view_handler?index=1&url=#{new_customer_path}" if has_create_right? %>
+  <%= link_to 'Back', SUBURI + "/view_handler?index=0" %>
+  &nbsp;<%= link_to '输入客户', SUBURI + "/view_handler?index=1&url=#{new_customer_path}" if has_create_right? %>
 
 </div>
 

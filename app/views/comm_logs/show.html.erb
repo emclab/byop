@@ -44,7 +44,7 @@
 </p>
 
  
-<%= link_to 'Back', "/view_handler?index=0" %>
+<%= link_to 'Back', SUBURI + "/view_handler?index=0" %>
 <% if has_destroy_right? %>
   <%= link_to '删除', customer_comm_log_path(@customer, @comm_log), :remote => true, :method => :delete, :confirm => '删除log?' %>
 <% end %>
