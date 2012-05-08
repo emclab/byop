@@ -1,11 +1,10 @@
-
 default_run_options[:pty] = true
 set :application, "byop"
 set :repository,  "git://github.com/emclab/byop.git"
 set :scm, :git
 set :user, "ubuntu"
 set :use_sudo, false
-set :scm_passphrase, "kpmg11"
+set :scm_passphrase, 
 set :branch, "master"
 set :deploy_to, "/var/www/#{application}"
 set :deploy_via, :remote_cache
