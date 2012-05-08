@@ -17,7 +17,7 @@ class SourcingsController < ApplicationController
     @project = Project.find(params[:project_id])
     @sourcing = @project.sourcings.new()
     if !has_create_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -27,7 +27,7 @@ class SourcingsController < ApplicationController
       @sourcing = @project.sourcings.new(params[:sourcing], :as => :role_new)
       @sourcing.input_by_id = session[:user_id]
       if @sourcing.save
-        redirect_to URI.escape("/view_handler?index=0&msg=计划已保存！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已保存！")
       else
         flash.now[:error] = '数据错误，无法保存！'
         render 'new'
@@ -40,7 +40,7 @@ class SourcingsController < ApplicationController
     @project = Project.find(params[:project_id])
     @sourcing = @project.sourcings.find(params[:id])
     if !has_update_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -50,7 +50,7 @@ class SourcingsController < ApplicationController
       @sourcing = @project.sourcings.find(params[:id])
       @sourcing.input_by_id = session[:user_id]
       if @sourcing.update_attributes(params[:sourcing], :as => :role_update)
-        redirect_to URI.escape("/view_handler?index=0&msg=计划已更改！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已更改！")
       else
         flash.now[:error] = '数据错误，无法保存!'
         render 'edit'
@@ -63,7 +63,7 @@ class SourcingsController < ApplicationController
     @project = Project.find(params[:project_id])
     @sourcing = @project.sourcings.find(params[:id])
     if !has_show_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -83,7 +83,7 @@ class SourcingsController < ApplicationController
     
       redirect_to project_sourcing_path(@project, @sourcing)
     else
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")    
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!")    
     end
   end
 
@@ -103,7 +103,7 @@ class SourcingsController < ApplicationController
     
       redirect_to project_sourcing_path(@project, @sourcing)
     else
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")    
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!")    
     end
   end
 
@@ -118,7 +118,7 @@ class SourcingsController < ApplicationController
     
       redirect_to project_sourcing_path(@project, @sourcing)
     else
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")    
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!")    
     end
   end
         

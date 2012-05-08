@@ -17,7 +17,7 @@ class SourcingLogsController < ApplicationController
     @sourcing = Sourcing.find(params[:sourcing_id])
     @sourcing_log = @sourcing.sourcing_logs.new()
     if !has_create_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -33,7 +33,7 @@ class SourcingLogsController < ApplicationController
         render 'new'
       end     
     else
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")    
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")    
     end
   end
 

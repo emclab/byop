@@ -18,7 +18,7 @@ class PartsController < ApplicationController
     @title = '入库物料'
     @part = Part.new()
     if !has_create_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -28,7 +28,7 @@ class PartsController < ApplicationController
       @part.input_by_id = session[:user_id]
       @part.stock_qty = params[:part][:in_qty].to_i 
       if @part.save
-        redirect_to URI.escape("/view_handler?index=0&msg=入库物料已保存！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=入库物料已保存！")
       else
         flash.now[:error] = '数据错误，无法保存！'
         render 'new'
@@ -40,7 +40,7 @@ class PartsController < ApplicationController
     @title = '更改已入库物料'
     @part = Part.find(params[:id])
     if !has_update_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -49,7 +49,7 @@ class PartsController < ApplicationController
       @part = Part.find(params[:id])
       @part.input_by_id = session[:user_id]
       if @part.update_attributes(params[:part], :as => :role_update)
-        redirect_to URI.escape("/view_handler?index=0&msg=入库物料已更改！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=入库物料已更改！")
       else
         flash.now[:error] = '数据错误，无法保存!'
         render 'edit'
@@ -61,7 +61,7 @@ class PartsController < ApplicationController
     @title = '物料内容'
     @part = Part.find(params[:id])
     if !has_show_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
       

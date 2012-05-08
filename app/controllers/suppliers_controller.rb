@@ -18,7 +18,7 @@ class SuppliersController < ApplicationController
     @title = '输入供应商'
     @supplier = Supplier.new()
     if !has_create_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end    
   end
 
@@ -27,7 +27,7 @@ class SuppliersController < ApplicationController
       @supplier = Supplier.new(params[:supplier], :as => :role_new)
       @supplier.input_by_id = session[:user_id]
       if @supplier.save
-        redirect_to URI.escape("/view_handler?index=0&msg=供应商信息已保存！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=供应商信息已保存！")
       else
         flash.now[:error] = '数据错误，无法保存！'
         render 'new'
@@ -39,7 +39,7 @@ class SuppliersController < ApplicationController
     @title = '更改供应商'
     @supplier = Supplier.find(params[:id])
     if !has_update_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end    
   end
 
@@ -48,7 +48,7 @@ class SuppliersController < ApplicationController
       @supplier = Supplier.find(params[:id])
       @supplier.input_by_id = session[:user_id]
       if @supplier.update_attributes(params[:supplier], :as => :role_update)
-        redirect_to URI.escape("/view_handler?index=0&msg=供应商信息已更改！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=供应商信息已更改！")
       else
         flash.now[:error] = '数据错误，无法保存!'
         render 'edit'
@@ -60,7 +60,7 @@ class SuppliersController < ApplicationController
     @title = '供应商内容'
     @supplier = Supplier.find(params[:id])
     if !has_show_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end    
   end
 

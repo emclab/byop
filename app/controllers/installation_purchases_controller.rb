@@ -16,7 +16,7 @@ class InstallationPurchasesController < ApplicationController
     @installation = Installation.find(params[:installation_id])
     @installation_purchase = @installation.installation_purchases.new()
     if !has_create_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -26,7 +26,7 @@ class InstallationPurchasesController < ApplicationController
       @installation_purchase = @installation.installation_purchases.new(params[:installation_purchase], :as => :role_new)
       @installation_purchase.input_by_id = session[:user_id]
       if @installation_purchase.save
-        redirect_to URI.escape("/view_handler?index=0&msg=申请已保存！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=申请已保存！")
       else
         flash.now[:error] = '数据错误，无法保存！'
         render 'new'
@@ -39,7 +39,7 @@ class InstallationPurchasesController < ApplicationController
     @installation = Installation.find(params[:installation_id])
     @installation_purchase = @installation.installation_purchases.find(params[:id])
     if !has_update_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -49,7 +49,7 @@ class InstallationPurchasesController < ApplicationController
       @installation_purchase = @installation.installation_purchases.find(params[:id])
       @installation_purchase.input_by_id = session[:user_id]
       if @installation_purchase.update_attributes(params[:installation_purchase], :as => :role_update)
-        redirect_to URI.escape("/view_handler?index=0&msg=申请已更改！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=申请已更改！")
       else
         flash.now[:error] = '数据错误，无法保存!'
         render 'edit'
@@ -62,7 +62,7 @@ class InstallationPurchasesController < ApplicationController
     @installation = Installation.find(params[:installation_id])
     @installation_purchase = @installation.installation_purchases.find(params[:id]) 
     if !has_show_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")           
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")           
     end
   end
 
@@ -80,7 +80,7 @@ class InstallationPurchasesController < ApplicationController
       end   
       redirect_to installation_installation_purchase_path(@installation, @installation_purchase)
     else
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")    
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!")    
     end
   end
   

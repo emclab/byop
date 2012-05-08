@@ -16,7 +16,7 @@ class InstallationsController < ApplicationController
     @project = Project.find(params[:project_id])
     @installation = @project.installations.new()
     if !has_create_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -26,7 +26,7 @@ class InstallationsController < ApplicationController
       @installation = @project.installations.new(params[:installation], :as => :role_new)
       @installation.input_by_id = session[:user_id]
       if @installation.save
-        redirect_to URI.escape("/view_handler?index=0&msg=计划已保存！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已保存！")
       else
         flash.now[:error] = '数据错误，无法保存！'
         render 'new'
@@ -39,7 +39,7 @@ class InstallationsController < ApplicationController
     @project = Project.find(params[:project_id])
     @installation = @project.installations.find(params[:id])
     if !has_update_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -49,7 +49,7 @@ class InstallationsController < ApplicationController
       @installation = @project.installations.find(params[:id])
       @installation.input_by_id = session[:user_id]
       if @installation.update_attributes(params[:installation], :as => :role_update)
-        redirect_to URI.escape("/view_handler?index=0&msg=计划已更改！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已更改！")
       else
         flash.now[:error] = '数据错误，无法保存!'
         render 'edit'

@@ -10,7 +10,7 @@ class OutLogsController < ApplicationController
     @part = Part.find(params[:part_id])
     @out_log = @part.out_logs.new()
     if !has_create_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -30,7 +30,7 @@ class OutLogsController < ApplicationController
         end   
       end  
     else
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")    
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")    
     end
   end
 

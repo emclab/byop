@@ -16,7 +16,7 @@ class ProductionsController < ApplicationController
     @project = Project.find(params[:project_id])
     @production = @project.productions.new()
     if !has_create_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -26,7 +26,7 @@ class ProductionsController < ApplicationController
       @production = @project.productions.new(params[:production], :as => :role_new)
       @production.input_by_id = session[:user_id]
       if @production.save
-        redirect_to URI.escape("/view_handler?index=0&msg=计划已保存！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已保存！")
       else
         flash.now[:error] = '数据错误，无法保存！'
         render 'new'
@@ -39,7 +39,7 @@ class ProductionsController < ApplicationController
     @project = Project.find(params[:project_id])
     @production = @project.productions.find(params[:id])
     if !has_update_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -49,7 +49,7 @@ class ProductionsController < ApplicationController
       @production = @project.productions.find(params[:id])
       @production.input_by_id = session[:user_id]
       if @production.update_attributes(params[:production], :as => :role_update)
-        redirect_to URI.escape("/view_handler?index=0&msg=计划已更改！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已更改！")
       else
         flash.now[:error] = '数据错误，无法保存!'
         render 'edit'
@@ -62,7 +62,7 @@ class ProductionsController < ApplicationController
     @project = Project.find(params[:project_id])
     @production = @project.productions.find(params[:id])
     if !has_show_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
   

@@ -15,7 +15,7 @@ class ManufacturersController < ApplicationController
     if has_create_right?
       @mfg = Manufacturer.new()
     else
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -24,13 +24,13 @@ class ManufacturersController < ApplicationController
       @mfg = Manufacturer.new(params[:manufacturer], :as => :role_new)
       @mfg.input_by_id = session[:user_id]
       if @mfg.save
-        redirect_to URI.escape("/view_handler?index=0&msg=制造商已保存！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=制造商已保存！")
       else
         flash.now[:error] = "无法保存！"
         render 'new'
       end
     else
-       redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")     
+       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")     
     end
   end
 
@@ -39,7 +39,7 @@ class ManufacturersController < ApplicationController
     if has_update_right?
       @mfg = Manufacturer.find(params[:id])
     else
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end    
   end
 
@@ -49,13 +49,13 @@ class ManufacturersController < ApplicationController
       @mfg.input_by_id = session[:user_id]
       if @mfg.update_attributes(params[:manufacturer], :as => :role_update)
         #email notice
-        redirect_to URI.escape("/view_handler?index=0&mfg=已更新制造商信息！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&mfg=已更新制造商信息！")
       else
         flash.now[:error] ="无法更新制造商信息！"
         render 'edit'
       end
     else
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end        
   end
   

@@ -18,7 +18,7 @@ class SrcPlantsController < ApplicationController
     @title = '输入外协厂家'
     @src_plant = SrcPlant.new()
     if !has_create_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -27,7 +27,7 @@ class SrcPlantsController < ApplicationController
       @src_plant = SrcPlant.new(params[:src_plant], :as => :role_new)
       @src_plant.input_by_id = session[:user_id]
       if @src_plant.save
-        redirect_to URI.escape("/view_handler?index=0&msg=外协厂信息已保存！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=外协厂信息已保存！")
       else
         flash.now[:error] = '数据错误，无法保存！'
         render 'new'
@@ -39,7 +39,7 @@ class SrcPlantsController < ApplicationController
     @title = '更改外协厂家'
     @src_plant = SrcPlant.find(params[:id])
     if !has_update_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -48,7 +48,7 @@ class SrcPlantsController < ApplicationController
       @src_plant = SrcPlant.find(params[:id])
       @src_plant.input_by_id = session[:user_id]
       if @src_plant.update_attributes(params[:src_plant], :as => :role_update)
-        redirect_to URI.escape("/view_handler?index=0&msg=外协厂信息已更改！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=外协厂信息已更改！")
       else
         flash.now[:error] = '数据错误，无法保存!'
         render 'edit'
@@ -60,7 +60,7 @@ class SrcPlantsController < ApplicationController
     @title = '外协厂家内容'
     @src_plant = SrcPlant.find(params[:id])
     if !has_show_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
   

@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.input_by_id = session[:user_id]
     if @user.save
-      redirect_to URI.escape("/view_handler?index=0&msg=用户已保存！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=用户已保存！")
     else
       flash.now[:error] = '无法保存！'
       render 'new'
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.input_by_id = session[:user_id]
     if @user.update_attributes(params[:user])
-      redirect_to URI.escape("/view_handler?index=0&msg=更改已保存！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=更改已保存！")
     else
       flash.now[:error] = '修改无法保存！'
       render 'edit'

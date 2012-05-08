@@ -18,7 +18,7 @@ class CustomersController < ApplicationController
    @title = '输入客户'
    @customer = Customer.new
    if !has_create_right?
-     redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+     redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
    end      
   end
 
@@ -27,7 +27,7 @@ class CustomersController < ApplicationController
       @customer = Customer.new(params[:customer], :as => :role_new)
       @customer.input_by_id = session[:user_id]
       if @customer.save
-        redirect_to URI.escape("/view_handler?index=0&msg=已保存!")        
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=已保存!")        
       else
         flash[:notice] = '无法保存!'
         render 'new'
@@ -39,7 +39,7 @@ class CustomersController < ApplicationController
    @title = '更新客户'  
    @customer = Customer.find(params[:id])    
    if !has_update_right?
-     redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")  
+     redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")  
    end
   end
 
@@ -48,7 +48,7 @@ class CustomersController < ApplicationController
       @customer = Customer.find(params[:id])
       @customer.input_by_id = session[:user_id]
       if @customer.update_attributes(params[:customer], :as => :role_update)
-        redirect_to URI.escape("/view_handler?index=0&msg=更改已保存！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=更改已保存！")
       else
         flash[:notice] = '无法保存！'
         render 'edit'
@@ -60,7 +60,7 @@ class CustomersController < ApplicationController
     @title = '客户内容'
     @customer = Customer.find(params[:id])
     if !has_show_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
   

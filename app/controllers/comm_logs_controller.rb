@@ -10,7 +10,7 @@ class CommLogsController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     @comm_log = @customer.comm_logs.new()
     if !has_create_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -26,7 +26,7 @@ class CommLogsController < ApplicationController
         render 'new'
       end     
     else
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")    
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")    
     end
   end
 

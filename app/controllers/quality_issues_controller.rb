@@ -16,7 +16,7 @@ class QualityIssuesController < ApplicationController
     @project = Project.find(params[:project_id])
     @quality_issue = @project.quality_issues.new()
     if !has_create_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -26,7 +26,7 @@ class QualityIssuesController < ApplicationController
       @quality_issue = @project.quality_issues.new(params[:quality_issue], :as => :role_new)
       @quality_issue.input_by_id = session[:user_id]
       if @quality_issue.save
-        redirect_to URI.escape("/view_handler?index=0&msg=质量问题已保存！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=质量问题已保存！")
       else
         flash.now[:error] = '数据错误，无法保存！'
         render 'new'
@@ -39,7 +39,7 @@ class QualityIssuesController < ApplicationController
     @project = Project.find(params[:project_id])
     @quality_issue = @project.quality_issues.find(params[:id])
     if !has_update_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -49,7 +49,7 @@ class QualityIssuesController < ApplicationController
       @quality_issue = @project.quality_issues.find(params[:id])
       @quality_issue.input_by_id = session[:user_id]
       if @quality_issue.update_attributes(params[:quality_issue], :as => :role_update)
-        redirect_to URI.escape("/view_handler?index=0&msg=质量问题已更改！")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=质量问题已更改！")
       else
         flash.now[:error] = '数据错误，无法保存!'
         render 'edit'
@@ -62,7 +62,7 @@ class QualityIssuesController < ApplicationController
     @project = Project.find(params[:project_id])
     @quality_issue = @project.quality_issues.find(params[:id]) 
     if !has_show_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")           
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")           
     end
   end
 

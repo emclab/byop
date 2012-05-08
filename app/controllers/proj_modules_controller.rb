@@ -11,7 +11,7 @@ class ProjModulesController < ApplicationController
       @project = Project.find(params[:project_id])
       @proj_module = @project.proj_modules.new()
     else
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 

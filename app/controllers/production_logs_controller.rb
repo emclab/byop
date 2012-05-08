@@ -18,7 +18,7 @@ class ProductionLogsController < ApplicationController
     @production = Production.find(params[:production_id])
     @production_log = @production.production_logs.new()
     if !has_create_right?
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
   end
 
@@ -34,7 +34,7 @@ class ProductionLogsController < ApplicationController
         render 'new'
       end     
     else
-      redirect_to URI.escape("/view_handler?index=0&msg=权限不足！")    
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")    
     end
   end
 
