@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425173430) do
+ActiveRecord::Schema.define(:version => 20120605060250) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -365,6 +365,17 @@ ActiveRecord::Schema.define(:version => 20120425173430) do
     t.string   "email"
     t.string   "quality_system"
   end
+
+  create_table "sys_logs", :force => true do |t|
+    t.datetime "log_date"
+    t.integer  "user_id"
+    t.string   "user_name"
+    t.string   "user_ip"
+    t.string   "action_logged"
+  end
+
+  add_index "sys_logs", ["user_id"], :name => "index_sys_logs_on_user_id"
+  add_index "sys_logs", ["user_ip"], :name => "index_sys_logs_on_user_ip"
 
   create_table "user_levels", :force => true do |t|
     t.integer  "user_id"

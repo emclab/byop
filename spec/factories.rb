@@ -1,233 +1,245 @@
 # encoding: utf-8
-Factory.define :user do |user|
+
+FactoryGirl.define do
+  
+  factory :user do 
  
-  user.name                  "Test User"
-  user.login                 'testuser'
-  user.email                 "test@test.com"
-  user.password              "password1"
-  user.password_confirmation "password1"
-  user.status                "active"
-  user.user_type             "employee"
-  user.input_by_id           1
+    name                  "Test User"
+    login                 'testuser'
+    email                 "test@test.com"
+    password              "password1"
+    password_confirmation "password1"
+    status                "active"
+    user_type             "employee"
+    input_by_id           1
 
-end
+  end
 
-Factory.define :user_level do |level|
+  factory :user_level do 
  
-  level.position             "mech_eng"
-  level.user_id              1
-end
+    position             "mech_eng"
+    user_id              1
+  end
 
-Factory.define :customer do |c|
-  c.name                    "test customer"
-  c.short_name              "test"   
-  c.email                   "t@acom.com"
-  c.phone                   "12345678"
-  c.active                  true
-  c.address                 "1276 S. Highland Ave, Lombard, IL 67034"
-  c.contact_info            "Jun C"
-  c.main_biz                "casting"
-  c.equip_by_by             "a caster in 1997"
-  c.installed_equip         "2 10T casters"
-  c.input_by_id             1  
-end
+  factory :customer do 
+    name                    "test customer"
+    short_name              "test"   
+    email                   "t@acom.com"
+    phone                   "12345678"
+    active                  true
+    address                 "1276 S. Highland Ave, Lombard, IL 67034"
+    contact_info            "Jun C"
+    main_biz                "casting"
+    equip_by_by             "a caster in 1997"
+    installed_equip         "2 10T casters"
+    input_by_id             1  
+  end
 
-Factory.define :comm_log do |f|
-  f.subject                 'about lease'
-  f.log                     'talked with customer'
-  f.via                     'phone'
-  f.purpose                 'initial call'
-  f.contact_with            "John Smith, phone 12345"
-  f.input_by_id             1
-end
+  factory :comm_log do 
+    subject                 'about lease'
+    log                     'talked with customer'
+    via                     'phone'
+    purpose                 'initial call'
+    contact_with            "John Smith, phone 12345"
+    input_by_id             1
+  end
 
-Factory.define :installation do |f|
-  f.install_name            'a equip'
-  f.inst_eng_id              1
-  f.project_id               1
-  f.start_date               '2012-2-1'
-  f.finish_date              '2012-3-2' 
-  f.completed                false
-  f.input_by_id              1 
-end
+  factory :installation do 
+    install_name            'a equip'
+    inst_eng_id              1
+    project_id               1
+    start_date               '2012-2-1'
+    finish_date              '2012-3-2' 
+    completed                false
+    input_by_id              1 
+  end
 
-Factory.define :manufacturer do |f|
-  f.name                    'mfg'
-  f.product                 'product abc' 
-  f.input_by_id              1 
-end
+  factory :manufacturer do 
+    name                    'mfg'
+    product                 'product abc' 
+    input_by_id              1 
+  end
 
-Factory.define :production do |f|
-  f.name                    'a prod plan'
-  f.eng_id                   1
-  f.project_id               1
-  f.start_date               '2012-2-1'
-  f.finish_date              '2012-3-2' 
-  f.completed                false
-  f.input_by_id              1   
-end
+  factory :production do 
+    name                    'a prod plan'
+    eng_id                   1
+    project_id               1
+    start_date               '2012-2-1'
+    finish_date              '2012-3-2' 
+    completed                false
+    input_by_id              1   
+  end
 
-Factory.define :quality_issue do |f|
-  f.name                    'a prod plan'
-  f.issue_desp               'this is a blablabla'
-  f.report_by_id             1
-  f.project_id               1
-  f.report_date              '2012-2-1'
-  f.case_closed              false
-  f.input_by_id              1   
-end
+  factory :quality_issue do 
+    name                    'a prod plan'
+    issue_desp               'this is a blablabla'
+    report_by_id             1
+    project_id               1
+    report_date              '2012-2-1'
+    case_closed              false
+    input_by_id              1   
+  end
 
-Factory.define :purchasing do |f|
-  f.prod_name                'a prod plan'
-  f.spec                     'must have size'
-  f.qty                      2
-  f.unit                     'pcs'
-  f.manufacturer_id          2
-  f.pur_eng_id               1
-  f.project_id               1
-  f.order_date               '2012-2-1'
-  f.delivery_date            '2012-3-2' 
-  f.input_by_id              1
-  f.delivered                false  
-  f.eng_id                   1
-end
+  factory :purchasing do 
+    prod_name                'a prod plan'
+    spec                     'must have size'
+    qty                      2
+    unit                     'pcs'
+    manufacturer_id          2
+    pur_eng_id               1
+    project_id               1
+    order_date               '2012-2-1'
+    delivery_date            '2012-3-2' 
+    input_by_id              1
+    delivered                false  
+    eng_id                   1
+  end
 
-Factory.define :sourcing do |f| 
-  f.prod_name                'a prod plan'
-  f.spec                     'must have size'
-  f.qty                      2
-  f.unit                     'pcs'  
-  f.src_eng_id               1
-  f.project_id               1  
-  f.start_date               '2012-2-1'
-  f.finish_date              '2012-3-2' 
-  f.completed                false     
-end
+  factory :sourcing do  
+    prod_name                'a prod plan'
+    spec                     'must have size'
+    qty                      2
+    unit                     'pcs'  
+    src_eng_id               1
+    project_id               1  
+    start_date               '2012-2-1'
+    finish_date              '2012-3-2' 
+    completed                false     
+  end
 
-Factory.define :project do |f|
-  f.name                    'project A'
-  f.customer_id              1
-  f.customer_contact_info   'a guy, cell 12345'
-  f.status                  'info collecting'
-  f.tech_spec               '35T, 2000pcs/min'  
-end
+  factory :project do 
+    name                    'project A'
+    customer_id              1
+    customer_contact_info   'a guy, cell 12345'
+    status                  'info collecting'
+    tech_spec               '35T, 2000pcs/min'  
+  end
 
-Factory.define :project_log do |f|
-  f.project_id              1
-  f.subject                 'log name'
-  f.log                     'blaaaaa'
-  f.input_by_id             1
-end
+  factory :project_log do 
+    project_id              1
+    subject                 'log name'
+    log                     'blaaaaa'
+    input_by_id             1
+  end
 
-Factory.define :installation_purchase do |f|
-  f.part_name                'a prod plan'
-  f.spec                     'must have size'
-  f.qty                      2
-  f.for_what                 'for labor'
-  f.unit                     'pcs'  
-  f.applicant_id             1
-  f.installation_id          1  
-  f.need_date               '2012-2-1'
-  f.input_by_id              1 
-  f.purchased                false   
-  f.total                    65.90  
-  f.warehoused               false      
-end
+  factory :installation_purchase do 
+    part_name                'a prod plan'
+    spec                     'must have size'
+    qty                      2
+    for_what                 'for labor'
+    unit                     'pcs'  
+    applicant_id             1
+    installation_id          1  
+    need_date               '2012-2-1'
+    input_by_id              1 
+    purchased                false   
+    total                    65.90  
+    warehoused               false      
+  end
 
-Factory.define :installation_purchase_log do |f|
-  f.installation_purchase_id 1
-  f.log                      'blaaaaa'
-  f.input_by_id              1
-end
+  factory :installation_purchase_log do 
+    installation_purchase_id 1
+    log                      'blaaaaa'
+    input_by_id              1
+  end
 
-Factory.define :production_log do |f|
-  f.production_id           1
-  f.log                     'blaaaaa'
-  f.input_by_id             1
-end
+  factory :production_log do 
+    production_id           1
+    log                     'blaaaaa'
+    input_by_id             1
+  end
 
-Factory.define :sourcing_log do |f|
-  f.sourcing_id             1
-  f.log                     'blaaaaa'
-  f.input_by_id             1
-end
+  factory :sourcing_log do 
+    sourcing_id             1
+   log                     'blaaaaa'
+    input_by_id             1
+  end
 
-Factory.define :purchasing_log do |f|
-  f.purchasing_id           1
-  f.log                     'blaaaaa'
-  f.input_by_id             1
-end
+  factory :purchasing_log do 
+    purchasing_id           1
+    log                     'blaaaaa'
+    input_by_id             1
+  end
 
-Factory.define :installation_log do |f|
-  f.installation_id         1
-  f.log                     'blaaaaa'
-  f.input_by_id             1
-end
+  factory :installation_log do 
+    installation_id         1
+    log                     'blaaaaa'
+    input_by_id             1
+  end
 
-Factory.define :src_plant do |f|
-  f.name                    'sourcing plant'
-  f.short_name              'name'
-  f.primary_contact         'a guy'
-  f.primary_cell            '123455'
-  f.phone                   '23455'
-  f.fax                     '545676'
-  f.address                 '45545,main st'
-  f.input_by_id             1
-  f.sourced_product         'abcd'
-  f.equip                   'stuff'
-  f.active                  true
-  f.quality_system          'ISO9000'
-  f.tech_ability            'great'
-  f.main_product            'value, machinery'
-  f.last_eval_date          '2012/1/1'
-end
+  factory :src_plant do 
+    name                    'sourcing plant'
+    short_name              'name'
+    primary_contact         'a guy'
+    primary_cell            '123455'
+    phone                   '23455'
+    fax                     '545676'
+    address                 '45545,main st'
+    input_by_id             1
+    sourced_product         'abcd'
+    equip                   'stuff'
+    active                  true
+    quality_system          'ISO9000'
+    tech_ability            'great'
+    main_product            'value, machinery'
+    last_eval_date          '2012/1/1'
+  end
 
-Factory.define :supplier do |f|
-  f.name                    'sourcing plant'
-  f.short_name              'name'
-  f.contact                 'a guy'
-  f.cell                    '123455'
-  f.phone                   '23455'
-  f.fax                     '35456'
-  f.address                 '45545,main st'
-  f.input_by_id             1  
-  f.product_supplied        'abcdef'
-  f.active                  true
-  f.quality_system          '无'
-  f.main_product            'valve,shaft'
-end
+  factory :supplier do 
+    name                    'sourcing plant'
+    short_name              'name'
+    contact                 'a guy'
+    cell                    '123455'
+    phone                   '23455'
+    fax                     '35456'
+    address                 '45545,main st'
+    input_by_id             1  
+    product_supplied        'abcdef'
+    quality_system          '无'
+    main_product            'valve,shaft'
+  end
 
-Factory.define :part do |f|
-  f.name                    'flow meter'
-  f.spec                    'vse 1040'
-  f.in_qty                  2
-  f.stock_qty               1
-  f.manufacturer            'vse'
-  f.storage_location        'shelf A, 304'
-  f.unit                    'piece'
-  f.in_date                 '2012-2-3'
-end
+  factory :part do 
+    name                    'flow meter'
+    spec                    'vse 1040'
+    in_qty                  2
+    stock_qty               1
+    manufacturer            'vse'
+    storage_location        'shelf A, 304'
+    unit                    'piece'
+    in_date                 '2012-2-3'
+  end
 
-Factory.define :out_log do |f|
-  f.part_id                 1
-  f.out_date                '2012-3-4'
-  f.receiver_id              1
-  f.out_qty                 1
-  f.project_id              2
-  f.for_what                'for fun'
-end
+  factory :out_log do 
+    part_id                 1
+    out_date                '2012-3-4'
+    receiver_id              1
+    out_qty                 1
+    project_id              2
+    for_what                'for fun'
+  end
 
-Factory.define :proj_module do |f|
-  f.project_id              1
-  f.name                    'blaaaa'  
-end
+  factory :proj_module do 
+    project_id              1
+    name                    'blaaaa'  
+  end
+  
+  factory :sys_log do    
+    log_date                '2012-2-2'
+    user_name               'blabla'
+    user_id                 1
+    user_ip                 '1.2.3.4'
+    action_logged           'create a new user'
+  end  
 
-Factory.sequence :email do |n|
-  "person-#{n}@example.com"
-end
+  Factory.sequence :email do 
+    "person-#{n}@example.com"
+  end
 
-Factory.sequence :name do |n|
-  "Person #{n}"
+  Factory.sequence :name do 
+    "Person #{n}"
+  end
+  
 end
 
 

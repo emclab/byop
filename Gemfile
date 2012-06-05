@@ -6,7 +6,7 @@ gem 'database_cleaner'
 gem 'jquery-rails', '~>1.0.19'
 gem 'simple_form'
 gem 'will_paginate', '~> 3.0'
-gem 'rufus-scheduler'
+#gem 'rufus-scheduler'
 
 # Gemfile
 #group :production do
@@ -30,7 +30,7 @@ group :development, :test do
   gem "rspec-rails", ">= 2.0.0"
   #gem "cucumber-rails", ">=0.3.2"
   gem 'webrat', ">= 0.7.2"
-  gem 'factory_girl'
+  gem 'factory_girl', '~> 3.0'
 end
 
 # To use ActiveModel has_secure_password

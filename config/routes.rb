@@ -1,5 +1,7 @@
 Byop::Application.routes.draw do
   
+  get "sys_logs/index"
+
   get "out_logs/new"
 
   get "out_logs/create"
@@ -279,7 +281,13 @@ Byop::Application.routes.draw do
     resources :out_logs, :only => [:new, :create, :show]
   end
   
-   
+  #resources :sys_logs, :only => [:index]
+  resources :sys_logs, :only => [:index] do
+    collection do
+      get :sort_by_user_id
+      get :sort_by_ip
+    end
+  end   
   
   root :to => "sessions#new"
   match '/signin',  :to => 'sessions#new'

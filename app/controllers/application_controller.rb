@@ -3,11 +3,26 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :require_signin
+  before_filter :session_timeout
   
   #for methods available to the whole app
   helper_method 
 
   include SessionsHelper
+  
+  def session_timeout
+    return if Rails.env.test?
+    #check session last_seen
+    if session[:last_seen] < SESSION_TIMEOUT_MINUTES.minutes.ago
+      reset_session
+    else
+      session[:last_seen] = Time.now.utc
+    end unless session[:last_seen].nil?
+    #check when session created
+    if Session.first.created_at < SESSION_WIPEOUT_HOURS.hours.ago
+      Session.sweep
+    end unless Session.first.nil?
+  end
   
   def require_employee
     if !employee? 

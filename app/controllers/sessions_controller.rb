@@ -19,7 +19,9 @@ class SessionsController < ApplicationController
       #assign session vars
       session[:user_id]  = user.id
       session[:user_name] = user.name
-      
+      session[:last_seen] = Time.now.utc   #db uses UTC time for timestamp
+      session[:user_ip] = request.env['HTTP_X_FORWARDED_FOR'].nil? ? request.env['REMOTE_ADDR'] : request.env['HTTP_X_FORWARDED_FOR']  #good for client behind proxy or load balancer
+            
       sign_in(user)
       redirect_to user_menus_path
     else

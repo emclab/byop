@@ -100,8 +100,6 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.9.0)
-    rufus-scheduler (2.0.16)
-      tzinfo (>= 0.3.23)
     sass (3.1.16)
     sass-rails (3.1.6)
       actionpack (~> 3.1.0)
@@ -140,11 +138,10 @@ DEPENDENCIES
   coffee-rails (~> 3.1.1)
   database_cleaner
   execjs
-  factory_girl
+  factory_girl (~> 3.0)
   jquery-rails (~> 1.0.19)
   rails (~> 3.1.4)
   rspec-rails (>= 2.0.0)
-  rufus-scheduler
   sass-rails (~> 3.1.5)
   simple_form
   sqlite3
