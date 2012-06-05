@@ -2,8 +2,9 @@
 <h1>登录 - 美铝北冶</h1>
 <%= form_tag session_path do %>
 <div>
-	<p><%= label_tag :email, '用户名：' %> <%= text_field_tag :email, ''%></p>
+	<p><%= label_tag :login, '用户名：' %> <%= text_field_tag :login, ''%></p>
 	<p><%= label_tag :password, '密码：' %> <%= password_field_tag :password, ''%></p>
     <p><%= label_tag '' %><%= submit_tag '登录', :class => "button" %></p>
 </div>
 <% end %>
+

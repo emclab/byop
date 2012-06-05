@@ -51,4 +51,5 @@ describe SysLogsController do
       response.should redirect_to URI.escape(SUBURI + "/view_handler?index=1&url=#{sys_logs_path}")     
     end
   end
+  
 end

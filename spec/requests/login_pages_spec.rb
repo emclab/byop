@@ -1,8 +1,8 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe "LayoutLinks" do
-  describe "GET /signin or signout" do
+describe "LoginPages" do
+  describe "GET /login_pages" do
     it "works! (now write some real specs)" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
       get '/signin'
@@ -15,14 +15,14 @@ describe "LayoutLinks" do
     end
     
     it "should login in with right user name and password" do
-      user = FactoryGirl.create(:user, :email => 'test@example.com', :password => 'password', :password_confirmation => 'password')
+      user = FactoryGirl.create(:user, :login => 'test12', :password => 'password', :password_confirmation => 'password')
       lambda do
         visit '/'
-        fill_in "Name", :with => 'test@example.com'
-        fill_in "Password", :with => 'password'
+        fill_in "login", :with => user.login
+        fill_in "password", :with => 'password'
         click_button
         response.should render_template("user_menus/index")
-        response.should have_selector('title', :content => "美铝北冶")
+        response.should have_selector('title', :content => "北冶")
       end.should change(Session, :count).by(1)
     end
     
@@ -31,21 +31,21 @@ describe "LayoutLinks" do
   describe "user page" do
     
     before(:each) do
-      user = FactoryGirl.create(:user, :email => 'test@example.com', :password => 'password', :password_confirmation => 'password')
+      user = FactoryGirl.create(:user, :login => 'test12', :password => 'password', :password_confirmation => 'password')
       visit '/'
-      fill_in "Email", :with => 'test@example.com'
-      fill_in "Password", :with => 'password'
+      fill_in "login", :with => user.login
+      fill_in "password", :with => 'password'
       click_button   
     end
 
     it "should render new user page" do
       visit new_user_path
-      response.should have_selector("h1", :content => "创建新用户：")
+      response.should have_selector("title", :content => "北冶 | 输入用户")
     end  
 
-    it "should have email field" do
+    it "should have login field" do
       visit new_user_path
-      response.should have_selector("input[name='user[email]'][type='text']")
+      response.should have_selector("input[name='user[login]'][type='text']")
     end
     
     it "should have pasword field" do
@@ -55,7 +55,7 @@ describe "LayoutLinks" do
                   
     it "should have new user link" do
       visit users_path
-      response.should have_selector("a", :href => SUBURI + "/view_handler?index=1&url=#{new_user_path}", :content => "创建新用户")
+      response.should have_selector("a", :href => SUBURI + "/view_handler?index=1&url=#{new_user_path}", :content => "New User")
     end
        
   end
