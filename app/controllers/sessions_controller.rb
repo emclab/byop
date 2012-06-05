@@ -13,6 +13,8 @@ class SessionsController < ApplicationController
     reset_session  #anti session fixation. must before assign session values
     user = User.authenticate(params[:email], params[:password])
     if user.nil?
+      #log 
+      sys_logger('登录名/密码错误')  
       flash.now[:error] = "登录名/密码错误！"
       render 'new'
     elsif user.status == 'active'
@@ -23,14 +25,19 @@ class SessionsController < ApplicationController
       session[:user_ip] = request.env['HTTP_X_FORWARDED_FOR'].nil? ? request.env['REMOTE_ADDR'] : request.env['HTTP_X_FORWARDED_FOR']  #good for client behind proxy or load balancer
             
       sign_in(user)
+      #log 
+      sys_logger('登录')        
       redirect_to user_menus_path
     else
+      #log 
+      sys_logger('登录失败')      
       flash.now[:error] = "登录名/密码错误！"
       render 'new'
     end
   end
   
   def destroy
+    sys_logger('退出')  
     sign_out
     redirect_to signin_path, :notice => "退出了!"
   end
