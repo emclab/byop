@@ -67,5 +67,12 @@ class ApplicationController < ActionController::Base
       redirect_to url, :notice => msg
     end   
   end
+
+  #simple logging for a user
+  def sys_logger(action_logged)
+    log = SysLog.new({:log_date => Time.now, :user_id => session[:user_id], :user_name => session[:user_name], :user_ip => session[:user_ip],
+                     :action_logged => action_logged}, :as => :new_log)
+    log.save!
+  end
   
 end
