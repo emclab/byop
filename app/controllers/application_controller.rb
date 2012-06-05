@@ -74,5 +74,5 @@ class ApplicationController < ActionController::Base
                      :action_logged => action_logged}, :as => :new_log)
     log.save!
   end
-    
+
 end
