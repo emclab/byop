@@ -24,21 +24,21 @@ describe SessionsController do
     it "should display error for wrong login/password" do
       u = Factory(:user)
       get 'create', :user => {:login => u.login, :password => u.password + 'ab'}
-      flash.now[:error].should == "登录名/密码错误！"
+      flash.now[:error].should eq "登录名/密码错误！"
       response.should render_template('new')
     end
     
     it "should reject nil login" do
       u = Factory(:user)
       get 'create', :user => {:login => nil, :password => u.password }
-      flash.now[:error].should == "登录名/密码错误！"
+      flash.now[:error].should eq "登录名/密码错误！"
       response.should render_template('new')
     end  
     
     it "should reject nil password" do
       u = Factory(:user)
       get 'create', :user => {:login => u.login, :password => nil}
-      flash.now[:error].should == "登录名/密码错误！"
+      flash.now[:error].should eq "登录名/密码错误！"
       response.should render_template('new')
     end    
           
@@ -48,7 +48,7 @@ describe SessionsController do
     it "returns http success" do
       u = Factory(:user)
       get 'destroy', :user => {:login => u.login, :password => u.password}
-      flash.now[:notice].should == "退出了!"
+      flash.now[:notice].should eq "退出了!"
       response.should redirect_to(signin_path)
     end
   end
