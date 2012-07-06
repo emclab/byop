@@ -3,10 +3,9 @@ require 'digest'
 class User < ActiveRecord::Base
 
   attr_accessor :password, :update_password_checkbox
-  has_many :user_levels, :dependent => :destroy
+  has_many :user_levels, :dependent => :destroy 
   belongs_to :input_by, :class_name => "User"
-  accepts_nested_attributes_for :user_levels, :reject_if => lambda { |a| a[:position].blank? }, :allow_destroy => true
-  
+  accepts_nested_attributes_for :user_levels, :reject_if => lambda { |a| a[:position].blank? }, :allow_destroy => true  
  # attr_accessible :name, :login, :password, :user_type, :as => :role_new
   #attr_accessible :name, :login, :password, :user_status, :as => :role_update
   
@@ -15,20 +14,20 @@ class User < ActiveRecord::Base
   validates :name,  :presence => true,
                     :length   => { :maximum => 50 }
   validates :login, :presence => true,
-                    :length   => {:within => 6..10}
+                    :length   => {:minimum => 6}
   validates :email, :format     => { :with => email_regex, :message => '电邮格式错误！' , :if => :check_email },
                     :uniqueness => { :scope => :status, :case_sensitive => false, :if => :check_email, :message => '电邮已占用！' }
                     
   validates :password, :presence => true,
                        :confirmation => true,
-                       :length => { :within => 6..40 },
+                       :length => { :minimum => 6 },
                        :if => :validate_password?                      
   validates :user_type,  :presence => true  
   validates_presence_of :status, :inclusion => {:in => %w(active blocked inactive), :message => '用户状态不存在！'}
   validates_numericality_of :input_by_id, :greater_than => 0
                        
   validates_associated :user_levels
-
+  
   before_save :encrypt_password
 
   scope :user_status, lambda { |us| where('status = ?', us) }

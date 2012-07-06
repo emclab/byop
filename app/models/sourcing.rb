@@ -10,6 +10,7 @@ class Sourcing < ActiveRecord::Base
   belongs_to :input_by, :class_name => 'User' 
   belongs_to :eng, :class_name => 'User'
   belongs_to :src_eng, :class_name => 'User'
+  belongs_to :src_plant, :class_name => 'SrcPlant'
   belongs_to :approve_vp_eng, :class_name => 'User', :foreign_key => 'approve_vp_eng_id'
   belongs_to :approve_ceo, :class_name => 'User', :foreign_key => 'approve_ceo_id'  
   belongs_to :project

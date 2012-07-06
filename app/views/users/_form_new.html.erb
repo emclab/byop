@@ -5,7 +5,12 @@
   <%= f.input :password_confirmation, :label => '验证密码：' %>  
   <%= f.input :user_type, :label => '用户属性：', :collection => return_user_type, :include_blank => true %>
   &nbsp;&nbsp;用户职位：
-  <p><%= link_to_add_fields "选职位", f, :user_levels %></p>
+  <%= f.fields_for :user_levels, @user.user_levels.first do |builder| %>
+    <p><%= builder.input :position, :collection => return_position, :prompt => "选职位", 
+                    :label => false, :include_blank => true %>
+    </p>  
+  <% end %>     
+  <p><%= link_to_add_fields "加选职位", f, :user_levels %></p>
 
   <p><%= f.button :submit, '保存' %></p>
 <% end %>
