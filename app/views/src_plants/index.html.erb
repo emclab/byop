@@ -3,7 +3,7 @@
 <div class="byop_pagination"><%= will_paginate %></div>
 <table>
   <tr>
-    <th></th>
+    <th>#</th>
     <th>简称</th>
     <th>外协开始日期</th>
       <th>联系信息</th>
@@ -19,7 +19,7 @@
 
 <% @src_plants.each do |plant| %>
   <tr>
-  	<td><%= link_to 'Show', SUBURI + "/view_handler?index=1&url=#{src_plant_path(plant)}" if has_show_right? %></td>
+  	<td><%= link_to plant.id.to_s, SUBURI + "/view_handler?index=1&url=#{src_plant_path(plant)}" if has_show_right? %></td>
     <td><%= plant.short_name %></td>
     <td><%= plant.src_since.strftime("%Y/%m/%d") unless plant.src_since.nil? %></td>
     <td><%= plant.primary_contact %></td>

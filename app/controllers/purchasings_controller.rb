@@ -151,11 +151,11 @@ class PurchasingsController < ApplicationController
   end
   
   def has_create_right?
-    vp_eng? || ceo?
+    mech_eng? || elec_eng? || vp_eng? || ceo? || coo?
   end
   
   def has_update_right?
-    vp_eng? || ceo?
+    mech_eng? || elec_eng? || pur_eng? || vp_eng? || ceo? || coo?
   end
   
   def has_log_right?

@@ -4,7 +4,7 @@
 <div class="byop_pagination"><%= will_paginate %></div>
 <table>
   <tr>
-    <th></th>
+    <th>#</th>
     <th>产品名称</th>
     <th>订购日期</th>
     <th>到货日期</th>
@@ -16,7 +16,7 @@
 
 <% @purchasings.each do |pur| %>
   <tr>
-  	<td><%= link_to 'Show', SUBURI + "/view_handler?index=1&url=#{project_purchasing_path(@project, pur)}" if has_show_right? %></td>
+  	<td><%= link_to pur.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_purchasing_path(@project, pur)}" if has_show_right? %></td>
     <td><%= pur.prod_name %></td>
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.delivery_date.strftime("%Y/%m/%d") %></td>

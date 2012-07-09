@@ -4,7 +4,6 @@
 
 <table>
   <tr>
-  	<th></th>
   	<th>#</th>
     <th>名字</th>
     <th>登录名</th>
@@ -16,8 +15,7 @@
   </tr>
   <% for user in @users %>
     <tr>
-      <td><%= link_to "View", SUBURI + "/view_handler?index=1&url=#{user_path(user)}" %></td> 
-      <td><%= user.id %></td>   	
+      <td><%= link_to user.id.to_s, SUBURI + "/view_handler?index=1&url=#{user_path(user)}" %></td>   	
       <td><%= user.name %></td>
       <td><%= user.login %></td>
       <td><%= user.status %></td>

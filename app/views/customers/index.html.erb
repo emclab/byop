@@ -3,7 +3,7 @@
 <div class="byop_pagination"><%= will_paginate %></div>
 <table>
   <tr>
-    <th></th>
+    <th>#</th>
     <th>简称</th>
     <th>开始日期</th>
     <% if has_create_right? %>
@@ -20,7 +20,7 @@
 
 <% @customers.each do |cust| %>
   <tr>
-  	<td><%= link_to 'Show', SUBURI + "/view_handler?index=1&url=#{customer_path(cust)}" if has_show_right? %></td>
+  	<td><%= link_to cust.id.to_s, SUBURI + "/view_handler?index=1&url=#{customer_path(cust)}" if has_show_right? %></td>
     <td><%= cust.short_name %></td>
     <td><%= cust.created_at.strftime("%Y/%m/%d") %></td>
     <% if has_create_right? %>

@@ -135,9 +135,9 @@ describe PurchasingsController do
       pur = Factory(:purchasing, :input_by_id => u.id, :eng_id => u.id)
       get 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_eng => true, :approve_eng_id => session[:user_id],
                                                                           :approve_date_eng => Time.now }
-      pur.reload.approved_by_eng.should == true
-      pur.reload.approve_eng_id.should == session[:user_id]
-      pur.reload.approve_date_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+      pur.reload.approved_by_eng.should be_true
+      pur.reload.approve_eng_id.should eq session[:user_id]
+      pur.reload.approve_date_eng.strftime("%Y/%m/%d").should eq Time.now.utc.strftime("%Y/%m/%d")
       response.should redirect_to project_purchasings_path(proj, pur)      
     end    
 
