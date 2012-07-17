@@ -4,6 +4,7 @@
 <table>
   <tr>
     <th>#</th>
+    <th>生成日期</th>
     <th>项目名称</th>
     <th>开始日期</th>
     <th>客户</th>
@@ -20,6 +21,7 @@
 <% @projects.each do |proj| %>
   <tr>
   	<td><%= link_to proj.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_path(proj)}" if has_show_right? %></td>
+  	<td><%= (proj.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
     <td><%= proj.name %></td>
     <td><%= proj.created_at.strftime("%Y/%m/%d") %></td>
     <td><%= proj.customer.name %></td>

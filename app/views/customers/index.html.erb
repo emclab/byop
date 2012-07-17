@@ -22,7 +22,7 @@
   <tr>
   	<td><%= link_to cust.id.to_s, SUBURI + "/view_handler?index=1&url=#{customer_path(cust)}" if has_show_right? %></td>
     <td><%= cust.short_name %></td>
-    <td><%= cust.created_at.strftime("%Y/%m/%d") %></td>
+    <td><%= (cust.created_at + 8.hours).strftime("%Y/%m/%d") %></td>
     <% if has_create_right? %>
       <td><%= cust.contact_info[0..20] %></td>
       <td><%= cust.phone %></td>

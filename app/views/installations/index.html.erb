@@ -5,6 +5,7 @@
 <table>
   <tr>
   	<th>#</th>
+  	<th>生成日期</th>
     <th>产品名称</th>
     <th>开始日期</th>
     <th>完成日期</th>
@@ -18,6 +19,7 @@
 <% @installations.each do |inst| %>
   <tr>
   	<td><%= inst.id %></td>
+  	<td><%= (inst.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
     <td><%= inst.install_name %></td>
     <td><%= inst.start_date.strftime("%Y/%m/%d") %></td>
     <td><%= inst.finish_date.strftime("%Y/%m/%d") %></td>

@@ -8,7 +8,7 @@ class InstallationsController < ApplicationController
   def index
     @title = '安装计划'
     @project = Project.find(params[:project_id])
-    @installations = @project.installations.order("completed, start_date, finish_date").paginate(:per_page => 40, :page => params[:page])   
+    @installations = @project.installations.order("completed, created_at DESC, start_date, finish_date").paginate(:per_page => 40, :page => params[:page])   
   end
 
   def new

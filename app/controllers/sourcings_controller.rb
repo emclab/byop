@@ -9,7 +9,7 @@ class SourcingsController < ApplicationController
   def index
     @title = '外协计划'
     @project = Project.find(params[:project_id])
-    @sourcings = @project.sourcings.order("completed, start_date, finish_date").paginate(:per_page => 40, :page => params[:page])    
+    @sourcings = @project.sourcings.order("completed, created_at DESC, start_date, finish_date").paginate(:per_page => 40, :page => params[:page])    
   end
 
   def new

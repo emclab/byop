@@ -5,6 +5,7 @@
 <table>
   <tr>
     <th>#</th>
+    <th>生成日期</th>
     <th>产品名称</th>
     <th>开工日期</th>
     <th>完成日期</th>
@@ -18,6 +19,7 @@
 <% @sourcings.each do |src| %>
   <tr>
   	<td><%= link_to src.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_sourcing_path(@project, src)}" if has_show_right? %></td>
+  	<td><%= (src.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
     <td><%= src.prod_name %></td>
     <td><%= src.start_date.strftime("%Y/%m/%d") %></td>
     <td><%= src.finish_date.strftime("%Y/%m/%d") %></td>

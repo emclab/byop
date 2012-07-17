@@ -4,6 +4,7 @@
 <table>
   <tr>
   	<th></th>
+  	<th>生成日期</th>
     <th>物料名称/规格</th>
     <th>项目</th>
     <th>需要日期</th>
@@ -14,7 +15,8 @@
 
 <% @installation_purchases.each do |inst_pur| %>
   <tr>
-    <td><%= link_to 'View', SUBURI + "/view_handler?index=1&url=#{installation_installation_purchase_path(inst_pur.installation,inst_pur)}" %></td>  	
+    <td><%= link_to 'View', SUBURI + "/view_handler?index=1&url=#{installation_installation_purchase_path(inst_pur.installation,inst_pur)}" %></td> 
+    <td><%= (inst_pur.created_at + 8.hours).strftime("%Y/%m/%d")%></td> 	
     <td><%= inst_pur.part_name %><%= inst_pur.spec %></td>
     <td><%= inst_pur.installation.project.name %></td>
     <td><%= inst_pur.need_date.strftime("%Y/%m/%d") %></td>

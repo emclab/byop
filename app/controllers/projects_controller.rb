@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
   def index
     @title = '项目设备'
     if comp_sec? || vp_eng? || vp_sales? || ceo? || coo?
-      @projects = Project.order("id DESC, completed ASC").paginate(:per_page => 40, :page => params[:page])    
+      @projects = Project.order("id DESC, created_at DESC, completed ASC").paginate(:per_page => 40, :page => params[:page])    
     else
       @projects = Project.not_cancelled_project.order("id DESC").paginate(:per_page => 40, :page => params[:page])
     end
