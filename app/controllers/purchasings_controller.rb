@@ -1,6 +1,5 @@
 # encoding: utf-8
 class PurchasingsController < ApplicationController
-  before_filter :require_signin
   before_filter :require_employee  
   
   helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?,

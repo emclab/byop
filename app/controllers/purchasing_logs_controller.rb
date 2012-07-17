@@ -27,7 +27,7 @@ class PurchasingLogsController < ApplicationController
       @purchasing_log = @purchasing.purchasing_logs.new(params[:purchasing_log], :as => :role_new)
       @purchasing_log.input_by_id = session[:user_id]
       if @purchasing_log.save
-        redirect_to purchasing_path(@purchasing), :notice => "Log已保存！"
+        redirect_to purchasing_purchasing_logs_path(@purchasing), :notice => "Log已保存！"
       else
         flash.now[:error] = "无法保存Log！"
         render 'new'

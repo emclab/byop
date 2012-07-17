@@ -28,7 +28,7 @@ class ProductionLogsController < ApplicationController
       @production_log = @production.production_logs.new(params[:production_log], :as => :role_new)
       @production_log.input_by_id = session[:user_id]
       if @production_log.save
-        redirect_to production_path(@production), :notice => "Log已保存！"
+        redirect_to production_production_logs_path(@production), :notice => "Log已保存！"
       else
         flash.now[:error] = "无法保存Log！"
         render 'new'
