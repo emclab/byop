@@ -8,6 +8,7 @@
     <th>名称</th>
     <th>开始日期</th>
     <th>结束日期</th>
+    <th>责任工程师</th>
     <th>完成?</th>
     <th></th>
     <th></th> 
@@ -20,6 +21,7 @@
     <td><%= prod.name %></td>
     <td><%= prod.start_date.strftime("%Y/%m/%d") %></td>
     <td><%= prod.finish_date.strftime("%Y/%m/%d") %></td>
+    <td><%= prod.eng.name unless prod.eng_id.blank? %></td>
     <td><%= prod.completed %></td>  
     <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_production_path(@project, prod)}" if has_update_right? %></td>
     <td><%= link_to 'Log状态', SUBURI + "/view_handler?index=1&url=#{production_production_logs_path(prod)}" %></td>
