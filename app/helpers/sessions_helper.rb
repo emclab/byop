@@ -101,12 +101,16 @@ module SessionsHelper
     session[:src_eng]
   end
   
+  def qc_eng?
+    session[:qc_eng]
+  end
+  
   def is_eng?
-    mech_eng? || elec_eng? || hydr_eng? || src_eng? || inst_eng? || pur_eng? 
+    mech_eng? || elec_eng? || hydr_eng? || src_eng? || inst_eng? || pur_eng? || qc_eng?
   end
   
   def is_tech_eng?
-    mech_eng? || elec_eng? || hydr_eng? || src_eng? || inst_eng? 
+    mech_eng? || elec_eng? || hydr_eng? || src_eng? || inst_eng? || qc_eng?
   end
     
   def return_active_customer
@@ -193,7 +197,7 @@ module SessionsHelper
  
   def return_position
     [['机械工程师', 'mech_eng'], ['电气工程师', 'elec_eng'], ['液压工程师', 'hydr_eng'],['安装工程师','inst_eng'], ['外协工程师','src_eng'], 
-     ['采购工程师','pur_eng'], ['仓库保管员','warehouse'], ['财会','acct'], ['行政秘书','comp_sec'], ['系统管理员','admin'],
+     ['采购工程师','pur_eng'], ['质检工程师','qc_eng'],['仓库保管员','warehouse'], ['财会','acct'], ['行政秘书','comp_sec'], ['系统管理员','admin'],
      ['工程副总','vp_eng'], ['市场副总', 'vp_sales'], ['总经理','coo'],['董事长','ceo']]
   end
   
@@ -211,6 +215,8 @@ module SessionsHelper
       '外协工程师'
     when 'pur_eng'
       '采购工程师'
+    when 'qc_eng'
+      '质检工程师'
     when 'warehouse'
       '仓库保管员'
     when 'acct'
