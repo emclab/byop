@@ -10,6 +10,8 @@
     <th>订购日期</th>
     <th>到货日期</th>
     <th>到货?</th>
+    <th>部件工程师</th>
+    <th>外购工程师</th>
     <th></th>
     <th></th> 
     <th></th>
@@ -22,7 +24,9 @@
     <td><%= pur.prod_name %></td>
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.delivery_date.strftime("%Y/%m/%d") %></td>
-    <td><%= pur.delivered %></td>  
+    <td><%= pur.delivered %></td>
+    <td><%= pur.eng.name unless pur.eng_id.blank? %></td> 
+    <td><%= pur.pur_eng.name unless pur.pur_eng_id.blank? %></td> 
     <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_purchasing_path(@project, pur)}" if has_update_right? %></td>
     <td><%= link_to '批准', approve_project_purchasing_path(@project, pur), :method => :put if need_approve?(pur) %></td>
     <td><%= link_to '状态', SUBURI + "/view_handler?index=1&url=#{purchasing_purchasing_logs_path(pur)}" %></td>
