@@ -16,7 +16,7 @@
 
 <% @productions.each do |prod| %>
   <tr>
-  	<td><%= link_to prod.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_production_path(@project, prod)}" if has_show_right? %></td>
+  	<td><%= link_to prod.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_production_path(@project, prod)}" if has_show_right? %><%='*' if (prod.created_at + 8.hours) > DAYS_OF_NEW.days.ago %></td>
   	<td><%= (prod.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
     <td><%= prod.name %></td>
     <td><%= prod.start_date.strftime("%Y/%m/%d") %></td>

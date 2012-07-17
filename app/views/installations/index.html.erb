@@ -18,7 +18,7 @@
 
 <% @installations.each do |inst| %>
   <tr>
-  	<td><%= inst.id %></td>
+  	<td><%= inst.id %><%='*' if (inst.created_at + 8.hours) > DAYS_OF_NEW.days.ago %></td>
   	<td><%= (inst.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
     <td><%= inst.install_name %></td>
     <td><%= inst.start_date.strftime("%Y/%m/%d") %></td>

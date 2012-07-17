@@ -17,7 +17,7 @@
 
 <% @purchasings.each do |pur| %>
   <tr>
-  	<td><%= link_to pur.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_purchasing_path(@project, pur)}" if has_show_right? %></td>
+  	<td><%= link_to pur.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_purchasing_path(@project, pur)}" if has_show_right? %><%='*' if (pur.created_at + 8.hours) > DAYS_OF_NEW.days.ago %></td>
   	<td><%= (pur.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
     <td><%= pur.prod_name %></td>
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
