@@ -7,7 +7,7 @@
   <%= f.input :project_id_search, :collection => Project.where("created_at > ? AND cancelled = ?", 3.years.ago, false).order('created_at DESC'), :label_method => :name, :value_method => :id, :prompt => "选项目", :label => "项目 ："  %>
   <%= f.input :mfg_id_search, :collection => Manufacturer.order('created_at DESC'), :label_method => :name, :value_method => :id, :prompt => "选制造商", :label => "制造商 ："  %>
   <%= f.input :supplier_id_search, :collection => return_supplier, :label_method => :name, :value_method => :id, :prompt => "选供应商", :label => "供应商 ："  %>
-  <%= f.input :supplier_id_search, :collection => return_eng.order('name'), :label_method => :name, :value_method => :id, :prompt => "选工程师", :label => "工程师 ："  %>
+  <%= f.input :eng_id_search, :collection => return_eng.order('name'), :label_method => :name, :value_method => :id, :prompt => "选工程师", :label => "工程师 ："  %>
   <%= f.input :approved_by_eng_search, :label => "工程师批了？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %> 
   <%= f.input :approved_by_vp_eng_search, :label => "副总批了？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %> 
   <%= f.input :approved_by_pur_eng_search, :label => "采购批了？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %> 

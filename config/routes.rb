@@ -264,9 +264,14 @@ Byop::Application.routes.draw do
     collection do
       get :search
       put :search_results
-      get :stats
-      put :stats_results
     end 
+  end  
+  #for search
+  resources :sourcings, :only => [:index, :new, :create, :edit, :update, :show] do
+    collection do
+      get :search
+      put :search_results
+    end
   end  
   resources :productions do
     resources :production_logs, :only => [:index, :new, :create]
