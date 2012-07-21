@@ -136,7 +136,7 @@ class PurchasingsController < ApplicationController
 
   def search_results
     @purchasing = Purchasing.new(params[:purchasing], :as => :role_search_stats)
-    @purchasings = @purchasing.find_purchasings.order("delivered, created_at DESC, order_date, delivery_date").paginate(:per_page => 40, :page => params[:page])
+    @purchasings = @purchasing.find_purchasings.order("project_id DESC, delivered, created_at DESC, order_date, delivery_date") #.paginate(:per_page => 40, :page => params[:page])
     #seach params
     @search_params = search_params()
   end
