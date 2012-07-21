@@ -7,7 +7,7 @@ class Purchasing < ActiveRecord::Base
   
   attr_accessible :project_id_search, :start_date_search, :end_date_search, :approved_by_eng_search, :approved_by_vp_eng_search, 
                   :approved_by_pur_eng_search, :approved_by_ceo_search, :mfg_id_search, :eng_id_search, :customer_id_search,
-                  :supplier_id_search, :time_frame, :delivered_search, :as => :role_search_stats
+                  :supplier_id_search, :delivered_search, :as => :role_search_stats
                     
   attr_accessible :prod_name, :part_num, :spec, :project_id, :qty, :unit, :unit_price, :pur_eng_id, :manufacturer_id, :supplier_id,
                   :order_date, :delivery_date, :proj_module_id, :eng_id, 
@@ -51,8 +51,8 @@ class Purchasing < ActiveRecord::Base
     purchasings = purchasings.where('manufacturer_id = ?', mfg_id_search) if mfg_id_search.present? 
     purchasings = purchasings.where('supplier_id = ?', supplier_id_search) if supplier_id_search.present? 
     purchasings = purchasings.where('eng_id = ?', eng_id_search) if eng_id_search.present?
-    purchasings = purchasings.where('delivered = ?', true) if delivered_search.present? && delivered_search == 'true'
-    purchasings = purchasings.where('delivered = ? OR delivered IS　NULL', false) if delivered_search.present? && delivered_search == 'false'
+    purchasings = purchasings.where('purchasings.delivered = ?', true) if delivered_search.present? && delivered_search == 'true'
+    purchasings = purchasings.where('purchasings.delivered = ? OR purchasings.delivered IS NULL', false) if delivered_search.present? && delivered_search == 'false'
     purchasings = purchasings.where('approved_by_eng = ?', true) if approved_by_eng_search.present? && approved_by_eng_search == 'true'
     purchasings = purchasings.where('approved_by_eng = ? OR approved_by_eng IS NULL', false) if approved_by_eng_search.present? && approved_by_eng_search == 'false'
     purchasings = purchasings.where('approved_by_vp_eng = ?', true) if approved_by_vp_eng_search.present? && approved_by_vp_eng_search == 'true'

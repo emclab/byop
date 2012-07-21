@@ -238,4 +238,17 @@ describe SourcingsController do
     end
   end
 
+  describe "seach result" do
+    it "should do search for coo" do
+      session[:coo] = true
+      eng = FactoryGirl.create(:user)
+      proj = FactoryGirl.create(:project)
+      src = FactoryGirl.create(:sourcing, :project_id => proj.id, :eng_id => eng.id, :src_eng_id => nil)
+      p_search = FactoryGirl.attributes_for(:sourcing)
+      get 'search_results', :sourcing => p_search 
+      response.should be_success
+      assigns(:sourcings).should eq([src])
+    end
+  end
+  
 end

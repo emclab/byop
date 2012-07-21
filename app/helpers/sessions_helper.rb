@@ -123,7 +123,7 @@ module SessionsHelper
   end
   
   
-  def return_employee(*list_position)
+  def return_employee(*list_position)  #['inst_eng','mech_eng']
     User.where("user_type = ? AND status = ?", 'employee', 'active').joins(:user_levels).where(:user_levels => {:position => list_position })
   end
   

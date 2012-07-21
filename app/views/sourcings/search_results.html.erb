@@ -1,0 +1,57 @@
+
+<div id="main_body">
+<h1>外协计划搜索内容 </h1>
+<%=@search_params%>
+<% if has_stats_right? %>
+<p>总外购产品个数： <%=@sourcings.count %>, 
+	总金额￥： <%= number_with_delimiter(number_with_precision(@sourcings.sum('unit_price * qty'), :precision => 2)) %>,
+	待批准产品个数： <%= @sourcings.where("approved_by_vp_eng IS NULL OR approved_by_ceo IS NULL").count %>, 
+	未批准产品个数： <%= @sourcings.where("approved_by_vp_eng = ? OR approved_by_ceo =?", false,false).count %>,
+         责任工程师数： <%= @sourcings.select("DISTINCT(eng_id)").count %>, </p>
+<p>	已交货个数： <%= @sourcings.where('sourcings.completed = ?', true).count  %>,
+	已交货金额￥： <%= number_with_delimiter(number_with_precision(@sourcings.where('sourcings.completed = ?', true).sum('unit_price * qty'), :precision => 2))  %>,	
+	未交货个数： <%= @sourcings.where('sourcings.completed = ?', false).count  %>,
+	未交货金额￥： <%= number_with_delimiter(number_with_precision(@sourcings.where('sourcings.completed = ?', false).sum('unit_price * qty'), :precision => 2))  %>,		 
+<p>	外协厂个数： <%= @sourcings.select("DISTINCT(src_plant_id)").count %>,          
+</p>
+<% end %>
+<table>
+  <tr>
+    <th>#</th>
+    <th>生成日期</th>
+    <th>产品名称</th>
+    <th>项目名称</th>
+    <th>开工日期</th>
+    <th>完成日期</th>
+    <th>批准</th>
+    <th>完成</th>
+    <th>部件工程师</th>
+    <th>外协工程师</th>
+    <th></th>
+    <th></th> 
+    <th></th>
+  </tr>
+
+<% @sourcings.each do |src| %>
+  <tr>
+  	<td><%= link_to src.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_sourcing_path(src.project, src)}" if has_show_right? %><%='*' if (src.created_at + 8.hours) > DAYS_OF_NEW.days.ago %></td>
+  	<td><%= (src.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
+    <td><%= src.prod_name %></td>
+    <td><%= src.project.name %></td>
+    <td><%= src.start_date.strftime("%Y/%m/%d") %></td>
+    <td><%= src.finish_date.strftime("%Y/%m/%d") %></td>
+    <td><%= src.approved_by_vp_eng && src.approved_by_ceo %></td>
+    <td><%= src.completed %></td>
+    <td><%= src.eng.name unless src.eng_id.blank? %></td>
+    <td><%= src.src_eng.name unless src.src_eng_id.blank? %></td>  
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_sourcing_path(src.project, src)}" if has_update_right? %></td>
+    <td><%= link_to '批准', approve_project_sourcing_path(src.project, src), :method => :put if need_approve?(src) %></td>
+    <td><%= link_to '状态', SUBURI + "/view_handler?index=1&url=#{sourcing_sourcing_logs_path(src)}" %></td>
+  </tr>
+<% end %>
+</table>
+  <%= link_to 'Back', search_sourcings_path %>
+  &nbsp;<%= link_to '输入外协', SUBURI + "/view_handler?index=1&url=#{new_project_sourcing_path(src.project)}" if has_create_right? %>
+
+</div>
+
