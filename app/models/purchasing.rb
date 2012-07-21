@@ -43,7 +43,7 @@ class Purchasing < ActiveRecord::Base
   validates :spec, :presence => true
   
   def find_purchasings
-    purchasings = Purchasing.where("purchasings.created_at > ?", 6.years.ago).order("order_date")
+    purchasings = Purchasing.where("purchasings.created_at > ?", 6.years.ago)
     purchasings = purchasings.where('order_date > ?', start_date_search) if start_date_search.present?
     purchasings = purchasings.where('order_date < ?', end_date_search) if end_date_search.present?
     purchasings = purchasings.where('project_id = ?', project_id_search) if project_id_search.present? 
