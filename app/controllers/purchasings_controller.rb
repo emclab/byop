@@ -180,7 +180,8 @@ class PurchasingsController < ApplicationController
     search_params = "参数："
     search_params += ' 开始日期：' + params[:purchasing][:start_date_search] if params[:purchasing][:start_date_search].present?
     search_params += ', 结束日期：' + params[:purchasing][:end_date_search] if params[:purchasing][:end_date_search].present?
-    search_params += ', 客户 ：' + Customer.find_by_id(params[:purchasing][:customer_id_search].to_i).short_name if params[:purchasing][:customer_id_search].present?    
+    search_params += ', 客户 ：' + Customer.find_by_id(params[:purchasing][:customer_id_search].to_i).short_name if params[:purchasing][:customer_id_search].present? 
+    search_params += ', 项目 ：' + Project.find_by_id(params[:purchasing][:project_id_search].to_i).name if params[:purchasing][:project_id_search].present?   
     search_params += ', 工程师：' + User.find_by_id(params[:purchasing][:eng_id_search].to_i).name if params[:purchasing][:eng_id_search].present?
     search_params += ', 制造商：' + Manufacturer.find_by_id(params[:purchasing][:mfg_id_search].to_i).name if params[:purchasing][:mfg_id_search].present?
     search_params += ', 供应商：' + Supplier.find_by_id(params[:purchasing][:supplier_id_search].to_i).name if params[:purchasing][:supplier_id_search].present?
