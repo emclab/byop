@@ -227,6 +227,12 @@ Byop::Application.routes.draw do
       put :cancel
       put :re_activate
     end
+    collection do
+      get :search
+      put :search_results
+      get :stats
+      put :stats_results
+    end
     resources :project_logs, :only => [:new, :create, :show, :destroy]
     resources :productions, :only => [:index, :new, :create, :edit, :update, :show]
     resources :sourcings, :only => [:index, :new, :create, :edit, :update, :show] do
@@ -241,13 +247,27 @@ Byop::Application.routes.draw do
         put :approve
         put :dis_approve
         put :re_approve
+      end
+      collection do
+        get :search
+        put :search_results
+        get :stats
+        put :stats_results
       end 
     end
     resources :installations, :only => [:index, :new, :create, :edit, :update] 
     resources :proj_modules, :only => [:new, :create]
     resources :quality_issues, :only => [:new, :create, :edit, :update, :show] 
   end  #end projects
-  
+  #for search and stats only
+  resources :purchasings, :only => [:index, :new, :create, :edit, :update, :show] do
+    collection do
+      get :search
+      put :search_results
+      get :stats
+      put :stats_results
+    end 
+  end  
   resources :productions do
     resources :production_logs, :only => [:index, :new, :create]
   end

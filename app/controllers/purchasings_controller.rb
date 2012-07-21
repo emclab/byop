@@ -2,7 +2,7 @@
 class PurchasingsController < ApplicationController
   before_filter :require_employee  
   
-  helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?,
+  helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?, :has_stats_right?,
                 :need_approve?
                 
   def index
@@ -129,7 +129,18 @@ class PurchasingsController < ApplicationController
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!") 
     end
   end
-      
+  
+  def search
+    @purchasing = Purchasing.new
+  end
+
+  def search_results
+    @purchasing = Purchasing.new(params[:purchasing], :as => :role_search_stats)
+    @purchasings = @purchasing.find_purchasings.order("delivered, created_at DESC, order_date, delivery_date").paginate(:per_page => 40, :page => params[:page])
+    #seach params
+    @search_params = search_params()
+  end
+        
   protected
   
   def need_approve?(purchasing)
@@ -160,5 +171,25 @@ class PurchasingsController < ApplicationController
   def has_log_right?
     pur_eng? || vp_eng? || comp_sec? || vp_sales? || coo? || ceo?
   end
-
+  
+  def has_stats_right?  #show stats on search page
+    vp_eng? || vp_sales? || coo? || ceo?
+  end
+    
+  def search_params
+    search_params = "参数："
+    search_params += ' 开始日期：' + params[:purchasing][:start_date_search] if params[:purchasing][:start_date_search].present?
+    search_params += ', 结束日期：' + params[:purchasing][:end_date_search] if params[:purchasing][:end_date_search].present?
+    search_params += ', 客户 ：' + Customer.find_by_id(params[:purchasing][:customer_id_search].to_i).short_name if params[:purchasing][:customer_id_search].present?    
+    search_params += ', 工程师：' + User.find_by_id(params[:purchasing][:eng_id_search].to_i).name if params[:purchasing][:eng_id_search].present?
+    search_params += ', 制造商：' + Manufacturer.find_by_id(params[:purchasing][:mfg_id_search].to_i).name if params[:purchasing][:mfg_id_search].present?
+    search_params += ', 供应商：' + Supplier.find_by_id(params[:purchasing][:supplier_id_search].to_i).name if params[:purchasing][:supplier_id_search].present?
+    search_params += ', 交货了？ ：' + params[:purchasing][:delivered_search] if params[:purchasing][:delivered_search].present?
+    search_params += ', 工程师批了？ ：' + params[:purchasing][:approved_by_eng_search] if params[:purchasing][:approved_by_eng_search].present?
+    search_params += ', 副总批了？ ：' + params[:purchasing][:approved_by_vp_eng_search] if params[:purchasing][:approved_by_vp_eng_search].present?
+    search_params += ', 采购批了？ ：' + params[:purchasing][:approved_by_pur_eng_search] if params[:purchasing][:approved_by_pur_eng_search].present?
+    search_params += ', 厂长批了？ ：' + params[:purchasing][:approved_by_ceo_search] if params[:purchasing][:approved_by_ceo_search].present?
+    search_params
+  end
+  
 end

@@ -1,0 +1,12 @@
+<div id="main_body">
+<h1>项目搜索</h1>
+<%= simple_form_for @project, :method => :put, :url => { :action => 'search_results' } do |f| %>    
+  <%= f.input :start_date_search, :label => "生成开始日期 ：", :as => :string, :input_html => {:size => 40} %>
+  <%= f.input :end_date_search, :label => "生成结束日期 ：", :as => :string, :input_html => {:size => 40} %>
+  <%= f.input :customer_id_search, :collection => Customer.active_cust.order('name'), :label_method => :name, :value_method => :id, :prompt => "选客户", :label => "客户 ："  %>
+  <%= f.input :awarded_search, :label => "项目签了？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %> 
+  <%= f.input :completed_search, :label => "项目完成？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %>   
+  <%= f.input :cancelled_search, :label => "项目取消？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %>
+  <%= f.button :submit, '搜索' %>  
+<% end %> 
+</div>

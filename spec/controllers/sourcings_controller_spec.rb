@@ -14,15 +14,17 @@ describe SourcingsController do
   describe "'index'" do
     it "returns http success for eng" do
       session[:hydr_eng] = true
+      u = FactoryGirl.create(:user)
       proj = Factory(:project)
-      src = Factory(:sourcing, :project_id => proj.id)
+      src = Factory(:sourcing, :project_id => proj.id, :src_eng_id => u.id)
       get 'index', :project_id => proj.id
       response.should be_success
     end
     
     it "should OK for mech eng" do
       proj = Factory(:project)
-      src = Factory(:sourcing, :project_id => proj.id)
+      u = FactoryGirl.create(:user)
+      src = Factory(:sourcing, :project_id => proj.id, :src_eng_id => u.id)
       session[:mech_eng] = true
       get 'index', :project_id => proj.id
       response.should be_success      
@@ -131,7 +133,7 @@ describe SourcingsController do
       proj = Factory(:project)
       u = Factory(:user)
       session[:user_id] = u.id
-      src= Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => false)
+      src= Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => false, :project_id => proj.id)
       put 'approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_vp_eng => true}
       response.should redirect_to URI.escape("/view_handler?index=0&msg=权限不足!")
     end
@@ -142,12 +144,12 @@ describe SourcingsController do
       proj = Factory(:project)
       u = Factory(:user)
       session[:user_id] = u.id
-      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => false)
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => false, :project_id => proj.id)
       get 'approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
                                                                           :approve_date_vp_eng => Time.now }
-      src.reload.approved_by_vp_eng.should == true
-      src.reload.approve_vp_eng_id.should == session[:user_id]
-      src.reload.approve_date_vp_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+      src.reload.approved_by_vp_eng.should eq true
+      src.reload.approve_vp_eng_id.should eq session[:user_id]
+      src.reload.approve_date_vp_eng.strftime("%Y/%m/%d").should eq Time.now.utc.strftime("%Y/%m/%d")
       response.should redirect_to project_sourcing_path(proj, src)      
     end
     
@@ -156,12 +158,12 @@ describe SourcingsController do
       proj = Factory(:project)
       u = Factory(:user)
       session[:user_id] = u.id
-      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => true)
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => true, :project_id => proj.id)
       get 'approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_ceo => true, :approve_ceo_id => session[:user_id],
                                                                           :approve_date_ceo => Time.now }
-      src.reload.approved_by_ceo.should == true
-      src.reload.approve_ceo_id.should == session[:user_id]
-      src.reload.approve_date_ceo.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+      src.reload.approved_by_ceo.should eq true
+      src.reload.approve_ceo_id.should eq session[:user_id]
+      src.reload.approve_date_ceo.strftime("%Y/%m/%d").should eq Time.now.utc.strftime("%Y/%m/%d")
       response.should redirect_to project_sourcing_path(proj, src)      
     end    
     
@@ -174,12 +176,12 @@ describe SourcingsController do
       proj = Factory(:project)
       u = Factory(:user)
       session[:user_id] = u.id
-      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => false)
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => false, :project_id => proj.id)
       get 'dis_approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
                                                                           :approve_date_vp_eng => Time.now }
-      src.reload.approved_by_vp_eng.should == false
-      src.reload.approve_vp_eng_id.should == session[:user_id]
-      src.reload.approve_date_vp_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+      src.reload.approved_by_vp_eng.should eq false
+      src.reload.approve_vp_eng_id.should eq session[:user_id]
+      src.reload.approve_date_vp_eng.strftime("%Y/%m/%d").should eq Time.now.utc.strftime("%Y/%m/%d")
       response.should redirect_to project_sourcing_path(proj, src)      
     end
     
@@ -188,12 +190,12 @@ describe SourcingsController do
       proj = Factory(:project)
       u = Factory(:user)
       session[:user_id] = u.id
-      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => true)
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => true, :project_id => proj.id)
       get 'dis_approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_ceo => false, :approve_ceo_id => session[:user_id],
                                                                           :approve_date_ceo => Time.now }
-      src.reload.approved_by_ceo.should == false
-      src.reload.approve_ceo_id.should == session[:user_id]
-      src.reload.approve_date_ceo.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
+      src.reload.approved_by_ceo.should eq false
+      src.reload.approve_ceo_id.should eq session[:user_id]
+      src.reload.approve_date_ceo.strftime("%Y/%m/%d").should eq Time.now.utc.strftime("%Y/%m/%d")
       response.should redirect_to project_sourcing_path(proj, src)      
     end        
   end
@@ -204,15 +206,15 @@ describe SourcingsController do
       proj = Factory(:project)
       u = Factory(:user)
       session[:user_id] = u.id
-      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => true)
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => true, :project_id => proj.id)
       get 're_approve', :project_id => proj.id, :id => src.id, :sourcing => {:approved_by_ceo => nil, :approve_ceo_id => nil, :approve_date_ceo => nil,
                                                                               :approved_by_vp_eng => nil, :approve_vp_eng_id => nil, :approve_date_vp_eng => nil }
-      src.reload.approved_by_ceo.should == nil
-      src.reload.approve_ceo_id.should == nil
-      src.reload.approve_date_ceo.should == nil
-      src.reload.approved_by_vp_eng.should == nil
-      src.reload.approve_vp_eng_id.should == nil
-      src.reload.approve_date_vp_eng.should == nil      
+      src.reload.approved_by_ceo.should eq nil
+      src.reload.approve_ceo_id.should eq nil
+      src.reload.approve_date_ceo.should eq nil
+      src.reload.approved_by_vp_eng.should eq nil
+      src.reload.approve_vp_eng_id.should eq nil
+      src.reload.approve_date_vp_eng.should eq nil      
       response.should redirect_to project_sourcing_path(proj, src)      
     end            
   end

@@ -113,6 +113,7 @@ FactoryGirl.define do
     customer_contact_info   'a guy, cell 12345'
     status                  'info collecting'
     tech_spec               '35T, 2000pcs/min'  
+    completed                false
   end
 
   factory :project_log do 

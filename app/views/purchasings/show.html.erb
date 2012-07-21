@@ -4,7 +4,11 @@
 <h1>计划内容-<%=@purchasing.prod_name%></h1>
 
 <p>
-  <b>名称:</b>
+  <b>项目名称:</b>
+  <%= @project.name %>
+</p>
+<p>
+  <b>产品名称:</b>
   <%= @purchasing.prod_name %>
 </p>
 <p>
@@ -104,7 +108,7 @@
   <ul>
 <% @purchasing.purchasing_logs.order("created_at DESC").each do |f| %>
   <li>
-  <%= link_to f.created_at.strftime("%Y-%m-%d").to_s, SUBURI + "/view_handler?index=1&url=#{purchasing_purchasing_log_path(f.purchasing_id, f.id)}" %>
+  <%= link_to f.created_at.strftime("%Y-%m-%d").to_s, SUBURI + "/view_handler?index=1&url=#{purchasing_purchasing_logs_path(f.purchasing_id, f.id)}" %>
   </li>
 <% end %>
 </ul>

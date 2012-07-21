@@ -117,9 +117,10 @@ module SessionsHelper
     Customer.active_cust.order("id DESC")  
   end
     
-  #def return_eng
-  #  User.where("user_type =? AND status =?", 'employee', 'active').joins(:user_levels).where(:user_levels => { :position => ['mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng', 'pur_eng']})
-  #end
+  def return_eng
+    User.where("user_type =? AND status =?", 'employee', 'active').joins(:user_levels).where(:user_levels => { :position => ['mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 
+                                                                                                                             'src_eng', 'pur_eng', 'qc_eng']})
+  end
   
   
   def return_employee(*list_position)

@@ -1,6 +1,20 @@
 <div id="main_body">
-<h1>设备项目</h1>
-<div class="byop_pagination"><%= will_paginate %></div>
+<h1>设备项目搜索</h1>
+<%=@search_params%>
+<% if has_stats_right? %>
+<p>总单数： <%=@projects.count %>, 
+	总金额￥： <%= number_with_delimiter(@projects.sum('budget')) %>, 
+	客户数量： <%= @projects.select("DISTINCT(customer_id)").count %>,</p>
+<p>	完成项目数： <%= @projects.where('completed = ?', true).count %>, 
+	完成金额￥： <%= number_with_delimiter(@projects.where('completed = ?', true).sum('budget'))  %>,	
+	待签项目数： <%= @projects.where('awarded IS NULL').count %>,
+	待签金额￥： <%= number_with_delimiter(@projects.where('awarded IS NULL').sum('budget')) %>,</p>		 
+<p>	流标项目数： <%= @projects.where('awarded = ?', false).count %>,         
+	流标金额￥： <%= number_with_delimiter(@projects.where('awarded = ?', false).sum('budget')) %>, 
+	取消项目数： <%= @projects.where('cancelled = ?', true).count %>, 
+	取消金额￥： <%= number_with_delimiter(@projects.where('cancelled = ?', true).sum('budget')) %>，
+</p>
+<% end %>
 <table>
   <tr>
     <th>#</th>
@@ -36,10 +50,7 @@
   </tr>
 <% end %>
 </table>
-  <%= link_to 'Back', SUBURI + "/view_handler?index=0" %>
+  <%= link_to 'Back', search_projects_path %>
   &nbsp;<%= link_to '输入项目', SUBURI + "/view_handler?index=1&url=#{new_project_path}" if has_create_right? %>
-  <%= link_to '搜索', search_projects_path if has_search_right? %>
-  <%= link_to '统计', stats_projects_path if has_stats_right? %>
 
 </div>
-

@@ -1,0 +1,11 @@
+<div id="main_body">
+<h1>项目统计</h1>
+<%= simple_form_for @project, :method => :put, :url => { :action => 'stats_results' } do |f| %>
+  <%= f.input :time_frame, :collection => return_time_frame, :label => "周期 ：", :selected => '周'  %>    
+  <%= f.input :customer_id_search, :collection => Customer.order('name'), :label_method => :name, :value_method => :id, :prompt => "选客户", :label => "客户 ："  %>
+  <%= f.input :awarded_search, :label => "项目签了？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %> 
+  <%= f.input :completed_search, :label => "项目完成？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %>   
+  <%= f.input :cancelled_search, :label => "项目取消？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %>
+  <%= f.button :submit, '统计' %>  
+<% end %> 
+</div>

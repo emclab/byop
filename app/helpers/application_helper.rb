@@ -7,5 +7,9 @@ module ApplicationHelper
     else
       "#{base_title} | #{@title}"
     end
-  end  
+  end
+
+  def return_time_frame
+    ['周','月','季','年']  #week, month, quarter, year
+  end    
 end

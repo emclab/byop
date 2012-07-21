@@ -1,0 +1,19 @@
+<div id="main_body">
+<h1>外购件搜索</h1>
+<%= simple_form_for @purchasing, :method => :put, :url => { :action => 'search_results' } do |f| %>    
+  <%= f.input :start_date_search, :label => "交货开始日期 ：", :as => :string, :input_html => {:size => 40} %>
+  <%= f.input :end_date_search, :label => "交货结束日期 ：", :as => :string, :input_html => {:size => 40} %>
+  <%= f.input :customer_id_search, :collection => Customer.order('name'), :label_method => :name, :value_method => :id, :prompt => "选客户", :label => "客户 ："  %>
+  <%= f.input :project_id_search, :collection => Project.where("created_at > ? AND cancelled = ?", 3.years.ago, false).order('created_at DESC'), :label_method => :name, :value_method => :id, :prompt => "选项目", :label => "项目 ："  %>
+  <%= f.input :mfg_id_search, :collection => Manufacturer.order('created_at DESC'), :label_method => :name, :value_method => :id, :prompt => "选制造商", :label => "制造商 ："  %>
+  <%= f.input :supplier_id_search, :collection => return_supplier, :label_method => :name, :value_method => :id, :prompt => "选供应商", :label => "供应商 ："  %>
+  <%= f.input :supplier_id_search, :collection => return_eng.order('name'), :label_method => :name, :value_method => :id, :prompt => "选工程师", :label => "工程师 ："  %>
+  <%= f.input :approved_by_eng_search, :label => "工程师批了？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %> 
+  <%= f.input :approved_by_vp_eng_search, :label => "副总批了？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %> 
+  <%= f.input :approved_by_pur_eng_search, :label => "采购批了？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %> 
+  <%= f.input :approved_by_ceo_search, :label => "厂长批了？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %> 
+  <%= f.input :delivered_search, :label => "交货了？ ：", :collection => [['Yes',true], ['No', false]], :include_blank => true %>   
+  
+  <%= f.button :submit, '搜索' %>  
+<% end %> 
+</div>

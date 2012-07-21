@@ -1,0 +1,21 @@
+<div id="main_body">
+	<h1>项目统计</h1>
+<p><%= @stats_params %></p>
+<table>
+  <tr>
+    <th>时段</th>
+    <th>金额（￥）</th>
+    <th>客户数</th>
+  </tr>
+  <% @project_stats.each do |record| %>
+    <tr>
+      <td><%= (record.created_at + 8.hours).strftime('%Y/%m/%d') %></td>      
+      <td><%= number_with_delimiter(record.revenue) %></td>
+      <td><%= record.num_customer %></td>
+    </tr>
+  <% end %>
+</table>
+<p>
+<%= link_to 'Close',  stats_projects_path %>
+</p>
+</div>

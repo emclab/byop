@@ -1,0 +1,52 @@
+<div id="main_body">
+<h1>外购件搜索</h1>
+<div class="byop_pagination"><%= will_paginate %></div>
+<%=@search_params%>
+<% if has_stats_right? %>
+<p>总外购产品个数： <%=@purchasings.count %>, 
+	总金额￥： <%= @purchasings.sum('unit_price * qty') %>,
+	待批准产品个数： <%= @purchasings.where("approved_by_eng IS NULL OR approved_by_vp_eng IS NULL OR approved_by_pur_eng IS NULL OR approved_by_ceo IS NULL").count %>, 
+	未批准产品个数： <%= @purchasings.where("approved_by_eng = ? OR approved_by_vp_eng = ? OR approved_by_pur_eng = ? OR approved_by_ceo =?",false, false, false,false).count %>,
+         责任工程师数： <%= @purchasings.select("DISTINCT(eng_id)").count %>, </p>
+<p>	已交货个数： <%= @purchasings.where('delivered = ?', true).count  %>,
+	已交货金额￥： <%= @purchasings.where('delivered = ?', true).sum('unit_price * qty')  %>,	
+	未交货个数： <%= @purchasings.where('delivered = ?', false).count  %>,
+	未交货金额￥： <%= @purchasings.where('delivered = ?', false).sum('unit_price * qty')  %>,		 
+<p>	制造商个数： <%= @purchasings.select("DISTINCT(manufacturer_id)").count %>,          
+	供应商个数： <%= @purchasings.select("DISTINCT(supplier_id)").count %>, 
+</p>
+<% end %>
+<table>
+  <tr>
+    <th>#</th>
+    <th>生成日期</th>
+    <th>产品名称</th>
+    <th>订购日期</th>
+    <th>到货日期</th>
+    <th>到货?</th>
+    <th>部件工程师</th>
+    <th>外购工程师</th>
+    <th></th>
+    <th></th> 
+    <th></th>
+  </tr>
+
+<% @purchasings.each do |pur| %>
+  <tr>
+  	<td><%= link_to pur.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_purchasing_path(pur.project, pur)}" if has_show_right? %><%='*' if (pur.created_at + 8.hours) > DAYS_OF_NEW.days.ago %></td>
+  	<td><%= (pur.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
+    <td><%= pur.prod_name %></td>
+    <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
+    <td><%= pur.delivery_date.strftime("%Y/%m/%d") %></td>
+    <td><%= pur.delivered %></td>
+    <td><%= pur.eng.name unless pur.eng_id.blank? %></td> 
+    <td><%= pur.pur_eng.name unless pur.pur_eng_id.blank? %></td> 
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_purchasing_path(pur.project, pur)}" if has_update_right? %></td>
+    <td><%= link_to '批准', approve_project_purchasing_path(pur.project, pur), :method => :put if need_approve?(pur) %></td>
+    <td><%= link_to '状态', SUBURI + "/view_handler?index=1&url=#{purchasing_purchasing_logs_path(pur)}" %></td>
+  </tr>
+<% end %>
+</table>
+  <%= link_to 'Back', search_purchasings_path %>
+
+</div>

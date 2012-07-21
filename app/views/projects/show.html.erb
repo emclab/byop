@@ -97,7 +97,7 @@
   </p>
   <p>
     <b>合同金额（￥）</b>
-    <%= number_with_precision(@project.budget, :precision => 2) %>
+    <%= number_with_delimiter(number_with_precision(@project.budget, :precision => 2)) %>
   </p>
   <p>
     <b>发放标书日期:</b>

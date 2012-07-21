@@ -13,7 +13,7 @@ class UserMenusController < ApplicationController
   protected
   
   def is_worker?
-    mech_eng? or elec_eng? or hydr_eng? or pur_eng? or inst_eng? or src_eng? or comp_sec? or acct? or warehouse? or coo? or vp_eng? or vp_sales? or ceo?
+    qc_eng? || mech_eng? or elec_eng? or hydr_eng? or pur_eng? or inst_eng? or src_eng? or comp_sec? or acct? or warehouse? or coo? or vp_eng? or vp_sales? or ceo?
   end
 
 end
