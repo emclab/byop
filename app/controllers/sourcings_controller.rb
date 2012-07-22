@@ -165,7 +165,7 @@ class SourcingsController < ApplicationController
   end
 
   def has_stats_right?  #show stats on search page
-    vp_eng? || vp_sales? || coo? || ceo?
+    src_eng? || vp_eng? || vp_sales? || coo? || ceo?
   end
   
   def search_params
