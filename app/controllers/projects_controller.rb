@@ -106,7 +106,7 @@ class ProjectsController < ApplicationController
       @project = Project.new(params[:project], :as => :role_search_stats)
       @project_stats = @project.find_projects
       #retrieve parameter
-      @stats_params = "参数：" + params[:project][:time_frame] + '，统计条数：' + @project_stats.count.to_s unless @project_stats.blank?
+      @stats_params = "参数：" + params[:project][:time_frame] + '，统计条数：' + @project_stats.count.to_s 
       group_records(params[:project][:time_frame]) #result in @lease_usage_record_stats & @stats_params
       @stats_params += ', ' + Customer.find_by_id(params[:project][:customer_id_search]).short_name if params[:project][:customer_id_search].present?
       @stats_params += ', 签了？：' + params[:project][:awarded_search] if params[:project][:awarded_search].present?
