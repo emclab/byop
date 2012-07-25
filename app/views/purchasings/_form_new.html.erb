@@ -7,6 +7,7 @@
   <%= f.input :qty, :label => '数量：' %>
   <%= f.input :unit, :label => '单位：', :collection => return_unit, :include_blank => true %>
   <%= f.input :unit_price, :label => '单价：' %>
+  <%= f.input :total, :label => '总金额￥：' %>
   <%= f.input :manufacturer_id, :label => '制造厂家：', :collection => return_mfg, :label_method => :name, :value_method => :id, :include_blank => true %>
   <%= f.input :supplier_id, :label => '供应商：', :collection => return_supplier, :label_method => :name, :value_method => :id, :include_blank => true %>
   <%= f.input :eng_id, :label => '责任工程师:', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng'), :label_method => :name, :value_method => :id %>

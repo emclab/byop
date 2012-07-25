@@ -2,6 +2,17 @@
 require 'spec_helper'
 
 describe Sourcing do
+  
+  it "should be OK" do
+    s = FactoryGirl.build(:sourcing)
+    s.should be_valid  
+  end
+  
+  it "should reject nil total" do
+    s = FactoryGirl.build(:sourcing, :total => nil)
+    s.should_not be_valid
+  end
+  
   it "should reject nil prod name" do
     s = Factory.build(:sourcing, :prod_name => nil)
     s.should_not be_valid

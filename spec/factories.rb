@@ -93,6 +93,7 @@ FactoryGirl.define do
     input_by_id              1
     delivered                false  
     eng_id                   1
+    total                    120.20
   end
 
   factory :sourcing do  
@@ -104,7 +105,8 @@ FactoryGirl.define do
     project_id               1  
     start_date               '2012-2-1'
     finish_date              '2012-3-2' 
-    completed                false     
+    completed                false  
+    total                    120.20   
   end
 
   factory :project do 

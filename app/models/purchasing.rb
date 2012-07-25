@@ -10,12 +10,12 @@ class Purchasing < ActiveRecord::Base
                   :supplier_id_search, :delivered_search, :as => :role_search_stats
                     
   attr_accessible :prod_name, :part_num, :spec, :project_id, :qty, :unit, :unit_price, :pur_eng_id, :manufacturer_id, :supplier_id,
-                  :order_date, :delivery_date, :proj_module_id, :eng_id, 
+                  :order_date, :delivery_date, :proj_module_id, :eng_id, :total, 
                   :as => :role_new
   attr_accessible :prod_name, :part_num, :spec, :qty, :unit, :unit_price, :pur_eng_id, :manufacturer_id, :supplier_id, :eng_id, 
                   :order_date, :delivery_date, :proj_module_id, :delivered, :approved_by_eng, :approve_eng_id, :approve_date_eng,
                   :approved_by_vp_eng, :approve_vp_eng_id, :approve_date_vp_eng, :approved_by_pur_eng, :approve_pur_eng_id,
-                  :approve_date_pur_eng, :approved_by_ceo, :approve_ceo_id, :approve_date_ceo,
+                  :approve_date_pur_eng, :approved_by_ceo, :approve_ceo_id, :approve_date_ceo, :total, 
                   :as => :role_update
                    
   #has_and_belongs_to_many :categories
@@ -41,6 +41,7 @@ class Purchasing < ActiveRecord::Base
   validates :order_date, :presence => true
   validates :delivery_date, :presence => true
   validates :spec, :presence => true
+  validates_numericality_of :total, :greater_than => 0.00
   
   def find_purchasings
     purchasings = Purchasing.where("purchasings.created_at > ?", 6.years.ago)
