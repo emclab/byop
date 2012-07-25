@@ -7,11 +7,6 @@ describe Purchasing do
     s.should be_valid
   end
   
-  it "should reject nil total" do
-    s = FactoryGirl.build(:purchasing, :total => nil)
-    s.should_not be_valid
-  end
-  
   it "should reject nil prod name" do
     s = Factory.build(:purchasing, :prod_name => nil)
     s.should_not be_valid

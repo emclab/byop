@@ -41,7 +41,6 @@ class Purchasing < ActiveRecord::Base
   validates :order_date, :presence => true
   validates :delivery_date, :presence => true
   validates :spec, :presence => true
-  validates_numericality_of :total, :greater_than => 0.00
   
   def find_purchasings
     purchasings = Purchasing.where("purchasings.created_at > ?", 6.years.ago)

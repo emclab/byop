@@ -28,7 +28,6 @@ class Sourcing < ActiveRecord::Base
   
   validates :prod_name, :presence => true, :uniqueness => {:case_sensitive => false}
   validates_numericality_of :project_id, :greater_than => 0
-  validates_numericality_of :total, :greater_than => 0.00
   validates :spec, :presence => true
   validates :qty, :numericality => { :only_integer => true } 
   validates :unit, :presence => true
