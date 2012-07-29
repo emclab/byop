@@ -1,0 +1,10 @@
+<div id="main_body">
+<h1>更改付款记录</h1>
+<% if @purchasing %>
+  <%= render 'form_edit_pur' %>
+  <%= link_to 'Back', purchasing_payment_logs_path(@purchasing) %>
+<% elsif @sourcing %>
+  <%= render 'form_edit_src' %>
+  <%= link_to 'Back', sourcing_payment_logs_path(@sourcing) %>
+<% end %>
+</div>

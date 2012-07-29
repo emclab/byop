@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120725212752) do
+ActiveRecord::Schema.define(:version => 20120729045323) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -139,6 +139,17 @@ ActiveRecord::Schema.define(:version => 20120725212752) do
     t.datetime "updated_at"
     t.string   "unit"
     t.string   "supplier"
+  end
+
+  create_table "payment_logs", :force => true do |t|
+    t.date     "pay_date"
+    t.integer  "sourcing_id"
+    t.integer  "purchasing_id"
+    t.decimal  "amount",        :precision => 10, :scale => 2, :default => 0.0
+    t.string   "short_note"
+    t.integer  "input_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "production_logs", :force => true do |t|

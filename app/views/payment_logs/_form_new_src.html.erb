@@ -1,0 +1,7 @@
+<%= simple_form_for([@sourcing, @payment_log]) do |f| %>    
+ 
+  <%= f.input :pay_date, :label => "付款日期 ：", :as => :string %> 
+  <%= f.input :amount, :label => "金额￥：" %>
+  <%= f.input :short_note, :label => "简注 ：" %>   
+  <%= f.button :submit, '保存' %>  
+<% end %> 

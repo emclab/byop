@@ -25,6 +25,7 @@ class Sourcing < ActiveRecord::Base
   belongs_to :project
   has_many :sourcing_logs
   has_many :proj_modules
+  has_many :payment_logs
   
   validates :prod_name, :presence => true, :uniqueness => {:case_sensitive => false}
   validates_numericality_of :project_id, :greater_than => 0

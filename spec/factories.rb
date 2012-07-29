@@ -95,6 +95,13 @@ FactoryGirl.define do
     eng_id                   1
     total                    120.20
   end
+  
+  factory :payment_log do
+    pay_date                 Date.new(2012, 4,23)
+    amount                   120.00
+    input_by_id              1
+    purchasing_id            2
+  end
 
   factory :sourcing do  
     prod_name                'a prod plan'

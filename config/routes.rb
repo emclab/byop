@@ -1,5 +1,17 @@
 Byop::Application.routes.draw do
   
+  get "payment_logs/index"
+
+  get "payment_logs/new"
+
+  get "payment_logs/create"
+
+  get "payment_logs/edit"
+
+  get "payment_logs/update"
+
+  get "payment_logs/show"
+
   get "sys_logs/index"
 
   get "out_logs/new"
@@ -222,6 +234,7 @@ Byop::Application.routes.draw do
   resources :src_plants
   resources :suppliers
   resources :quality_issues, :only  => [:index]
+  #start: project
   resources :projects do
     member do
       put :cancel
@@ -241,6 +254,7 @@ Byop::Application.routes.draw do
         put :dis_approve
         put :re_approve
       end
+
     end
     resources :purchasings, :only => [:index, :new, :create, :edit, :update, :show] do
       member do
@@ -248,40 +262,35 @@ Byop::Application.routes.draw do
         put :dis_approve
         put :re_approve
       end
-      collection do
-        get :search
-        put :search_results
-        get :stats
-        put :stats_results
-      end 
+
     end
     resources :installations, :only => [:index, :new, :create, :edit, :update] 
     resources :proj_modules, :only => [:new, :create]
     resources :quality_issues, :only => [:new, :create, :edit, :update, :show] 
-  end  #end projects
-  #for search and stats only
-  resources :purchasings, :only => [:index, :new, :create, :edit, :update, :show] do
-    collection do
-      get :search
-      put :search_results
-    end 
   end  
-  #for search
-  resources :sourcings, :only => [:index, :new, :create, :edit, :update, :show] do
-    collection do
-      get :search
-      put :search_results
-    end
-  end  
+  #end projects
+
   resources :productions do
     resources :production_logs, :only => [:index, :new, :create]
   end
+  
+  resources :payment_logs, :only =>[:index]
   resources :purchasings do
+    collection do
+      get :search
+      put :search_results
+    end     
     resources :purchasing_logs, :only => [:index, :new, :create] 
+    resources :payment_logs, :only => [:index, :new, :create, :edit, :update, :show]
   end
   
   resources :sourcings do
+    collection do
+      get :search
+      put :search_results
+    end      
     resources :sourcing_logs, :only => [:index, :new, :create]   
+    resources :payment_logs, :only => [:index, :new, :create, :edit, :update, :show]
   end
   
   resources :installation_purchases, :only => [:index]  
@@ -295,6 +304,7 @@ Byop::Application.routes.draw do
       end
     end          
   end  
+  
   resources :installation_purchases do
     member do
       put :warehousing

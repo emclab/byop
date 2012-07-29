@@ -1,0 +1,60 @@
+<div id="main_body">
+<% if @purchasing %>
+  <h1>外购计划付款记录 - <%=@purchasing.prod_name %></h1>
+  <p>项目名称：<%=@purchasing.project.name%></p>
+  <p>
+    总金额￥：<%=@purchasing.total%>, 数量(<%=@purchasing.unit%>)：<%=@purchasing.qty%>, 单价：<%=@purchasing.unit_price%>
+  </p>
+  <p>已付款（￥）：<%= @purchasing.payment_logs.sum("amount")%></p>
+<% elsif @sourcing %>
+  <h1>外协计划付款Log - <%=@sourcing.prod_name %></h1>
+  <p>项目名称：<%=@sourcing.project.name%></p>
+  <p>
+    总金额￥：<%=@sourcing.total%>, 数量(<%=sourcing.unit%>)：<%=sourcing.qty%>, 单价：<%=sourcing.unit_price%>
+  </p> 
+  <p>已付款（￥）：<%= @sourcing.payment_logs.sum("amount")%></p> 
+<% else %>
+  <h1>外购/外协计划付款记录</h1>
+<% end %>
+<table>
+  <tr>
+  	<th>付款日期</th>
+  	<th>付款额￥</th>
+  	<% if @sourcing.blank? && @purchasing.blank?%>
+  	  <th>项目</th>
+  	  <th>外购</th>
+  	  <th>外协</th>
+  	<% end %>
+    <th>输入/更改</th>
+    <th>简注</th>  
+    <th></th>
+  </tr>
+
+<% @payment_logs.each do |log| %>
+  <tr>
+    <td><%= log.pay_date.strftime("%Y/%m/%d") %></td> 
+    <td><%= log.amount %></td>
+  	<% if @sourcing.blank? && @purchasing.blank?%>
+  	  <% if log.purchasing_id.present? %>
+  	    <td><%=log.purchasing.project.name%></td>
+  	    <td><%=log.purchasing.prod_name%></td>
+  	    <td></td>
+  	  <% elsif log.sourcing_id.present? %>
+  	    <td><%=log.sourcing.project.name%></td>
+  	    <td></td>    	    
+  	    <td><%=log.sourcing.prod_name%></td>	  
+  	  <% end %>
+  	<% end %>    	
+    <td><%= log.input_by.name %></td> 
+    <td><%= log.short_note %></td> 
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_purchasing_payment_log_path(@purchasing, log)}" if has_update_right? && @purchasing.present? %></td>    
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_sourcing_payment_log_path(@sourcing, log)}" if has_update_right? && @sourcing.present? %></td>
+  </tr>
+<% end %>
+
+</table>
+
+  <%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
+  <%= link_to "输入外购付款记录", new_purchasing_payment_log_path(@purchasing, :format => :js), :remote => true, :id => 'new_log_link' if has_create_right? && @purchasing %>
+  <%= link_to "输入外协付款记录", new_sourcing_payment_log_path(@sourcing, :format => :js), :remote => true, :id => 'new_log_link' if has_create_right? && @sourcing %>
+</div>
