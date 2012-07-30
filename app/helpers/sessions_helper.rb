@@ -253,7 +253,7 @@ module SessionsHelper
     SrcPlant.active_plant  
   end
   
-  def returen_active_supplier
+  def return_active_supplier
     Supplier.active_supplier
   end
   

@@ -292,6 +292,12 @@ Byop::Application.routes.draw do
     resources :sourcing_logs, :only => [:index, :new, :create]   
     resources :payment_logs, :only => [:index, :new, :create, :edit, :update, :show]
   end
+  resources :payment_logs do
+    collection do
+      get :stats
+      put :stats_results
+    end  
+  end
   
   resources :installation_purchases, :only => [:index]  
   resources :installations do

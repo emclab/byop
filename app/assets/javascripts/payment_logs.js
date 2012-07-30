@@ -6,5 +6,7 @@
 $(function() {
    $("#payment_log_pay_date").live('click', function() {
 		$(this).datepicker({dateFormat: 'yy-mm-dd', currentText: '', showOn:'focus' }).removeAttr('value').focus();
-	});   
+	});
+   $("#payment_log_start_date_search").datepicker({dateFormat: 'yy-mm-dd'}); 
+   $("#payment_log_end_date_search").datepicker({dateFormat: 'yy-mm-dd'});   
 });

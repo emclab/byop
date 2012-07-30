@@ -1,0 +1,41 @@
+<div id="main_body">
+	<h1>外购/外协付款统计</h1>
+<p><%= @stats_params %></p>
+<table>
+  <tr>
+    <th>最近付款日期</th>
+    <th>项目</th>
+    <th>外购</th>
+    <th>外协</th>
+    <th>应付额（￥）</th>
+    <th>已付额（￥）</th>
+    <th>差额（-￥）</th>
+    <th>供应商</th>
+    <th>外协厂</th>
+    <th>付款次数</th>
+  </tr>
+  <% @payment_log_stats.each do |record| %>
+    <tr>
+      <td><%= record.last_pay_date %></td> 
+      <td><%= record.purchasing_id.present? ? record.purchasing.project.name : record.sourcing.project.name %></td>
+      <td><%= record.purchasing.prod_name if record.purchasing_id.present? %></td>       
+      <td><%= record.sourcing.prod_name if record.sourcing_id.present? %></td>
+      <% if record.purchasing_id.present? %>
+        <td><%= number_with_delimiter(record.purchasing.total) %></td>
+        <td><%= number_with_delimiter(record.total_payment - record.purchasing.total.to_f) %></td>
+      <% elsif record.sourcing_id.present? %>
+        <td><%= number_with_delimiter(record.sourcing.total) %></td>
+        <td><%= number_with_delimiter(record.total_payment - record.sourcing.total.to_f) %></td>
+      <% end %>
+      
+      <td><%= number_with_delimiter(record.total_payment) %></td>
+      <td><%= record.purchasing.supplier.name if record.purchasing_id.present? && record.purchasing.supplier_id.present? %></td>
+      <td><%= record.sourcing.src_plant.name if record.sourcing_id.present? && record.sourcing.src_plant_id.present? %></td>
+      <td><%= record.num_payment %></td>
+    </tr>
+  <% end %>
+</table>
+<p>
+<%= link_to 'Close',  stats_payment_logs_path %>
+</p>
+</div>
