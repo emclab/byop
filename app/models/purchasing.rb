@@ -15,7 +15,7 @@ class Purchasing < ActiveRecord::Base
   attr_accessible :prod_name, :part_num, :spec, :qty, :unit, :unit_price, :pur_eng_id, :manufacturer_id, :supplier_id, :eng_id, 
                   :order_date, :delivery_date, :proj_module_id, :delivered, :approved_by_eng, :approve_eng_id, :approve_date_eng,
                   :approved_by_vp_eng, :approve_vp_eng_id, :approve_date_vp_eng, :approved_by_pur_eng, :approve_pur_eng_id,
-                  :approve_date_pur_eng, :approved_by_ceo, :approve_ceo_id, :approve_date_ceo, :total, 
+                  :approve_date_pur_eng, :approved_by_ceo, :approve_ceo_id, :approve_date_ceo, :total, :actual_receiving_date,
                   :as => :role_update
                    
   #has_and_belongs_to_many :categories

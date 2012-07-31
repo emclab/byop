@@ -70,14 +70,21 @@ describe PaymentLogsController do
   end
 
   describe "GET 'update'" do
-    it "be OK for acct" do
+    it "be OK for acct for sourcing" do
       session[:acct] = true
       s = FactoryGirl.create(:sourcing)
-      p = FactoryGirl.create(:payment_log, :sourcing_id => s.id, :purchasing_id => nil)   
-      get 'update', :id => p.id, :payment_log => {:amount => 123, :short_note => 'blabla'}
-      #response.should redirect_to sourcing_payment_logs_path(s). NOT SURE WHY RETURN CODE 200. 
-      response.should be_success
+      p = FactoryGirl.create(:payment_log, :sourcing_id => s.id, :purchasing_id => nil) 
+      get 'update', :id => p.id, :payment_log => {:amount => 123, :short_note => 'blabla'}, :sourcing_id => s.id  #:sourcing_id is for the load_sourcing before filter
+      response.should redirect_to sourcing_payment_logs_path(s)  
     end
+   
+    it "be OK for ceo for purchasing" do
+      session[:ceo] = true
+      pur = FactoryGirl.create(:purchasing)
+      p = FactoryGirl.create(:payment_log, :sourcing_id => nil, :purchasing_id => pur.id) 
+      get 'update', :id => p.id, :payment_log => {:amount => 123, :short_note => 'yyblabla'}, :purchasing_id => pur.id  #:purchasing_id is for the load_sourcing before filter
+      response.should redirect_to purchasing_payment_logs_path(pur)  
+    end    
     
     it "not OK for nobody" do
       s = FactoryGirl.create(:sourcing)

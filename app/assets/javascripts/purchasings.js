@@ -2,6 +2,7 @@
 //# All this logic will automatically be available in application.js.
 //# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $(function() {
+	$("#purchasing_actual_receiving_date").datepicker({dateFormat: 'yy-mm-dd'});
    $("#purchasing_start_date_search").datepicker({dateFormat: 'yy-mm-dd'});
    $("#purchasing_end_date_search").datepicker({dateFormat: 'yy-mm-dd'});
 });

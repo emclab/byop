@@ -57,8 +57,12 @@
   <%= @purchasing.order_date.strftime("%Y/%m/%d") %>
 </p>
 <p>
-  <b>到货日期:</b>
+  <b>预定到货日期:</b>
   <%= @purchasing.delivery_date.strftime("%Y/%m/%d") %>
+</p>
+<p>
+  <b>实际到货日期:</b>
+  <%= @purchasing.actual_receiving_date.strftime("%Y/%m/%d") if @purchasing.actual_receiving_date.present? %>
 </p>
 <p>
   <b>责任工程师签字:</b>

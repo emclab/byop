@@ -85,7 +85,8 @@ class PaymentLogsController < ApplicationController
       @stats_params += ', 结束日期：' + params[:payment_log][:end_date_search] if params[:payment_log][:end_date_search].present?
       @stats_params += ', 供应商：' + Supplier.find(params[:payment_log][:supplier_id_search]).name if params[:payment_log][:supplier_id_search].present?
       @stats_params += ', 外协厂：' + SrcPlant.find(params[:payment_log][:src_plant_id_search]).name if params[:payment_log][:src_plant_id_search].present?
-      return if @payment_log_stats.blank?  #empty record causes error in following code      
+      return if @payment_log_stats.blank?  #empty record causes error in following code   
+      add_summary_to_stats_params()   
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=无统计权限！")      
     end      
@@ -107,6 +108,19 @@ class PaymentLogsController < ApplicationController
         @payment_log_stats = @payment_log_stats.all(:select => "max(pay_date) as last_pay_date, sum(amount) as total_payment, count(DISTINCT(payment_logs.id)) as num_payment, 
                                 purchasing_id, sourcing_id", :group => "purchasing_id, sourcing_id")                            
       end   
+  end
+  
+  def add_summary_to_stats_params
+    cost_total, pay_total, total_num_payment = 0.00, 0.00, 0.00
+    @payment_log_stats.each do |p|
+      cost_total += p.sourcing.total if p.sourcing_id.present? && p.sourcing.total.present?
+      cost_total += p.purchasing.total if p.purchasing_id.present? && p.purchasing.total.present?
+      pay_total += p.total_payment
+      total_num_payment += p.num_payment
+    end
+    d_total = pay_total - cost_total if pay_total.present? && cost_total.present?
+    d_total = pay_total if pay_total.present? && cost_total.nil?
+    @stats_params += "\n" + ", 应付总额: ￥" + cost_total.to_s + ", 已付总额: ￥" + pay_total.to_s + ", 总差额: ￥" + d_total.to_s + ", 付款总次数: " + total_num_payment.to_s
   end
     
   def has_index_right?

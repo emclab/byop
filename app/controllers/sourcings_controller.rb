@@ -153,11 +153,11 @@ class SourcingsController < ApplicationController
   end
   
   def has_create_right?
-    vp_eng? || ceo?
+    src_eng? || vp_eng? || ceo?
   end
   
   def has_update_right?
-    vp_eng? || ceo?
+    src_eng? || vp_eng? || ceo?
   end
   
   def has_log_right?

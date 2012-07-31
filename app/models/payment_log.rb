@@ -21,13 +21,13 @@ class PaymentLog < ActiveRecord::Base
     payment_logs = payment_logs.where("payment_logs.pay_date < ?", end_date_search) if end_date_search.present?   
     payment_logs = payment_logs.where("payment_logs.purchasing_id IS NOT NULL") if for_search.present? && for_search == '外购'
     payment_logs = payment_logs.where("payment_logs.sourcing_id IS NOT NULL") if for_search.present? && for_search == '外协'
-    payment_logs = payment_logs.where(["
+    payment_logs = payment_logs.where("
             payment_logs.sourcing_id IN   (
                                            SELECT id FROM sourcings WHERE sourcings.project_id = ? 
                                           ) 
          OR payment_logs.purchasing_id IN (
                                            SELECT id FROM purchasings WHERE purchasings.project_id = ? 
-                                          )", project_id_search, project_id_search]) if project_id_search.present?
+                                          )", project_id_search, project_id_search) if project_id_search.present?
     payment_logs = payment_logs.joins(:sourcing).where("sourcings.src_plant_id = ?", src_plant_id_search) if src_plant_id_search.present?
     payment_logs = payment_logs.joins(:purchasing).where("purchasings.supplier_id = ?", supplier_id_search) if supplier_id_search.present?
     payment_logs = payment_logs.order("purchasing_id DESC, sourcing_id DESC, pay_date DESC")
