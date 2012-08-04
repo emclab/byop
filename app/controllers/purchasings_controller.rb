@@ -3,7 +3,7 @@ class PurchasingsController < ApplicationController
   before_filter :require_employee  
   
   helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?, :has_stats_right?,
-                :need_approve?
+                :need_approve?, :approved?
                 
   def index
     @title = '外购计划'
@@ -153,6 +153,12 @@ class PurchasingsController < ApplicationController
     elsif ceo? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng && purchasing.approved_by_pur_eng 
       return true
     end
+    return false
+  end
+  
+  def approved?(purchasing)
+    return false if approved_by_eng.nil? || approved_by_vp_eng.nil? || approved_by_pur_eng.nil? || approved_by_ceo.nil?
+    return true if approved_by_eng == true && approved_by_vp_eng == true && approved_by_pur_eng == true && approved_by_ceo == true
     return false
   end
   
