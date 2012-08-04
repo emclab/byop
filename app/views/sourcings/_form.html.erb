@@ -15,12 +15,17 @@
   <%= f.input :completed, :label => '完成:', :as => :radio %>
   <%= f.input :start_date, :label => '开工日期：', :as => :string %> 
   <%= f.input :finish_date, :label => '完成日期：', :as => :string %> 
+  <% if comp_sec? %>
+    <%= f.input :stamped, :label => '盖章？：', :collection => [['是',true],['否',false]], :selected => @sourcing.stamped %>  
+  <% else %>
+    <div style="padding-left:68px">盖章？：&nbsp;&nbsp;<%= @sourcing.stamped %></div> <p></p>
+  <% end %>  
   <div style="padding-left:68px">工程付总批准：&nbsp;&nbsp;<%= @sourcing.approved_by_vp_eng %></div> 
-  <div style="padding-left:68px">批准人：&nbsp;&nbsp;<%= @sourcing.approve_vp_eng.name if @sourcing.approve_vp_eng_id.present?  %></div> 
-  <div style="padding-left:68px">批准日期：&nbsp;&nbsp;<%= @sourcing.approve_date_vp_eng.strftime("%Y/%m/%d") if @sourcing.approve_date_vp_eng.present? %></div>  
+  <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @sourcing.approve_vp_eng.name if @sourcing.approve_vp_eng_id.present?  %></div> 
+  <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @sourcing.approve_date_vp_eng.strftime("%Y/%m/%d") if @sourcing.approve_date_vp_eng.present? %></div>  
   <div style="padding-left:68px">厂长批准：&nbsp;&nbsp;<%= @sourcing.approved_by_ceo %></div> 
-  <div style="padding-left:68px">批准人：&nbsp;&nbsp;<%= @sourcing.approve_ceo.name if @sourcing.approve_ceo_id.present?  %></div> 
-  <div style="padding-left:68px">批准日期：&nbsp;&nbsp;<%= @sourcing.approve_date_ceo.strftime("%Y/%m/%d") if @sourcing.approve_date_ceo.present? %></div>   
+  <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @sourcing.approve_ceo.name if @sourcing.approve_ceo_id.present?  %></div> 
+  <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @sourcing.approve_date_ceo.strftime("%Y/%m/%d") if @sourcing.approve_date_ceo.present? %></div>   
        
   <%= f.button :submit, '保存' %>  
 <% end %>  

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731224025) do
+ActiveRecord::Schema.define(:version => 20120804202647) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -262,6 +262,7 @@ ActiveRecord::Schema.define(:version => 20120731224025) do
     t.integer  "eng_id"
     t.decimal  "total",                 :precision => 10, :scale => 2
     t.date     "actual_receiving_date"
+    t.boolean  "stamped",                                              :default => false
   end
 
   create_table "quality_issues", :force => true do |t|
@@ -325,6 +326,7 @@ ActiveRecord::Schema.define(:version => 20120731224025) do
     t.integer  "project_id"
     t.integer  "eng_id"
     t.decimal  "total",               :precision => 10, :scale => 2
+    t.boolean  "stamped",                                            :default => false
   end
 
   create_table "src_plants", :force => true do |t|

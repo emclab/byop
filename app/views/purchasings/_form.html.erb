@@ -16,19 +16,24 @@
   <%= f.input :delivered, :label => '到货？：', :collection => [['是',true],['否',false]], :selected => @purchasing.delivered %>
   <%= f.input :order_date, :label => '订购日期：', :as => :string %> 
   <%= f.input :delivery_date, :label => '预定到货日期：', :as => :string %> 
-  <%= f.input :actual_receiving_date, :label => '实际到货日期：', :as => :string %>   
-  <div style="padding-left:68px">工程师批准：&nbsp;&nbsp;<%= @purchasing.approved_by_eng %></div>
-  <div style="padding-left:68px">批准人：&nbsp;&nbsp;<%= @purchasing.approve_eng.name if @purchasing.approve_eng_id.present? %></div> 
-  <div style="padding-left:68px">批准日期：&nbsp;&nbsp;<%= @purchasing.approve_date_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_eng.present? %></div>  
-  <div style="padding-left:68px">工程付总批准：&nbsp;&nbsp;<%= @purchasing.approved_by_vp_eng %></div> 
-  <div style="padding-left:68px">批准人：&nbsp;&nbsp;<%= @purchasing.approve_vp_eng.name if @purchasing.approve_vp_eng_id.present?  %></div> 
-  <div style="padding-left:68px">批准日期：&nbsp;&nbsp;<%= @purchasing.approve_date_vp_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_vp_eng.present? %></div>  
-  <div style="padding-left:68px">采购批准：&nbsp;&nbsp;<%= @purchasing.approved_by_pur_eng %></div> 
-  <div style="padding-left:68px">批准人：&nbsp;&nbsp;<%= @purchasing.pur_eng.name if @purchasing.approve_pur_eng_id.present? %></div> 
-  <div style="padding-left:68px">批准日期：&nbsp;&nbsp;<%= @purchasing.approve_date_pur_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_pur_eng.present? %></div>  
-  <div style="padding-left:68px">厂长批准：&nbsp;&nbsp;<%= @purchasing.approved_by_ceo %></div> 
-  <div style="padding-left:68px">批准人：&nbsp;&nbsp;<%= @purchasing.approve_ceo.name if @purchasing.approve_ceo_id.present?  %></div> 
-  <div style="padding-left:68px">批准日期：&nbsp;&nbsp;<%= @purchasing.approve_date_ceo.strftime("%Y/%m/%d") if @purchasing.approve_date_ceo.present? %></div>   
+  <%= f.input :actual_receiving_date, :label => '实际到货日期：', :as => :string %> 
+  <% if comp_sec? %>
+    <%= f.input :stamped, :label => '盖章？：', :collection => [['是',true],['否',false]], :selected => @purchasing.stamped %>  
+  <% else %>
+    <div style="padding-left:68px">盖章？：&nbsp;&nbsp;<%= @purchasing.stamped %></div> <p></p>
+  <% end %>
+  <div style="padding-left:68px">工程师批准：&nbsp;&nbsp;<%= @purchasing.approved_by_eng %></div> <p></p>
+  <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @purchasing.approve_eng.name if @purchasing.approve_eng_id.present? %></div>  <p></p>
+  <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @purchasing.approve_date_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_eng.present? %></div>   <p></p>
+  <div style="padding-left:68px">工程付总批准：&nbsp;&nbsp;<%= @purchasing.approved_by_vp_eng %></div> <p></p>
+  <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @purchasing.approve_vp_eng.name if @purchasing.approve_vp_eng_id.present?  %></div> <p></p>
+  <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @purchasing.approve_date_vp_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_vp_eng.present? %></div> <p></p> 
+  <div style="padding-left:68px">采购批准：&nbsp;&nbsp;<%= @purchasing.approved_by_pur_eng %></div> <p></p>
+  <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @purchasing.pur_eng.name if @purchasing.approve_pur_eng_id.present? %></div> <p></p>
+  <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @purchasing.approve_date_pur_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_pur_eng.present? %></div>  <p></p>
+  <div style="padding-left:68px">厂长批准：&nbsp;&nbsp;<%= @purchasing.approved_by_ceo %></div> <p></p>
+  <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @purchasing.approve_ceo.name if @purchasing.approve_ceo_id.present?  %></div> <p></p>
+  <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @purchasing.approve_date_ceo.strftime("%Y/%m/%d") if @purchasing.approve_date_ceo.present? %></div>  <p></p> 
   
   <%= f.button :submit, '保存' %>  
 <% end %>  

@@ -49,6 +49,10 @@
   <%= @purchasing.eng.name %>
 </p>
 <p>
+  <b>盖章？：</b>
+  <%= @purchasing.stamped %>
+</p>
+<p>
   <b>到货？：</b>
   <%= @purchasing.delivered %>
 </p>
@@ -65,51 +69,51 @@
   <%= @purchasing.actual_receiving_date.strftime("%Y/%m/%d") if @purchasing.actual_receiving_date.present? %>
 </p>
 <p>
-  <b>责任工程师签字:</b>
+  <b>责任工程师批准:</b>
   <%= @purchasing.approved_by_eng %>
 </p>
 <p>
-  <b>签字人:</b>
+  <b>审批人:</b>
   <%= @purchasing.approve_eng.name if @purchasing.approve_eng_id.present? %>
 </p>
 <p>
-  <b>签字日期:</b>
+  <b>审批日期:</b>
   <%= @purchasing.approve_date_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_eng.present? %>
 </p>
 <p>
-  <b>工程付总签字:</b>
+  <b>工程付总批准:</b>
   <%= @purchasing.approved_by_vp_eng %>
 </p>
 <p>
-  <b>签字人:</b>
+  <b>审批人:</b>
   <%= @purchasing.approve_vp_eng.name if @purchasing.approve_vp_eng_id.present? %>
 </p>
 <p>
-  <b>签字日期:</b>
+  <b>审批日期:</b>
   <%= @purchasing.approve_date_vp_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_vp_eng.present? %>
 </p>
 <p>
-  <b>采购工程师签字:</b>
+  <b>采购工程师批准:</b>
   <%= @purchasing.approved_by_pur_eng %>
 </p>
 <p>
-  <b>签字人:</b>
+  <b>审批人:</b>
   <%= @purchasing.approve_pur_eng.name if @purchasing.approve_pur_eng_id.present? %>
 </p>
 <p>
-  <b>签字日期:</b>
+  <b>审批日期:</b>
   <%= @purchasing.approve_date_pur_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_pur_eng.present? %>
 </p>
 <p>
-  <b>厂长签字:</b>
+  <b>厂长批准:</b>
   <%= @purchasing.approved_by_ceo %>
 </p>
 <p>
-  <b>签字人:</b>
+  <b>审批人:</b>
   <%= @purchasing.approve_ceo.name if @purchasing.approve_ceo_id.present? %>
 </p>
 <p>
-  <b>签字日期:</b>
+  <b>审批日期:</b>
   <%= @purchasing.approve_date_ceo.strftime("%Y/%m/%d") if @purchasing.approve_date_ceo.present? %>
 </p>
 <p>

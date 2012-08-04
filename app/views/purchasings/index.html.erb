@@ -10,6 +10,7 @@
     <th>订购日期</th>
     <th>预定到货日期</th>
     <th>实际到货日期</th>
+    <th>批准？</th>
     <th>到货?</th>
     <th>部件工程师</th>
     <th>外购工程师</th>
@@ -26,6 +27,7 @@
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.delivery_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.actual_receiving_date.strftime("%Y/%m/%d") if pur.actual_receiving_date.present? %></td>
+    <td><%= pur.approved_by_eng && approved_by_vp_eng && approved_by_pur_eng && approved_by_ceo %></td>
     <td><%= pur.delivered %></td>
     <td><%= pur.eng.name unless pur.eng_id.blank? %></td> 
     <td><%= pur.pur_eng.name unless pur.pur_eng_id.blank? %></td> 

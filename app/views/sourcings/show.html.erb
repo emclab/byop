@@ -30,7 +30,10 @@
 <p>	
   <b>已付款（￥）:</b>
   <%= @sourcing.payment_logs.sum("amount") %>
-
+</p>
+<p>
+  <b>盖章？：</b>
+  <%= @sourcing.stamped %>
 </p>
 <p>
   <b>外协厂:</b>
@@ -54,27 +57,27 @@
 </p>
 
 <p>
-  <b>工程付总签字:</b>
+  <b>工程付总批准:</b>
   <%= @sourcing.approved_by_vp_eng %>
 </p>
 <p>
-  <b>签字人:</b>
+  <b>审批人:</b>
   <%= @sourcing.approve_vp_eng.name unless @sourcing.approved_by_vp_eng.nil? %>
 </p>
 <p>
-  <b>签字日期:</b>
+  <b>审批日期:</b>
   <%= @sourcing.approve_date_vp_eng.strftime("%Y/%m/%d") unless @sourcing.approved_by_vp_eng.nil? %>
 </p>
 <p>
-  <b>厂长签字:</b>
+  <b>厂长批准:</b>
   <%= @sourcing.approved_by_ceo %>
 </p>
 <p>
-  <b>签字人:</b>
+  <b>审批人:</b>
   <%= @sourcing.approve_ceo.name unless @sourcing.approved_by_ceo.nil? %>
 </p>
 <p>
-  <b>签字日期:</b>
+  <b>审批日期:</b>
   <%= @sourcing.approve_date_ceo.strftime("%Y/%m/%d") unless @sourcing.approved_by_ceo.nil? %>
 </p>
 <p>

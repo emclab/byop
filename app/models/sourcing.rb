@@ -13,7 +13,7 @@ class Sourcing < ActiveRecord::Base
                   :as => :role_new
   attr_accessible :prod_name, :part_num, :spec, :qty, :unit, :unit_price, :proj_module_id, :src_plant_id, :start_date, :finish_date, :src_eng_id,
                   :completed, :approved_by_vp_eng, :approve_vp_eng_id, :approve_date_vp_eng, :approved_by_ceo, :approve_ceo_id, :total, :src_plant_id,
-                  :approve_date_ceo, :as => :role_update                 
+                  :approve_date_ceo, :stamped, :as => :role_update                 
                   
   #has_and_belongs_to_many :categories
   belongs_to :input_by, :class_name => 'User' 
