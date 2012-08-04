@@ -156,9 +156,9 @@ class PurchasingsController < ApplicationController
     return false
   end
   
-  def approved?(purchasing)
-    return false if approved_by_eng.nil? || approved_by_vp_eng.nil? || approved_by_pur_eng.nil? || approved_by_ceo.nil?
-    return true if approved_by_eng == true && approved_by_vp_eng == true && approved_by_pur_eng == true && approved_by_ceo == true
+  def approved?(pur)
+    return false if pur.approved_by_eng.nil? || pur.approved_by_vp_eng.nil? || pur.approved_by_pur_eng.nil? || pur.approved_by_ceo.nil?
+    return true if pur.approved_by_eng == true && pur.approved_by_vp_eng == true && pur.approved_by_pur_eng == true && pur.approved_by_ceo == true
     return false
   end
   
