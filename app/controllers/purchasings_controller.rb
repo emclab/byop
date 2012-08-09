@@ -130,6 +130,17 @@ class PurchasingsController < ApplicationController
     end
   end
   
+  def stamp
+    @project = Project.find(params[:project_id])
+    @purchasing = @project.purchasings.find(params[:id])
+    if comp_sec?
+      @purchasing.update_attributes({:stamped => true}, :as => :role_update)
+      redirect_to project_purchasing_path(@project, @purchasing)
+    else
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!")       
+    end    
+  end
+  
   def search
     @purchasing = Purchasing.new
   end

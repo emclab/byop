@@ -218,6 +218,28 @@ describe SourcingsController do
       response.should redirect_to project_sourcing_path(proj, src)      
     end            
   end
+  
+  describe "stamp for comp_sec ONLY" do
+    it "should stamp for comp_sec" do
+      session[:comp_sec] = true
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:user_id] = u.id
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => true, :project_id => proj.id)
+      get "stamp", :project_id => proj.id, :id => src.id, :sourcing => { :stamp => true }
+      response.should redirect_to project_sourcing_path(@project, @sourcing)
+      src.reload.stamped.should eq true      
+    end
+    
+    it "should not stamp for all others" do
+      proj = Factory(:project)
+      u = Factory(:user)
+      session[:user_id] = u.id
+      src = Factory(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => true, :project_id => proj.id)
+      get "stamp", :project_id => proj.id, :id => src.id, :sourcing => { :stamp => true }
+      response.should redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!")       
+    end
+  end
 
   describe "GET 'show'" do
     it "should reject those without right" do

@@ -17,11 +17,8 @@
   <%= f.input :order_date, :label => '订购日期：', :as => :string %> 
   <%= f.input :delivery_date, :label => '预定到货日期：', :as => :string %> 
   <%= f.input :actual_receiving_date, :label => '实际到货日期：', :as => :string %> 
-  <% if comp_sec? %>
-    <%= f.input :stamped, :label => '盖章？：', :collection => [['是',true],['否',false]], :selected => @purchasing.stamped %>  
-  <% else %>
-    <div style="padding-left:68px">盖章？：&nbsp;&nbsp;<%= @purchasing.stamped %></div> <p></p>
-  <% end %>
+
+  <div style="padding-left:68px">盖章？：&nbsp;&nbsp;<%= @purchasing.stamped %></div> <p></p>
   <div style="padding-left:68px">工程师批准：&nbsp;&nbsp;<%= @purchasing.approved_by_eng %></div> <p></p>
   <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @purchasing.approve_eng.name if @purchasing.approve_eng_id.present? %></div>  <p></p>
   <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @purchasing.approve_date_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_eng.present? %></div>   <p></p>

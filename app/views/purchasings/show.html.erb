@@ -132,6 +132,7 @@
 </p>
 
 <%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
+<%= link_to '盖章', stamp_project_purchasing_path(@project, @purchasing), :method => :put, :id => 'purchasing_stamp' if comp_sec? && !@purchasing.stamped %>
 <%= link_to '批准采购', approve_project_purchasing_path(@project, @purchasing), :method => :put, :id => 'purchasing_need_approve' if need_approve?(@purchasing) %>
 <%= link_to '否决采购', dis_approve_project_purchasing_path(@project, @purchasing), :method => :put, :id => 'purchasing_need_dis_approve' if need_approve?(@purchasing) %>
 <%= link_to '重新采购', re_approve_project_purchasing_path(@project, @purchasing), :method => :put, :id => 'purchasing_need_re_approve' if ceo? %>

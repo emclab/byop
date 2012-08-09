@@ -122,6 +122,18 @@ class SourcingsController < ApplicationController
     end
   end
   
+  def stamp
+    @project = Project.find(params[:project_id])
+    @sourcing = @project.sourcings.find(params[:id])
+    if comp_sec?  
+      @sourcing.update_attributes({:stamped => true }, :as => :role_update)
+    
+      redirect_to project_sourcing_path(@project, @sourcing)
+    else
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!")    
+    end    
+  end
+  
   def search
     @sourcing = Sourcing.new
   end

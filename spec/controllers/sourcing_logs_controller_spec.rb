@@ -48,15 +48,17 @@ describe SourcingLogsController do
   describe "'create'" do
     it "should be successful for comp_sec" do
       session[:comp_sec] = true
-      sourcing = Factory(:sourcing)
+      proj = FactoryGirl.create(:project)
+      sourcing = Factory(:sourcing, :project_id => proj.id)
       log = Factory.attributes_for(:sourcing_log, :sourcing_id => sourcing.id)      
       get 'create', :sourcing_id => sourcing.id, :sourcing_log => log
-      response.should redirect_to sourcing_path(sourcing)
+      response.should redirect_to project_sourcing_path(sourcing.project, sourcing)
     end
     
     it "should increase the sourcing log count by one for a successful create" do
       session[:ceo] = true
-      sourcing = Factory(:sourcing)
+      proj = FactoryGirl.create(:project)
+      sourcing = Factory(:sourcing, :project_id => proj.id)
       log = Factory.attributes_for(:sourcing_log, :sourcing_id => sourcing.id)  
       lambda do    
         get 'create', :sourcing_id => sourcing.id, :sourcing_log => log

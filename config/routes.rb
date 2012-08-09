@@ -253,6 +253,7 @@ Byop::Application.routes.draw do
         put :approve
         put :dis_approve
         put :re_approve
+        put :stamp
       end
 
     end
@@ -261,6 +262,7 @@ Byop::Application.routes.draw do
         put :approve
         put :dis_approve
         put :re_approve
+        put :stamp
       end
 
     end

@@ -272,6 +272,28 @@ describe PurchasingsController do
     end
   end
   
+  describe "stamp for comp_sec ONLY" do
+    it "should stamp for comp_sec" do
+      session[:comp_sec] = true
+      proj = FactoryGirl.create(:project)
+      u = FactoryGirl.create(:user)
+      session[:user_id] = u.id
+      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :project_id => proj.id) 
+      get 'stamp', :project_id => proj.id, :id => pur.id, :purchasing => {:stamped => true }  
+      response.should redirect_to project_purchasings_path(proj, pur)
+      pur.reload.stamped.should eq true   
+    end
+    
+    it "should not allow to stamp for others" do
+      proj = FactoryGirl.create(:project)
+      u = FactoryGirl.create(:user)
+      session[:user_id] = u.id
+      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :project_id => proj.id) 
+      get 'stamp', :project_id => proj.id, :id => pur.id, :purchasing => {:stamped => true } 
+      response.should redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!")         
+    end
+  end
+  
   describe "GET 'show'" do
     it "should reject those without right" do
       u = FactoryGirl.create(:user)
