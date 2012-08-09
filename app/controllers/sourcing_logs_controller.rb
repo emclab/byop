@@ -8,7 +8,7 @@ class SourcingLogsController < ApplicationController
   def index
     @title= "外协计划Log"   
     @sourcing = Sourcing.find(params[:sourcing_id])
-    @sourcing_logs = @sourcing.sourcing_logs
+    @sourcing_logs = @sourcing.sourcing_logs.order("id DESC")
   end
 
       
@@ -27,7 +27,7 @@ class SourcingLogsController < ApplicationController
       @sourcing_log = @sourcing.sourcing_logs.new(params[:sourcing_log], :as => :role_new)
       @sourcing_log.input_by_id = session[:user_id]
       if @sourcing_log.save
-        redirect_to sourcing_path(@sourcing), :notice => "Log已保存！"
+        redirect_to project_sourcing_path(@sourcing.project, @sourcing), :notice => "Log已保存！"
       else
         flash.now[:error] = "无法保存Log！"
         render 'new'

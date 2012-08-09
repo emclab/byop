@@ -123,9 +123,9 @@
 <p>
   <b>状态Log:</b>	
   <ul>
-<% @purchasing.purchasing_logs.order("created_at DESC").each do |f| %>
+<% @purchasing.purchasing_logs.order("id DESC").each do |f| %>
   <li>
-  <%= link_to f.created_at.strftime("%Y-%m-%d").to_s, SUBURI + "/view_handler?index=1&url=#{purchasing_purchasing_logs_path(f.purchasing_id, f.id)}" %>
+  <%= link_to f.created_at.strftime("%Y-%m-%d").to_s + ', ' + f.log[0..40], SUBURI + "/view_handler?index=1&url=#{purchasing_purchasing_logs_path(f.purchasing_id, f.id)}" %>
   </li>
 <% end %>
 </ul>

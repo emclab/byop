@@ -8,7 +8,7 @@ class PurchasingLogsController < ApplicationController
   def index
     @title= "外购计划Log"   
     @purchasing = Purchasing.find(params[:purchasing_id])
-    @purchasing_logs = @purchasing.purchasing_logs
+    @purchasing_logs = @purchasing.purchasing_logs.order("id DESC")
   end
 
       

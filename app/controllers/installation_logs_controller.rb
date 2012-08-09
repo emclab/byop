@@ -8,7 +8,7 @@ class InstallationLogsController < ApplicationController
   def index
     @title= "安装计划Log"   
     @installation = Installation.find(params[:installation_id])
-    @installation_logs = @installation.installation_logs
+    @installation_logs = @installation.installation_logs.order("id DESC")
   end
 
       
