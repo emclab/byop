@@ -21,7 +21,7 @@ describe CommLogsController do
     
     it "should be successful for coo" do
       session[:coo] = true
-      customer = Factory(:customer)
+      customer = FactoryGirl.create(:customer)
       log = FactoryGirl.attributes_for(:comm_log, :customer_id => customer.id)      
       get 'new', :customer_id => customer.id
       response.should be_success
@@ -78,9 +78,9 @@ describe CommLogsController do
     
     it "should destroy for comp_sec" do
       session[:comp_sec] = true
-      customer = Factory(:customer)
-      user = Factory(:user)
-      log = Factory(:comm_log, :customer_id => customer.id, :input_by_id => user.id)        
+      customer = FactoryGirl.create(:customer)
+      user = FactoryGirl.create(:user)
+      log = FactoryGirl.create(:comm_log, :customer_id => customer.id, :input_by_id => user.id)        
       get 'destroy', :customer_id => customer.id, :id => log.id
       response.should redirect_to customer_path(customer)      
     end

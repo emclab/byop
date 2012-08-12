@@ -1,11 +1,11 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~>3.1.4'
+gem 'rails', '3.2.3'
 gem 'sqlite3'  
 gem 'database_cleaner'
 gem 'jquery-rails', '~>1.0.19'
 gem 'simple_form'
-gem 'will_paginate', '~> 3.0'
+gem 'will_paginate'  #, '~> 3.0'
 #gem 'rufus-scheduler'
 
 # Gemfile
@@ -20,8 +20,8 @@ group :assets do
     gem 'execjs'
     gem 'therubyracer', :platforms => :ruby
   end
-  gem 'sass-rails',   '~> 3.1.5'
-  gem 'coffee-rails', '~> 3.1.1'
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -30,7 +30,7 @@ group :development, :test do
   gem "rspec-rails", ">= 2.0.0"
   #gem "cucumber-rails", ">=0.3.2"
   gem 'webrat', ">= 0.7.2"
-  gem 'factory_girl', '~> 3.0'
+  gem 'factory_girl_rails' #, '~> 3.0'
 end
 
 # To use ActiveModel has_secure_password

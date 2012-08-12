@@ -4,7 +4,7 @@
   <%= f.input :name, :label => '名称：' %> 
   <%= f.input :desp, :label => '内容：', :input_html => {:rows => 3} %>  
   <%= f.input :eng_id, :label => '责任工程师：', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'pur_eng'), :label_method => :name, :value_method => :id %>
-  <%= f.input :completed, :label => '完成：', :as => :radio %> 
+  <%= f.input :completed, :label => '完成：', :as => :radio_buttons %> 
   <%= f.input :start_date, :label => '开始日期：', :as => :string %> 
   <%= f.input :finish_date, :label => '完成日期：', :as => :string %> 
   

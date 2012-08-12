@@ -12,7 +12,7 @@
   <%= f.input :eng_id, :label => '责任工程师:', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng'), :label_method => :name, :value_method => :id %>
   <%= f.input :src_eng_id, :label => '外协工程师：', :collection => return_employee('src_eng'), :label_method => :name, :value_method => :id %>
   <%= f.input :proj_module_id, :label => '分系统：', :collection => return_proj_module(@project), :label_method => :name, :value_method => :id %>
-  <%= f.input :completed, :label => '完成:', :as => :radio %>
+  <%= f.input :completed, :label => '完成:', :as => :radio_buttons %>
   <%= f.input :start_date, :label => '开工日期：', :as => :string %> 
   <%= f.input :finish_date, :label => '完成日期：', :as => :string %> 
 

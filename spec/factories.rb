@@ -241,14 +241,6 @@ FactoryGirl.define do
     user_ip                 '1.2.3.4'
     action_logged           'create a new user'
   end  
-
-  Factory.sequence :email do 
-    "person-#{n}@example.com"
-  end
-
-  Factory.sequence :name do 
-    "Person #{n}"
-  end
   
 end
 

@@ -23,7 +23,7 @@
   <%= f.input :production_capacity, :label => '产能：', :input_html => { :rows => 4} %>      
   <%= f.input :customer_service, :label => '客服情况：', :input_html => { :rows => 4} %>         
   <%= f.input :sourced_product, :label => '北冶设备：', :hint => '给北冶制造过的设备', :input_html => { :rows => 4} %> 
-  <%= f.input :active, :label => '有效？：', :as => :radio %>                
+  <%= f.input :active, :label => '有效？：', :as => :radio_buttons %>                
   
   <%= f.button :submit, '保存' %>  
 <% end %>  

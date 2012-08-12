@@ -280,7 +280,7 @@ describe PurchasingsController do
       session[:user_id] = u.id
       pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :project_id => proj.id) 
       get 'stamp', :project_id => proj.id, :id => pur.id, :purchasing => {:stamped => true }  
-      response.should redirect_to project_purchasings_path(proj, pur)
+      response.should redirect_to project_purchasing_path(proj, pur)
       pur.reload.stamped.should eq true   
     end
     
