@@ -227,7 +227,7 @@ describe SourcingsController do
       session[:user_id] = u.id
       src = FactoryGirl.create(:sourcing, :input_by_id => u.id, :approved_by_vp_eng => true, :project_id => proj.id)
       get "stamp", :project_id => proj.id, :id => src.id, :sourcing => { :stamp => true }
-      response.should redirect_to project_sourcing_path(@project, @sourcing)
+      response.should redirect_to project_sourcing_path(proj, src)
       src.reload.stamped.should eq true      
     end
     
