@@ -9,7 +9,7 @@
       <th>联系信息</th>
       <th>电话</th>
       <% if has_create_right? %>
-      <th>Active?</th>
+      <th>可用?</th>
       <% end %>
     <th>北冶产品</th>
     <th>上次审厂日期</th>
@@ -25,7 +25,7 @@
     <td><%= plant.primary_contact %></td>
     <td><%= plant.phone %></td>
     <% if has_create_right? %>
-      <td><%= plant.active %></td>
+      <td><%= yes_no_cn(plant.active) %></td>
     <% end %>
     <td><%= plant.sourced_product %></td> 
     <td><%= plant.last_eval_date.strftime("%Y/%m/%d") unless plant.last_eval_date.nil? %></td> 

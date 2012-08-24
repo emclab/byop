@@ -18,7 +18,7 @@
     <td><%= q.project.name %></td>
     <td><%= q.name %></td>
     <td><%= q.report_date.strftime("%Y/%m/%d") %></td>
-    <td><%= q.case_closed %></td> 
+    <td><%= yes_no_cn(q.case_closed） %></td> 
     <td><%= q.report_by.name %></td> 
     <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_quality_issue_path(q.project, q)}" if has_update_right? %></td>
   </tr>

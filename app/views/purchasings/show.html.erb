@@ -50,11 +50,11 @@
 </p>
 <p>
   <b>盖章？：</b>
-  <%= @purchasing.stamped %>
+  <%= yes_no_cn(@purchasing.stamped) %>
 </p>
 <p>
   <b>到货？：</b>
-  <%= @purchasing.delivered %>
+  <%= yes_no_cn(@purchasing.delivered) %>
 </p>
 <p>
   <b>定购日期:</b>
@@ -70,7 +70,7 @@
 </p>
 <p>
   <b>责任工程师批准:</b>
-  <%= @purchasing.approved_by_eng %>
+  <%= yes_no_cn(@purchasing.approved_by_eng) %>
 </p>
 <p>
   <b>审批人:</b>
@@ -82,7 +82,7 @@
 </p>
 <p>
   <b>工程付总批准:</b>
-  <%= @purchasing.approved_by_vp_eng %>
+  <%= yes_no_cn(@purchasing.approved_by_vp_eng) %>
 </p>
 <p>
   <b>审批人:</b>
@@ -94,7 +94,7 @@
 </p>
 <p>
   <b>采购工程师批准:</b>
-  <%= @purchasing.approved_by_pur_eng %>
+  <%= yes_no_cn(@purchasing.approved_by_pur_eng) %>
 </p>
 <p>
   <b>审批人:</b>
@@ -106,7 +106,7 @@
 </p>
 <p>
   <b>厂长批准:</b>
-  <%= @purchasing.approved_by_ceo %>
+  <%= yes_no_cn(@purchasing.approved_by_ceo) %>
 </p>
 <p>
   <b>审批人:</b>

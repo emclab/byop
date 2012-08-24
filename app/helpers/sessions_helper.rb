@@ -156,14 +156,16 @@ module SessionsHelper
     [['是',true ],['否', false]]
   end
   
-  def return_yes_no_name(b)
+  def yes_no_cn(b)
     case b
-    when true || 'true' || 1 || '1'
+    when true, 'true' #'t' || true || 'true' || 1 || '1'
       return '是'
-    when false || 'false' || 0 || '0'
+    when false, 'false'  #'f' || false || 'false' || 0 || '0'
       return '否'
-    else
+    when nil
       return '未定'
+    else
+      return b
     end
     
   end

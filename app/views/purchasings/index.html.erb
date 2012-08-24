@@ -27,8 +27,8 @@
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.delivery_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.actual_receiving_date.strftime("%Y/%m/%d") if pur.actual_receiving_date.present? %></td>
-    <td><%= approved?(pur) %></td>
-    <td><%= pur.delivered %></td>
+    <td><%= yes_no_cn(approved?(pur)) %></td>
+    <td><%= yes_no_cn(pur.delivered) %></td>
     <td><%= pur.eng.name unless pur.eng_id.blank? %></td> 
     <td><%= pur.pur_eng.name unless pur.pur_eng_id.blank? %></td> 
     <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_purchasing_path(@project, pur)}" if has_update_right? %></td>
