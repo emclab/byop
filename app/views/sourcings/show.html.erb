@@ -96,10 +96,10 @@
 </p>
 
 <%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
-<%= link_to '批准', approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_approve' if need_approve?(@sourcing) %>
-<%= link_to '否决', dis_approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_dis_approve' if need_approve?(@sourcing) %>
+<%= link_to '批准', approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_approve', :confirm => '批准外协' + @sourcing.prod_name + '?' if need_approve?(@sourcing) %>
+<%= link_to '否决', dis_approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_dis_approve', :confirm => '否决外协' + @sourcing.prod_name + '?' if need_approve?(@sourcing) %>
 <%= link_to '盖章', stamp_project_sourcing_path(@project, @sourcing), :method => :put , :id => 'sourcing_stamp' if comp_sec? && !@sourcing.stamped %>
-<%= link_to '重新外协', re_approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_re_approve' if ceo? %>
+<%= link_to '重新外协', re_approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_re_approve', :confirm => '重新外协' + @sourcing.prod_name + '?' if ceo? %>
 <%= link_to '付款记录', sourcing_payment_logs_path(@sourcing), :id => 'sourcing_payment_log' if src_eng? || comp_sec? || vp_eng? || coo? || vp_sales? || ceo? %>
 <%= link_to '输入Log', new_sourcing_sourcing_log_path(@sourcing, :format => :js), :remote => true, :id => 'new_log_link' if has_log_right? %>
 
