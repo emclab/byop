@@ -81,7 +81,7 @@ class SourcingsController < ApplicationController
                                     :approve_date_ceo => Time.now}, :as => :role_update) 
       end
     
-      redirect_to project_sourcing_path(@project, @sourcing)
+      redirect_to project_sourcing_path(@project, @sourcing), :notice => '外协已批准！'
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!")    
     end
@@ -101,7 +101,7 @@ class SourcingsController < ApplicationController
                                     :approve_date_ceo => Time.now}, :as => :role_update) 
       end
     
-      redirect_to project_sourcing_path(@project, @sourcing)
+      redirect_to project_sourcing_path(@project, @sourcing), :notice => '外协已否决！'
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!")    
     end
@@ -116,7 +116,7 @@ class SourcingsController < ApplicationController
                                    :approved_by_ceo => nil, :approve_ceo_id => nil, :approve_date_ceo => nil},
                                    :as => :role_update)
     
-      redirect_to project_sourcing_path(@project, @sourcing)
+      redirect_to project_sourcing_path(@project, @sourcing), :notice => '外协需要重新批准！'
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!")    
     end

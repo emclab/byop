@@ -84,7 +84,7 @@ class PurchasingsController < ApplicationController
                                        :approve_date_ceo => Time.now}, :as => :role_update) 
       end
     
-      redirect_to project_purchasings_path(@project, @purchasing)
+      redirect_to project_purchasings_path(@project, @purchasing), :notice => '外购已批准！'
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!") 
     end
@@ -108,12 +108,13 @@ class PurchasingsController < ApplicationController
                                        :approve_date_ceo => Time.now}, :as => :role_update) 
       end
     
-      redirect_to project_purchasings_path(@project, @purchasing)
+      redirect_to project_purchasings_path(@project, @purchasing), :notice => '外购已否决！'
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!") 
     end
   end
 
+  #re-start the whole process again
   def re_approve
     @project = Project.find(params[:project_id])
     @purchasing = @project.purchasings.find(params[:id])
@@ -124,7 +125,7 @@ class PurchasingsController < ApplicationController
                                        :approved_by_ceo => nil, :approve_ceo_id => nil, :approve_date_ceo => nil},
                                        :as => :role_update)
     
-      redirect_to project_purchasings_path(@project, @purchasing)
+      redirect_to project_purchasings_path(@project, @purchasing), :notice => '外购需要重新批准！'
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!") 
     end

@@ -125,7 +125,7 @@
   <ul>
 <% @purchasing.purchasing_logs.order("id DESC").each do |f| %>
   <li>
-  <%= link_to f.created_at.strftime("%Y-%m-%d").to_s + ', ' + f.log[0..40], SUBURI + "/view_handler?index=1&url=#{purchasing_purchasing_logs_path(f.purchasing_id, f.id)}" %>
+  <%= link_to f.created_at.strftime("%Y-%m-%d").to_s + ', ' + f.input_by.name + ', '+ f.log[0..40], SUBURI + "/view_handler?index=1&url=#{purchasing_purchasing_logs_path(f.purchasing_id, f.id)}" %>
   </li>
 <% end %>
 </ul>

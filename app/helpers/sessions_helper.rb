@@ -158,9 +158,9 @@ module SessionsHelper
   
   def yes_no_cn(b)
     case b
-    when true, 'true' #'t' || true || 'true' || 1 || '1'
+    when true, 'true' 
       return '是'
-    when false, 'false'  #'f' || false || 'false' || 0 || '0'
+    when false, 'false' 
       return '否'
     when nil
       return '未定'
