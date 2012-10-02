@@ -2,7 +2,7 @@
 class PurchasingsController < ApplicationController
   before_filter :require_employee  
   
-  helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?, :has_stats_right?, :has_delete_right?,
+  helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?, :has_stats_right?, :has_delete_right?, :has_reorder_right?,
                 :need_approve?, :approved?
                 
   def index
@@ -12,7 +12,7 @@ class PurchasingsController < ApplicationController
   end
 
   def new
-    @title = '输入计划'
+    @title = '输入外购'
     @project = Project.find(params[:project_id])
     @purchasing = @project.purchasings.new()
     if !has_create_right?
@@ -35,7 +35,7 @@ class PurchasingsController < ApplicationController
   end
 
   def edit
-    @title = '更改计划'
+    @title = '更改外购'
     @project = Project.find(params[:project_id])
     @purchasing = @project.purchasings.find(params[:id])
     if !has_update_right?
@@ -195,6 +195,10 @@ class PurchasingsController < ApplicationController
     return false if pur.approved_by_eng.nil? || pur.approved_by_vp_eng.nil? || pur.approved_by_pur_eng.nil? || pur.approved_by_ceo.nil?
     return true if pur.approved_by_eng == true && pur.approved_by_vp_eng == true && pur.approved_by_pur_eng == true && pur.approved_by_ceo == true
     return false
+  end
+  
+  def has_reorder_right?
+    pur_eng? || vp_eng? || ceo?  
   end
   
   def has_show_right?

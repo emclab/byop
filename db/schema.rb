@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121001181529) do
+ActiveRecord::Schema.define(:version => 20121002145729) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -225,6 +225,7 @@ ActiveRecord::Schema.define(:version => 20121001181529) do
     t.boolean  "awarded"
     t.date     "design_start_date"
     t.datetime "cancel_date"
+    t.integer  "project_manager_id"
   end
 
   create_table "purchasing_logs", :force => true do |t|

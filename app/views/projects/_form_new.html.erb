@@ -11,7 +11,8 @@
   <%= f.input :bid_deadline, :label => '投标截止日期：', :as => :string %> 
   <%= f.input :bid_opening_date, :label => '开标日期：', :as => :string %> 
   <%= f.input :awarded, :label => '签合同了？：', :collection => return_yes_no, :include_blank => true, :selected => @project.awarded %>
-  <%= f.input :contract_date, :label => '合同日期：', :as => :string %>     
+  <%= f.input :contract_date, :label => '合同日期：', :as => :string %>  
+  <%= f.input :project_manager_id, :label => '项目经理：', :collection => return_employee('mech_eng'), :label_method => :name, :value_method => :id, :include_blank => true %>    
   <%= f.input :note, :label => '备注：', :input_html => { :rows => 4} %>        
   
   <%= f.button :submit, '保存' %>  

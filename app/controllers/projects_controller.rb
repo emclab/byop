@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_filter :require_signin
   before_filter :require_employee  
   
-  helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?, :has_search_right?, :has_stats_right?
+  helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?, :has_search_right?, :has_stats_right?, :is_project_manager?
   
   def index
     @title = '项目设备'
@@ -138,6 +138,10 @@ class ProjectsController < ApplicationController
   
   def has_update_right?
     inst_eng? || vp_eng? || comp_sec? || vp_sales? || coo? || ceo?
+  end
+  
+  def is_project_manager?(project)
+    project.project_manager_id == session[:user_id] 
   end
   
   def has_log_right?

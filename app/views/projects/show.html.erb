@@ -11,6 +11,10 @@
   <%= @project.customer.name %>
 </p>
 <p>
+  <b>项目经理:</b>
+  <%= @project.project_manager.name if @project.project_manager_id.present? %>
+</p>
+<p>
   <b>项目完成？:</b>
   <%= @project.completed %>
 </p>

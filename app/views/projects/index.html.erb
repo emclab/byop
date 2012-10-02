@@ -25,7 +25,7 @@
     <td><%= proj.customer.name %></td>
     <td><%= proj.status %></td>
     <td><%= yes_no_cn(proj.completed) %></td>  
-    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_path(proj)}" if has_update_right? %></td>
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_path(proj)}" if has_update_right? || is_project_manager?(proj) %></td>
     <% if proj.awarded %>
       <td><%= link_to '计划', SUBURI + "/view_handler?index=1&url=#{project_productions_path(proj)}" %></td>
       <td><%= link_to '外协', SUBURI + "/view_handler?index=1&url=#{project_sourcings_path(proj)}" %></td>

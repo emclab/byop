@@ -2,23 +2,24 @@
 class Project < ActiveRecord::Base
   
   attr_accessor   :customer_id_search, :start_date_search, :end_date_search, :awarded_search, :cancelled_search, 
-                  :completed_search, :time_frame
+                  :completed_search, :time_frame, :project_manager_id_s
   
   attr_accessible :customer_id_search, :start_date_search, :end_date_search, :awarded_search, :completed_search, :cancelled_search,
-                  :time_frame, :as => :role_search_stats
+                  :time_frame, :project_manager_id_s, :as => :role_search_stats
   
   attr_accessible :name, :customer_id, :status, :install_address, :budget, :tech_spec, 
                   :bid_doc_available_date, :bid_deadline, :bid_opening_date, :contract_date,
-                  :production_start_date,  :note, :customer_contact_info, :awarded,
+                  :production_start_date,  :note, :customer_contact_info, :awarded, :project_manager_id,
                   :as => :role_new
   attr_accessible :name,       :status, :install_address, :budget, :tech_spec, :subsys_spec, :other_tech_requirement, 
                   :construction_requirement, :turn_over_requirement, :bid_doc_available_date, :bid_deadline, :bid_opening_date, :contract_date,
                   :production_start_date, :construction_finish_date, :install_start_date, :note, :customer_contact_info,
-                  :review_after, :completed, :cancelled, :awarded, :design_start_date,
+                  :review_after, :completed, :cancelled, :awarded, :design_start_date, :project_manager_id,
                   :as => :role_update    
                                 
   belongs_to :input_by, :class_name => 'User'
   belongs_to :customer
+  belongs_to :project_manager, :class_name => 'User'
   has_many :project_logs
   has_many :productions
   has_many :sourcings
