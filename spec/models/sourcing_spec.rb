@@ -14,11 +14,17 @@ describe Sourcing do
   end
   
   it "should reject duplidate prod name" do
-    s = FactoryGirl.create(:sourcing, :prod_name => 'name')
-    s1 = FactoryGirl.build(:sourcing, :prod_name => 'Name')
+    s = FactoryGirl.create(:sourcing, :prod_name => 'name', :project_id => 1)
+    s1 = FactoryGirl.build(:sourcing, :prod_name => 'name', :project_id => 1)
     s1.should_not be_valid
   end
-  
+
+  it "should allow duplidate prod name for different project" do
+    s = FactoryGirl.create(:sourcing, :prod_name => 'name', :project_id => 2)
+    s1 = FactoryGirl.build(:sourcing, :prod_name => 'name', :project_id => 1)
+    s1.should be_valid
+  end
+    
   it "should reject nil project id" do
     s = FactoryGirl.build(:sourcing, :project_id => nil)
     s.should_not be_valid

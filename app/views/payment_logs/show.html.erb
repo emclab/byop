@@ -1,2 +1,56 @@
-<h1>PaymentLogs#show</h1>
-<p>Find me in app/views/payment_logs/show.html.erb</p>
+<div id="main_body">
+
+<h1>付款申请内容</h1>
+
+<p>
+  <b>项目名称:</b>
+  <%= @project.name %>
+</p>
+<p>
+  <% if @payment_log.sourcing_id.present? %>
+    <b>外协件名称:</b>
+    <%= Sourcing.find_by_id(@payment_log.sourcing_id).prod_name %>
+  <% else %>
+    <b>外购件名称:</b>
+    <%= Purchasing.find_by_id(@payment_log.purchasing_id).prod_name %>    
+  <% end %>
+</p>
+<p>
+  <b>金额（￥）:</b>
+  <%= @payment_log.amount %>
+</p>
+<p>
+  <b>简注:</b>
+  <%= @payment_log.short_note %>
+</p>
+<p>
+  <b>已支付？:</b>
+  <%= yes_no_cn(@payment_log.paid) %>
+</p>
+<p>
+  <b>支付人:</b>
+  <%= @payment_log.paid_by.name if @payment_log.paid_by_id.present? %>
+</p>
+<p>
+  <b>支付日期:</b>
+  <%= @payment_log.paid_date.strftime("%Y/%m/%d") if @payment_log.paid_date.present? %>
+</p>
+<p>
+  <b>厂长批准:</b>
+  <%= yes_no_cn(@payment_log.approved_by_ceo) %>
+</p>
+<p>
+  <b>批准人:</b>
+  <%= @payment_log.approve_ceo.name if @payment_log.approve_ceo_id.present? %>
+</p>
+<p>
+  <b>批准日期:</b>
+  <%= @payment_log.approve_date_ceo.strftime("%Y/%m/%d") if @payment_log.approve_date_ceo.present? %>
+</p>
+<p>
+  <b>输入/更改人:</b>
+  <%= @payment_log.input_by.name %>
+</p>
+<%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
+<%= link_to '批准', approve_payment_log_path(@payment_log), :method => :put, :id => 'payment_log_approve', :confirm => '批准付款？'  if has_approve_right? && (@payment_log.approved_by_ceo.nil? || !@payment_log.approved_by_ceo)%>
+<%= link_to '支付', stamp_paid_payment_log_path(@payment_log), :method => :put, :id => 'payment_log_stamp_paid', :confirm => '支付' + @payment_log.amount.to_s + '元?' if has_paid_right? && !@payment_log.paid %>

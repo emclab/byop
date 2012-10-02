@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120804202647) do
+ActiveRecord::Schema.define(:version => 20121001181529) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -145,11 +145,17 @@ ActiveRecord::Schema.define(:version => 20120804202647) do
     t.date     "pay_date"
     t.integer  "sourcing_id"
     t.integer  "purchasing_id"
-    t.decimal  "amount",        :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "amount",           :precision => 10, :scale => 2, :default => 0.0
     t.string   "short_note"
     t.integer  "input_by_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "approved_by_ceo"
+    t.integer  "approve_ceo_id"
+    t.datetime "approve_date_ceo"
+    t.boolean  "paid",                                            :default => false
+    t.integer  "paid_by_id"
+    t.date     "paid_date"
   end
 
   create_table "production_logs", :force => true do |t|

@@ -1,0 +1,16 @@
+<div id="main_body">
+<h1>外协/外购付款搜索</h1>
+<%= simple_form_for @payment_log, :method => :put, :url => { :action => 'search_results' } do |f| %>
+  <%= f.input :start_date_search, :label => "付款开始日期 ：", :as => :string, :input_html => {:size => 40} %>
+  <%= f.input :end_date_search, :label => "付款结束日期 ：", :as => :string, :input_html => {:size => 40} %> 
+  <%= f.input :for_search, :collection => ['外购','外协'], :prompt => "选分类", :label => "分类 ："  %>
+  <%= f.input :approved_by_ceo_s, :label => "厂长批准 ：", :collection => [['是',true], ['否', false]], :include_blank => true %> 
+  <%= f.input :paid_s, :label => "已支付 ：", :collection => [['是',true], ['否', false]], :include_blank => true %>
+  <%= f.input :project_id_search, :label => '项目：', :collection => Project.where("completed = ? AND cancelled = ?", false, false).order('id DESC'), 
+              :label_method => :name, :value_method => :id, :prompt => "选项目" %>
+  <%= f.input :src_plant_id_search, :label => "外协厂 ：", :collection => return_active_plant, :include_blank => true %> 
+  <%= f.input :supplier_id_search, :label => "供应商 ：", :collection => return_active_supplier, :include_blank => true %>   
+
+  <%= f.button :submit, '搜索' %>  
+<% end %> 
+</div>

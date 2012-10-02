@@ -95,6 +95,56 @@ describe PaymentLogsController do
     
   end
   
+  describe "show" do
+    it "should show payment log for acct" do
+      session[:acct] = true
+      u = FactoryGirl.create(:user)      
+      proj = FactoryGirl.create(:project)
+      pur = FactoryGirl.create(:purchasing, :project_id => proj.id)
+      p = FactoryGirl.create(:payment_log, :sourcing_id => nil, :purchasing_id => pur.id, :input_by_id => u.id) 
+      get 'show', :id => p.id
+      response.should be_success
+    end
+  end
+  
+  describe "approve" do
+    it "should be approved by ceo" do
+      session[:ceo] = true
+      u = FactoryGirl.create(:user)
+      session[:user_id] = u.id
+      proj = FactoryGirl.create(:project)
+      src = FactoryGirl.create(:sourcing, :project_id => proj.id)
+      pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil, :approved_by_ceo => false)
+      get 'approve', :id => pay.id
+      pay.reload.approved_by_ceo.should eq true
+    end  
+  end
+  
+  describe "stamp_paid" do
+    it "should be stamped by acct" do
+      session[:acct] = true
+      u = FactoryGirl.create(:user)
+      session[:user_id] = u.id
+      proj = FactoryGirl.create(:project)
+      pur = FactoryGirl.create(:purchasing, :project_id => proj.id)
+      pay = FactoryGirl.create(:payment_log, :sourcing_id => nil, :purchasing_id => pur.id, :paid => false)
+      get 'stamp_paid', :id => pay.id
+      pay.reload.paid.should eq true      
+    end
+  end
+  
+  describe "search" do
+    it "should allow vp_eng to search" do
+      session[:vp_eng] = true
+      proj = FactoryGirl.create(:project) 
+      src = FactoryGirl.create(:sourcing, :project_id => proj.id)
+      pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil) 
+      p_search = FactoryGirl.attributes_for(:payment_log, :project_id_search => proj.id)
+      get 'search_results', :payment_log => {:project_id_search => proj.id, :for_search => '外协'}
+      response.should be_success      
+    end
+  end
+  
   describe "stats" do
     it "should allow ceo to pull stats" do
       session[:ceo] = true

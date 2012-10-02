@@ -115,10 +115,29 @@ describe PurchasingsController do
       session[:vp_eng] = true
       u = FactoryGirl.create(:user)
       pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :project_id => proj.id)
-      get 'update', :project_id => proj.id, :id => pur.id, :purchasing => {:order_date => nil}
+      get 'update', :project_id => proj.id, :id => pur.id, :purchasing => {:prod_name => nil}
       response.should render_template('edit')
     end
         
+  end
+  
+  describe "destroy" do
+    it "should destroy for vp_eng" do
+      session[:vp_eng] = true
+      proj = FactoryGirl.create(:project)
+      u = FactoryGirl.create(:user)
+      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :project_id => proj.id)
+      get 'destroy', :project_id => proj.id, :id => pur.id
+      response.should redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已删除！")
+    end
+    
+    it "should not allow without right" do
+      proj = FactoryGirl.create(:project)
+      u = FactoryGirl.create(:user)
+      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :project_id => proj.id)
+      get 'destroy', :project_id => proj.id, :id => pur.id
+      response.should redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
+    end
   end
 
   describe "approve" do

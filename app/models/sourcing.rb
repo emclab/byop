@@ -27,7 +27,7 @@ class Sourcing < ActiveRecord::Base
   has_many :proj_modules
   has_many :payment_logs
   
-  validates :prod_name, :presence => true, :uniqueness => {:case_sensitive => false}
+  validates :prod_name, :presence => true, :uniqueness => {:scope => :project_id, :message => '同一项目外协件不能重名！' }
   validates_numericality_of :project_id, :greater_than => 0
   validates :spec, :presence => true
   validates :qty, :numericality => { :only_integer => true } 

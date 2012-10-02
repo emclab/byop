@@ -257,7 +257,7 @@ Byop::Application.routes.draw do
       end
 
     end
-    resources :purchasings, :only => [:index, :new, :create, :edit, :update, :show] do
+    resources :purchasings, :only => [:index, :new, :create, :edit, :update, :show, :destroy] do
       member do
         put :approve
         put :dis_approve
@@ -295,7 +295,13 @@ Byop::Application.routes.draw do
     resources :payment_logs, :only => [:index, :new, :create, :edit, :update, :show]
   end
   resources :payment_logs do
+    member do
+      put :approve
+      put :stamp_paid
+    end
     collection do
+      get :search
+      put :search_results      
       get :stats
       put :stats_results
     end  

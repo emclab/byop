@@ -49,9 +49,9 @@
 <p>
   <b>出库记录:</b>	
   <ul>
-<% @part.out_logs.order("created_at DESC").each do |f| %>
+<% @part.out_logs.order("out_date DESC").each do |f| %>
   <li>
-  <%= f.created_at.strftime("%Y-%m-%d").to_s %>&nbsp;&nbsp;<%= f.out_qty %>&nbsp;&nbsp;<%= f.receiver.name %>&nbsp;&nbsp;<%= f.for_what %>
+  <%= f.created_at.strftime("%Y-%m-%d").to_s %>,&nbsp;&nbsp;<%= f.out_qty %><%= @part.unit %>,&nbsp;&nbsp;<%= f.receiver.name %>,&nbsp;&nbsp;<%= f.for_what %>
   </li>
 <% end %>
 </ul>

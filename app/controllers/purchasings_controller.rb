@@ -2,7 +2,7 @@
 class PurchasingsController < ApplicationController
   before_filter :require_employee  
   
-  helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?, :has_stats_right?,
+  helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?, :has_stats_right?, :has_delete_right?,
                 :need_approve?, :approved?
                 
   def index
@@ -63,6 +63,29 @@ class PurchasingsController < ApplicationController
     @purchasing = @project.purchasings.find(params[:id])
     if !has_show_right?
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
+    end
+  end
+  
+  def destroy
+    @project = Project.find(params[:project_id])
+    @purchasing = @project.purchasings.find(params[:id])
+    if !has_delete_right? 
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
+    else    
+      if !approved?(@purchasing) 
+        @purchasing.transaction do
+          #delete purchasing log
+          @purchasing.purchasing_logs.each do |r|
+            r.destroy
+          end
+          #delete payment log
+          @purchasing.payment_logs.each do |r|
+            r.destroy
+          end
+          @purchasing.destroy
+          redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已删除！")
+        end
+      end
     end
   end
   
@@ -193,11 +216,16 @@ class PurchasingsController < ApplicationController
   def has_stats_right?  #show stats on search page
     pur_eng? || vp_eng? || vp_sales? || coo? || ceo?
   end
+  
+  def has_delete_right?
+    vp_eng? || ceo?
+  end
     
   def search_params
     search_params = "参数："
     search_params += ' 开始日期：' + params[:purchasing][:start_date_search] if params[:purchasing][:start_date_search].present?
     search_params += ', 结束日期：' + params[:purchasing][:end_date_search] if params[:purchasing][:end_date_search].present?
+    search_params += ', 外购件名：' + params[:purchasing][:keyword_prod_name_s] if params[:purchasing][:keyword_prod_name_s].present?
     search_params += ', 客户 ：' + Customer.find_by_id(params[:purchasing][:customer_id_search].to_i).short_name if params[:purchasing][:customer_id_search].present? 
     search_params += ', 项目 ：' + Project.find_by_id(params[:purchasing][:project_id_search].to_i).name if params[:purchasing][:project_id_search].present?   
     search_params += ', 工程师：' + User.find_by_id(params[:purchasing][:eng_id_search].to_i).name if params[:purchasing][:eng_id_search].present?

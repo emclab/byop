@@ -138,6 +138,7 @@
 <%= link_to '重新采购', re_approve_project_purchasing_path(@project, @purchasing), :method => :put, :id => 'purchasing_need_re_approve', :confirm => '重新采购' + @purchasing.prod_name + '?'  if ceo? %>
 <%= link_to '付款记录', purchasing_payment_logs_path(@purchasing), :id => 'purchasing_payment_log' if pur_eng? || comp_sec? || vp_eng? || coo? || vp_sales? || ceo? %>
 <%= link_to '输入Log', new_purchasing_purchasing_log_path(@purchasing, :format => :js), :remote => true, :id => 'new_log_link' if has_log_right? %>
+<%= link_to '删除', project_purchasing_path(@project, @purchasing), :method => :delete, :confirm => '删除' + @purchasing.prod_name + '?', :id => 'destroy_link' if has_delete_right? && !approved?(@purchasing) %>
 
 </div>
 

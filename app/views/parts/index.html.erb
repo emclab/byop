@@ -3,11 +3,11 @@
 <div class="byop_pagination"><%= will_paginate %></div>
 <table>
   <tr>
-    <th></th>
     <th>#</th>
     <th>物料名称</th>
     <th>规格</th>
     <th>入库日期</th>
+    <th>入库数量</th>
     <th>库存量</th>
     <th>存放地点</th> 
     <th>供应商</th>
@@ -16,11 +16,11 @@
 
 <% @parts.each do |part| %>
   <tr>
-  	<td><%= link_to 'Show', SUBURI + "/view_handler?index=1&url=#{part_path(part)}" if has_show_right? %></td>
-  	<td><%= part.id %></td>
+  	<td><%= link_to part.id.to_s, SUBURI + "/view_handler?index=1&url=#{part_path(part)}" if has_show_right? %></td>
     <td><%= part.name %></td>
     <td><%= part.spec %></td>
     <td><%= part.in_date.strftime("%Y/%m/%d") %></td>
+    <td><%= part.in_qty%><%= part.unit %></td> 
     <td><%= part.stock_qty%><%= part.unit %></td>   
     <td><%= part.storage_location %></td>
     <td><%= part.supplier %></td>

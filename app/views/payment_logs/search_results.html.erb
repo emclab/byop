@@ -1,21 +1,10 @@
 <div id="main_body">
-<% if @purchasing %>
-  <h1>外购计划付款记录 - <%=@purchasing.prod_name %></h1>
-  <p>项目名称：<%=@purchasing.project.name%></p>
+<h1>外购/外协计划付款记录搜索</h1>
+<%=@search_params%>
   <p>
-    总金额￥：<%=@purchasing.total%>, 数量(<%=@purchasing.unit%>)：<%=@purchasing.qty%>, 单价：<%=@purchasing.unit_price%>
+       应付金额￥：<%=@payment_logs.sum("amount") %>
   </p>
-  <p>已付款（￥）：<%= @purchasing.payment_logs.sum("amount")%></p>
-<% elsif @sourcing %>
-  <h1>外协计划付款Log - <%=@sourcing.prod_name %></h1>
-  <p>项目名称：<%=@sourcing.project.name%></p>
-  <p>
-    总金额￥：<%=@sourcing.total%>, 数量(<%=@sourcing.unit%>)：<%=@sourcing.qty%>, 单价：<%=@sourcing.unit_price%>
-  </p> 
-  <p>已付款（￥）：<%= @sourcing.payment_logs.sum("amount")%></p> 
-<% else %>
-  <h1>外购/外协计划付款记录</h1>
-<% end %>
+  <p>已付款（￥）：<%= @payment_logs.where("paid = ?", true).sum("amount")%></p>
 <table>
   <tr>
   	<th>#</th>
@@ -58,9 +47,6 @@
 
 </table>
 
-  <%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
-  <%= link_to "输入外购付款记录", new_purchasing_payment_log_path(@purchasing, :format => :js), :remote => true, :id => 'new_log_link' if has_create_right? && @purchasing %>
-  <%= link_to "输入外协付款记录", new_sourcing_payment_log_path(@sourcing, :format => :js), :remote => true, :id => 'new_log_link' if has_create_right? && @sourcing %>
-  <%= link_to '搜索', search_payment_logs_path if has_stats_right? %>
+  <%= link_to 'Back', search_payment_logs_path, :id => 'close' %>
   <%= link_to '统计', stats_payment_logs_path, :id => 'stats_link' if has_stats_right? %>
 </div>

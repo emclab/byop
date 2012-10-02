@@ -3,11 +3,11 @@ class Purchasing < ActiveRecord::Base
   
   attr_accessor   :project_id_search, :start_date_search, :end_date_search, :approved_by_eng_search, :approved_by_vp_eng_search, 
                   :approved_by_pur_eng_search, :approved_by_ceo_search, :mfg_id_search, :eng_id_search, :customer_id_search,
-                  :supplier_id_search, :delivered_search, :time_frame
+                  :supplier_id_search, :delivered_search, :time_frame, :keyword_prod_name_s
   
   attr_accessible :project_id_search, :start_date_search, :end_date_search, :approved_by_eng_search, :approved_by_vp_eng_search, 
                   :approved_by_pur_eng_search, :approved_by_ceo_search, :mfg_id_search, :eng_id_search, :customer_id_search,
-                  :supplier_id_search, :delivered_search, :as => :role_search_stats
+                  :supplier_id_search, :delivered_search, :keyword_prod_name_s, :as => :role_search_stats
                     
   attr_accessible :prod_name, :part_num, :spec, :project_id, :qty, :unit, :unit_price, :pur_eng_id, :manufacturer_id, :supplier_id,
                   :order_date, :delivery_date, :proj_module_id, :eng_id, :total, 
@@ -34,20 +34,21 @@ class Purchasing < ActiveRecord::Base
   has_many :proj_modules
   has_many :payment_logs
   
-  validates :prod_name, :presence => true, :uniqueness => {:case_sensitive => false}
+  validates :prod_name, :presence => true, :uniqueness => {:scope => :project_id, :message => '同一项目外购件不能重名！' }
   validates_numericality_of :project_id, :greater_than => 0
-  validates_numericality_of :eng_id, :greater_than => 0
-  validates_numericality_of :manufacturer_id, :greater_than => 0
+  #validates_numericality_of :eng_id, :greater_than => 0  #removed for upload helper program
+  #validates_numericality_of :manufacturer_id, :greater_than => 0
   validates :qty, :numericality => { :only_integer => true } 
   validates :unit, :presence => true
-  validates :order_date, :presence => true
-  validates :delivery_date, :presence => true
+  #validates :order_date, :presence => true  #removed for parts upload helper program
+  #validates :delivery_date, :presence => true
   validates :spec, :presence => true
   
   def find_purchasings
     purchasings = Purchasing.where("purchasings.created_at > ?", 6.years.ago)
     purchasings = purchasings.where('order_date > ?', start_date_search) if start_date_search.present?
     purchasings = purchasings.where('order_date < ?', end_date_search) if end_date_search.present?
+    purchasings = purchasings.where("prod_name like ?", "%#{keyword_prod_name_s}%") if keyword_prod_name_s.present?
     purchasings = purchasings.where('project_id = ?', project_id_search) if project_id_search.present? 
     purchasings = purchasings.joins(:project).where('projects.customer_id = ?', customer_id_search) if customer_id_search.present?
     purchasings = purchasings.where('manufacturer_id = ?', mfg_id_search) if mfg_id_search.present? 
