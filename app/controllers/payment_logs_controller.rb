@@ -190,7 +190,7 @@ class PaymentLogsController < ApplicationController
   end
       
   def has_approve_right?
-    ceo?  
+    ceo? || acct?
   end
   
   def has_paid_right?

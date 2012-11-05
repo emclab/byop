@@ -2,7 +2,8 @@ default_run_options[:pty] = true
 set :application, "byop"
 set :repository,  "git://github.com/emclab/byop.git"
 set :scm, :git
-set :user, "ubuntu"
+#set :user, "ubuntu"
+set :user, "cjadmin"
 set :use_sudo, false
 set :scm_passphrase, 'kpmg11'
 set :branch, "master"
@@ -31,7 +32,8 @@ set :default_environment, {
 
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-server "54.248.109.181", :web, :app, :db, :primary => true
+#server "54.248.109.181", :web, :app, :db, :primary => true
+server "76.195.225.93", :web, :app, :db, :primary => true
 #role :web, "121.15.169.246:81"                          # Your HTTP server, Apache/etc
 #role :app, "121.15.169.246"                          # This may be the same as your `Web` server
 #role :db,  "121.15.169.246", :primary => true # This is where Rails migrations will run

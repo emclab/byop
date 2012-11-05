@@ -163,11 +163,38 @@ describe ProjectsController do
   end
   
   describe "stats results" do
-    it "should allow ceo to pull stats" do
+    it "should allow ceo to pull stats for weekly" do
       session[:ceo] = true
       cust = FactoryGirl.create(:customer)
       proj = FactoryGirl.create(:project, :customer_id => cust.id) 
       p_search = FactoryGirl.attributes_for(:project, :time_frame => '周')
+      get 'stats_results', :project => p_search
+      response.should be_success
+    end
+
+    it "should allow ceo to pull stats for monthly" do
+      session[:ceo] = true
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
+      p_search = FactoryGirl.attributes_for(:project, :time_frame => '月')
+      get 'stats_results', :project => p_search
+      response.should be_success
+    end
+
+    it "should allow ceo to pull stats for monthly" do
+      session[:ceo] = true
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
+      p_search = FactoryGirl.attributes_for(:project, :time_frame => '季')
+      get 'stats_results', :project => p_search
+      response.should be_success
+    end
+
+    it "should allow ceo to pull stats for monthly" do
+      session[:ceo] = true
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
+      p_search = FactoryGirl.attributes_for(:project, :time_frame => '年')
       get 'stats_results', :project => p_search
       response.should be_success
     end

@@ -25,7 +25,7 @@
   	<td><%= (pur.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
     <td><%= pur.prod_name %></td>
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
-    <td><%= pur.delivery_date.strftime("%Y/%m/%d") %></td>
+    <td><%= pur.delivery_date.strftime("%Y/%m/%d") if pur.delivery_date.present? %></td>
     <td><%= pur.actual_receiving_date.strftime("%Y/%m/%d") if pur.actual_receiving_date.present? %></td>
     <td><%= yes_no_cn(approved?(pur)) %></td>
     <td><%= yes_no_cn(pur.delivered) %></td>

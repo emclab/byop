@@ -134,25 +134,83 @@ describe PaymentLogsController do
   end
   
   describe "search" do
-    it "should allow vp_eng to search" do
+    it "should allow vp_eng to search sourcing" do
       session[:vp_eng] = true
       proj = FactoryGirl.create(:project) 
       src = FactoryGirl.create(:sourcing, :project_id => proj.id)
       pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil) 
-      p_search = FactoryGirl.attributes_for(:payment_log, :project_id_search => proj.id)
+      #p_search = FactoryGirl.attributes_for(:payment_log, :project_id_search => proj.id)
       get 'search_results', :payment_log => {:project_id_search => proj.id, :for_search => '外协'}
       response.should be_success      
     end
+
+    it "should allow vp_eng to search purchasing" do
+      session[:vp_eng] = true
+      proj = FactoryGirl.create(:project)
+      src = FactoryGirl.create(:sourcing, :project_id => proj.id)
+      pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil)
+      #p_search = FactoryGirl.attributes_for(:payment_log, :project_id_search => proj.id)
+      get 'search_results', :payment_log => {:project_id_search => proj.id, :for_search => '外购'}
+      response.should be_success
+    end
+
+    it "should pull payment logs between dates" do
+      session[:acct] = true
+      proj = FactoryGirl.create(:project)
+      src = FactoryGirl.create(:sourcing, :project_id => proj.id)
+      pur = FactoryGirl.create(:purchasing, :project_id => proj.id)
+      pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil, :pay_date => '2012-2-10')
+      pay1 = FactoryGirl.create(:payment_log, :sourcing_id => nil, :purchasing_id => pur.id, :pay_date => '2012-2-19')
+      pay2 = FactoryGirl.create(:payment_log, :sourcing_id => nil, :purchasing_id => pur.id, :pay_date => '2012-3-19')
+      get 'search_results', :payment_log => {:end_date_search => '2012-03-01', :start_date_search => '2012-02-01'}
+      assigns(:payment_logs).include?(pay).should be_true
+      assigns(:payment_logs).include?(pay1).should be_true
+      assigns(:payment_logs).should eq([pay1,pay])
+      assigns(:payment_logs).include?(pay2).should be_false
+
+    end
+
+    it "should only pickup payment logs for the project " do
+      session[:ceo] = true
+      proj = FactoryGirl.create(:project)
+      src = FactoryGirl.create(:sourcing, :project_id => proj.id)
+      pur = FactoryGirl.create(:purchasing, :project_id => proj.id)
+      pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil, :pay_date => '2012-2-10')
+      get 'search_results', :payment_log => {:project_id_search => proj.id}
+      assigns(:payment_logs).should eq([pay])
+    end
+
   end
   
   describe "stats" do
-    it "should allow ceo to pull stats" do
+
+    it "should allow ceo to pull stats for neither sourcing or purchasing" do
+      session[:ceo] = true
+      proj = FactoryGirl.create(:project)
+      src = FactoryGirl.create(:sourcing, :project_id => proj.id)
+      pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil)
+      #p_search = FactoryGirl.attributes_for(:payment_log, :project_id_search => proj.id)
+      get 'stats_results', :payment_log => {:project_id_search => proj.id, :for_search => ''}
+      response.should be_success
+    end
+
+    it "should allow ceo to pull stats for sourcing" do
       session[:ceo] = true
       proj = FactoryGirl.create(:project) 
       src = FactoryGirl.create(:sourcing, :project_id => proj.id)
       pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil) 
-      p_search = FactoryGirl.attributes_for(:payment_log, :project_id_search => proj.id)
+      #p_search = FactoryGirl.attributes_for(:payment_log, :project_id_search => proj.id)
       get 'stats_results', :payment_log => {:project_id_search => proj.id, :for_search => '外协'}
+      response.should be_success
+    end
+
+    it "should allow ceo to pull stats for purchasing" do
+      session[:ceo] = true
+      proj = FactoryGirl.create(:project)
+      src = FactoryGirl.create(:sourcing, :project_id => proj.id)
+      pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil)
+      #p_search = FactoryGirl.attributes_for(:payment_log, :project_id_search => proj.id)
+      get 'stats_results', :payment_log => {:project_id_search => proj.id, :for_search => '外购'}
       response.should be_success
     end
 
