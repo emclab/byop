@@ -54,10 +54,10 @@ describe Purchasing do
     s.should_not be_valid
   end  
  
-  #it "should reject nil order date" do
-  #  s = FactoryGirl.build(:purchasing, :order_date => nil)
-  #  s.should_not be_valid
-  #end   
+  it "should reject nil order date" do
+    s = FactoryGirl.build(:purchasing, :order_date => nil)
+    s.should_not be_valid
+  end   
   
   #it "should reject nil delivery date" do
  #   s = FactoryGirl.build(:purchasing, :delivery_date => nil)
