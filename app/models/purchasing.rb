@@ -40,7 +40,7 @@ class Purchasing < ActiveRecord::Base
   #validates_numericality_of :manufacturer_id, :greater_than => 0
   validates :qty, :numericality => { :only_integer => true } 
   validates :unit, :presence => true
-  #validates :order_date, :presence => true  #removed for parts upload helper program
+  validates :order_date, :presence => true  #removed for parts upload helper program
   #validates :delivery_date, :presence => true
   validates :spec, :presence => true
   
