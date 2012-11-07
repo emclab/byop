@@ -7,7 +7,7 @@
                     <li><%= link_to '外协厂家', SUBURI + "/view_handler?index=1&url=#{src_plants_path}" %></li>
                     <li><%= link_to '制造商', SUBURI + "/view_handler?index=1&url=#{manufacturers_path}" %></li>
                     <li><%= link_to '质量问题', SUBURI + "/view_handler?index=1&url=#{quality_issues_path}" %></li>
-                    <li><%= link_to '外购/协付款记录', SUBURI + "/view_handler?index=1&url=#{payment_logs_path}" if pur_eng? || src_eng? || vp_eng? || comp_sec? || vp_sales? || coo? || ceo? %></li>
+                    <li><%= link_to '外购/协付款记录', SUBURI + "/view_handler?index=1&url=#{payment_logs_path}" if acct? || pur_eng? || src_eng? || vp_eng? || comp_sec? || vp_sales? || coo? || ceo? %></li>
 				</ul>
 				</td>
 				<td width="20">&nbsp;</td>
