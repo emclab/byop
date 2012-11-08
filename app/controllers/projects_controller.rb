@@ -167,7 +167,7 @@ class ProjectsController < ApplicationController
                           
       when '月'
         @project_stats = @project_stats.where("created_at > ?", 3.years.ago).all(:select => "created_at, sum(budget) as revenue, count(DISTINCT(customer_id)) as num_customer", 
-                                :group => "strftime('%Y/%m', recorded_date)")                     
+                                :group => "strftime('%Y/%m', created_at)")                     
       when '季'
         @project_stats = @project_stats.where("created_at > ?", 4.years.ago).all(:select => "created_at, sum(budget) as revenue, count(DISTINCT(customer_id)) as num_customer,
                                 CASE WHEN cast(strftime('%m', created_at) as integer) BETWEEN 1 AND 3 THEN 1 WHEN cast(strftime('%m', created_at) as integer) BETWEEN 4 and 6 THEN 2 WHEN cast(strftime('%m', created_at) as integer) BETWEEN 7 and 9 THEN 3 ELSE 4 END as quarter", 
