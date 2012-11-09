@@ -7,6 +7,10 @@
   <%= @project.name %>
 </p>
 <p>
+  <b>客户:</b>
+  <%= @project.customer.name %>
+</p>
+<p>
   <% if @payment_log.sourcing_id.present? %>
     <b>外协件名称:</b>
     <%= Sourcing.find_by_id(@payment_log.sourcing_id).prod_name %>

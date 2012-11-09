@@ -98,8 +98,9 @@ describe PaymentLogsController do
   describe "show" do
     it "should show payment log for acct" do
       session[:acct] = true
-      u = FactoryGirl.create(:user)      
-      proj = FactoryGirl.create(:project)
+      u = FactoryGirl.create(:user)
+      c = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => c.id)
       pur = FactoryGirl.create(:purchasing, :project_id => proj.id)
       p = FactoryGirl.create(:payment_log, :sourcing_id => nil, :purchasing_id => pur.id, :input_by_id => u.id) 
       get 'show', :id => p.id
