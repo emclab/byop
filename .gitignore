@@ -9,6 +9,7 @@
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
+/db/*.old
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
@@ -17,6 +18,7 @@
 config/environments/development.rb
 config/environments/production.rb
 config/deploy.rb
+config/*.old
 config/database.yml
 Gemfile
 Capfile
