@@ -41,12 +41,12 @@
   	<% if @sourcing.blank? && @purchasing.blank?%>
   	  <% if log.purchasing_id.present? %>
   	    <td><%= log.purchasing.project.name%></td>
-        <td><%= log.purchasing.project.customer.name %></td>
+        <td><%= log.purchasing.project.customer.short_name %></td>
   	    <td><%=log.purchasing.prod_name%></td>
   	    <td></td>
   	  <% elsif log.sourcing_id.present? %>
   	    <td><%= log.sourcing.project.name%></td>
-        <td><%= log.sourcing.customer.name %></td>
+        <td><%= log.sourcing.customer.short_name %></td>
   	    <td></td>    	    
   	    <td><%=log.sourcing.prod_name%></td>	  
   	  <% end %>
