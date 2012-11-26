@@ -10,11 +10,11 @@ class PaymentLogsController < ApplicationController
     if has_index_right?
       @payment_logs =
         if @sourcing
-          @sourcing.payment_logs.where("pay_date > ? AND amount > ?", 900.days.ago, 0.00).order("pay_date DESC").paginate(:per_page => 40, :page => params[:page])
+          @sourcing.payment_logs.where("pay_date > ? AND amount > ?", 900.days.ago, 0.00).paginate(:per_page => 40, :page => params[:page]).order("pay_date DESC")
         elsif @purchasing
-          @purchasing.payment_logs.where("pay_date > ? AND amount > ?", 900.days.ago, 0.00).order("pay_date DESC").paginate(:per_page => 40, :page => params[:page])
+          @purchasing.payment_logs.where("pay_date > ? AND amount > ?", 900.days.ago, 0.00).paginate(:per_page => 40, :page => params[:page]).order("pay_date DESC")
         else
-          PaymentLog.where("pay_date > ? AND amount > ?", 900.days.ago, 0.00).order("purchasing_id DESC, sourcing_id DESC, pay_date DESC").paginate(:per_page => 40, :page => params[:page])
+          PaymentLog.where("pay_date > ? AND amount > ?", 900.days.ago, 0.00).paginate(:per_page => 40, :page => params[:page]).order("purchasing_id DESC, sourcing_id DESC, pay_date DESC")
         end
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！") 

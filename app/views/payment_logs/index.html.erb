@@ -1,4 +1,5 @@
 <div id="main_body">
+	<%= will_paginate @payment_logs %>
 <% if @purchasing %>
   <h1>外购计划付款记录 - <%=@purchasing.prod_name %></h1>
   <p>项目名称：<%=@purchasing.project.name%></p>
@@ -46,7 +47,7 @@
   	    <td></td>
   	  <% elsif log.sourcing_id.present? %>
   	    <td><%= log.sourcing.project.name%></td>
-        <td><%= log.sourcing.customer.short_name %></td>
+        <td><%= log.sourcing.project.customer.short_name %></td>
   	    <td></td>    	    
   	    <td><%=log.sourcing.prod_name%></td>	  
   	  <% end %>
