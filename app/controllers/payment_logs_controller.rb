@@ -14,7 +14,7 @@ class PaymentLogsController < ApplicationController
         elsif @purchasing
           @purchasing.payment_logs.where("pay_date > ? AND amount > ?", 900.days.ago, 0.00).paginate(:per_page => 40, :page => params[:page]).order("pay_date DESC")
         else
-          PaymentLog.where("pay_date > ? AND amount > ?", 900.days.ago, 0.00).paginate(:per_page => 40, :page => params[:page]).order("purchasing_id DESC, sourcing_id DESC, pay_date DESC")
+          PaymentLog.where("pay_date > ? AND amount > ?", 900.days.ago, 0.00).paginate(:per_page => 40, :page => params[:page]).order("pay_date DESC, purchasing_id DESC, sourcing_id DESC")
         end
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！") 
