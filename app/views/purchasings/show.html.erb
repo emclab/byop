@@ -62,7 +62,7 @@
 </p>
 <p>
   <b>预定到货日期:</b>
-  <%= @purchasing.delivery_date.strftime("%Y/%m/%d") %>
+  <%= @purchasing.delivery_date.strftime("%Y/%m/%d") if @purchasing.delivery_date.present? %>
 </p>
 <p>
   <b>实际到货日期:</b>
