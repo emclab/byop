@@ -25,7 +25,7 @@
     <td><%= src.prod_name %></td>
     <td><%= src.start_date.strftime("%Y/%m/%d") %></td>
     <td><%= src.finish_date.strftime("%Y/%m/%d") %></td>
-    <td><%= src.approved_by_vp_eng && src.approved_by_ceo %></td>
+    <td><%= yes_no_cn(src.approved_by_vp_eng && src.approved_by_ceo) %></td>
     <td><%= yes_no_cn(src.completed) %></td>
     <td><%= src.eng.name unless src.eng_id.blank? %></td>
     <td><%= src.src_eng.name unless src.src_eng_id.blank? %></td>  

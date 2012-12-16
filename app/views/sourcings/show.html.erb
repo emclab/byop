@@ -33,7 +33,7 @@
 </p>
 <p>
   <b>盖章？：</b>
-  <%= @sourcing.stamped %>
+  <%= yes_no_cn(@sourcing.stamped) %>
 </p>
 <p>
   <b>外协厂:</b>
@@ -45,7 +45,7 @@
 </p>
 <p>
   <b>完成：</b>
-  <%= @sourcing.completed %>
+  <%= yes_no_cn(@sourcing.completed) %>
 </p>
 <p>
   <b>开工日期:</b>
@@ -58,7 +58,7 @@
 
 <p>
   <b>工程付总批准:</b>
-  <%= @sourcing.approved_by_vp_eng %>
+  <%= yes_no_cn(@sourcing.approved_by_vp_eng) %>
 </p>
 <p>
   <b>审批人:</b>
@@ -70,7 +70,7 @@
 </p>
 <p>
   <b>厂长批准:</b>
-  <%= @sourcing.approved_by_ceo %>
+  <%= yes_no_cn(@sourcing.approved_by_ceo) %>
 </p>
 <p>
   <b>审批人:</b>

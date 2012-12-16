@@ -16,11 +16,11 @@
 </p>
 <p>
   <b>项目完成？:</b>
-  <%= @project.completed %>
+  <%= yes_no_cn(@project.completed) %>
 </p>
 <p>
   <b>项目取消？:</b>
-  <%= @project.cancelled %>
+  <%= yes_no_cn(@project.cancelled) %>
 </p>
 <% if @project.cancelled %>
   <p>
@@ -30,7 +30,7 @@
 <% end %>
 <p>
   <b>签合同了？:</b>
-  <%= @project.awarded %>
+  <%= yes_no_cn(@project.awarded) %>
 </p>
 <p>
   <b>项目状态:</b>
