@@ -9,7 +9,6 @@
 //= require jquery-ui
 //= require_tree .
 
-var user_password_div = ''
 
 $(document).ready(function() {
 	$("#tabs").tabs();
@@ -127,15 +126,16 @@ function add_fields(link, association, content) {
 //user
 
 //remove the password fields when loading page
+var user_password_div = ''
 $(function (){
-	user_password_div = '<div id="user_password">' + $('#user_password').html() + '</div>';
-	$('#user_password').remove();
+	//detach() returns the html of the element
+	user_password_div = $('#user_password').detach();
 });  // end $(function)
-
+//reload the password field by mark checkbox
 $(function() {
 	$('#user_update_password_checkbox').change(function(){
 		if ($(this).attr('checked')) {
-			$(this).prev().before(user_password_div);		
+			$('#user_password_checkbox').after(user_password_div);  	
 		} else {
 			$('#user_password').remove();
 		};
