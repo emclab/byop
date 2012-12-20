@@ -21,7 +21,7 @@
 </p>
 <p>
   <b>申请输入日期:</b>
-  <%= (@payment_log.created_at + 8.hours).strftime("%Y/%m/%d") %>
+  <%= @payment_log.created_at.strftime("%Y/%m/%d") %>
 </p>
 <p>
   <b>金额（￥）:</b>
