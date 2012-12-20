@@ -20,6 +20,10 @@
   <% end %>
 </p>
 <p>
+  <b>申请输入日期:</b>
+  <%= (@project.created_at + 8.hours).strftime("%Y/%m/%d") %>
+</p>
+<p>
   <b>金额（￥）:</b>
   <%= @payment_log.amount %>
 </p>
