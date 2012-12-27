@@ -21,7 +21,11 @@
 </p>
 <p>
   <b>申请输入日期:</b>
-  <%= (@project.created_at + 8.hours).strftime("%Y/%m/%d") %>
+  <%= @payment_log.created_at.strftime("%Y/%m/%d") %>
+</p>
+<p>
+  <b>申请人:</b>
+  <%= @payment_log.applicantor.name if @payment_log.applicantor_id.present? %>
 </p>
 <p>
   <b>金额（￥）:</b>
@@ -59,6 +63,19 @@
   <b>输入/更改人:</b>
   <%= @payment_log.input_by.name %>
 </p>
+<p>
+    <b>Log:</b>	
+    <ul>
+  <% @payment_log.pay_status_logs.order("created_at DESC").each do |p| %>
+    <li>
+    <%= p.created_at.strftime("%Y-%m-%d").to_s + ', ' + p.input_by.name + '， ' + p.log %>
+    </li>
+  <% end %>
+  </ul>
+  </p>
 <%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
-<%= link_to '批准', approve_payment_log_path(@payment_log), :method => :put, :id => 'payment_log_approve', :confirm => '批准付款？'  if has_approve_right? && (@payment_log.approved_by_ceo.nil? || !@payment_log.approved_by_ceo)%>
-<%= link_to '支付', stamp_paid_payment_log_path(@payment_log), :method => :put, :id => 'payment_log_stamp_paid', :confirm => '支付' + @payment_log.amount.to_s + '元?' if has_paid_right? && !@payment_log.paid %>
+<%= link_to '输入Log', new_payment_log_pay_status_log_path(@payment_log, :format => :js), :remote => true, :id => 'new_log_link' if has_create_right? %>
+<%= link_to '批准', approve_payment_log_path(@payment_log), :method => :put, :id => 'payment_log_approve', :confirm => '批准付款？',
+                    :id => 'approve_link'  if has_approve_right? && (@payment_log.approved_by_ceo.nil? || !@payment_log.approved_by_ceo) %>
+<%= link_to '支付', stamp_paid_payment_log_path(@payment_log), :method => :put, :id => 'payment_log_stamp_paid', :confirm => '支付' + @payment_log.amount.to_s + '元?',
+                    :id => 'pay_link' if has_paid_right? && !@payment_log.paid %>

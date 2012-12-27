@@ -30,6 +30,7 @@
   	<% end %>
   	<th>厂长批准</th>
   	<th>付清</th>
+  	<th>申请人</th>
     <th>简注</th>  
     <th></th>
   </tr>
@@ -53,7 +54,8 @@
   	  <% end %>
   	<% end %> 
   	<td><%= yes_no_cn(log.approved_by_ceo) %></td>
-  	<td><%= yes_no_cn(log.paid) %></td>   	
+  	<td><%= yes_no_cn(log.paid) %></td>  
+  	<td><%= log.applicantor.name if log.applicantor_id.present? %></td> 	
     <td><%= log.short_note %></td> 
     <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_purchasing_payment_log_path(@purchasing, log)}" if has_update_right? && @purchasing.present? %></td>    
     <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_sourcing_payment_log_path(@sourcing, log)}" if has_update_right? && @sourcing.present? %></td>

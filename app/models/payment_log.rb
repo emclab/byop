@@ -6,6 +6,8 @@ class PaymentLog < ActiveRecord::Base
   belongs_to :approve_ceo, :class_name => 'User', :foreign_key => 'approve_ceo_id'
   belongs_to :input_by, :class_name => 'User'
   belongs_to :paid_by, :class_name => 'User'
+  belongs_to :applicantor, :class_name => 'User'
+  has_many :pay_status_logs
   
   attr_accessible :pay_date, :amount, :short_note, :as => :role_new_update
   

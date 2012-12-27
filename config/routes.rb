@@ -295,6 +295,7 @@ Byop::Application.routes.draw do
     resources :payment_logs, :only => [:index, :new, :create, :edit, :update, :show]
   end
   resources :payment_logs do
+    resources :pay_status_logs, :only => [:new, :create]
     member do
       put :approve
       put :stamp_paid

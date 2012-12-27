@@ -22,7 +22,7 @@ describe UsersController do
   describe "'show'" do
     it "returns http success" do
       u0 = FactoryGirl.create(:user, :email => nil)
-      u = FactoryGirl.create(:user, :input_by_id => u0.id)
+      u = FactoryGirl.create(:user, :login => 'newlogin', :input_by_id => u0.id)
       ul = FactoryGirl.create(:user_level, :user_id => u.id)
       get 'show', :id => u.id
       response.should be_success

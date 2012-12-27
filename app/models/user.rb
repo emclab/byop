@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   validates :name,  :presence => true,
                     :length   => { :maximum => 50 }
   validates :login, :presence => true,
-                    :length   => {:minimum => 6}
+                    :length   => {:minimum => 6},
+                    :uniqueness => { :scope => :status, :case_sensitive => false, :message => '登录名已占用！' }
   validates :email, :format     => { :with => email_regex, :message => '电邮格式错误！' , :if => :check_email },
                     :uniqueness => { :scope => :status, :case_sensitive => false, :if => :check_email, :message => '电邮已占用！' }
                     

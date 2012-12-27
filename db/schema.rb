@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121002145729) do
+ActiveRecord::Schema.define(:version => 20121227171529) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -141,6 +141,14 @@ ActiveRecord::Schema.define(:version => 20121002145729) do
     t.string   "supplier"
   end
 
+  create_table "pay_status_logs", :force => true do |t|
+    t.integer  "payment_log_id"
+    t.string   "log"
+    t.integer  "input_by_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "payment_logs", :force => true do |t|
     t.date     "pay_date"
     t.integer  "sourcing_id"
@@ -156,6 +164,7 @@ ActiveRecord::Schema.define(:version => 20121002145729) do
     t.boolean  "paid",                                            :default => false
     t.integer  "paid_by_id"
     t.date     "paid_date"
+    t.integer  "applicantor_id"
   end
 
   create_table "production_logs", :force => true do |t|

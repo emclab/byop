@@ -32,6 +32,7 @@ class PaymentLogsController < ApplicationController
     @payment_log = PaymentLog.new(params[:payment_log], :as => :role_new_update)
     if has_create_right?
       @payment_log.input_by_id = session[:user_id]
+      @payment_log.applicantor_id = session[:user_id]
       if @purchasing
         @payment_log.purchasing_id = @purchasing.id
       elsif @sourcing

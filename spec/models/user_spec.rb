@@ -1,6 +1,17 @@
 require 'spec_helper'
 
 describe User do
+  it "should be OK" do
+    u = FactoryGirl.build(:user)
+    u.should be_valid
+  end
+  
+  it "should rejct duplicate login" do
+    u0 = FactoryGirl.create(:user, :login => 'loginname')
+    u = FactoryGirl.build(:user, :login => 'Loginname')
+    u.should_not be_valid
+  end
+  
   it "should reject nil login" do
     u = FactoryGirl.build(:user, :login => nil)
     u.should_not be_valid
