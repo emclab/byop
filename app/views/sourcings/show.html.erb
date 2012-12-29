@@ -28,8 +28,12 @@
   <%= @sourcing.total %>
 </p>
 <p>	
-  <b>已付款（￥）:</b>
-  <%= @sourcing.payment_logs.sum("amount") %>
+  <b>已申请付款额（￥）:</b>
+  <%= number_with_precision(@sourcing.payment_logs.sum("amount"), :precision => 2) %>
+</p>
+<p>	
+  <b>已支付额（￥）:</b>
+  <%= number_with_precision(@sourcing.payment_logs.where('paid = ?', true).sum("amount"), :precision => 2) %>
 </p>
 <p>
   <b>盖章？：</b>

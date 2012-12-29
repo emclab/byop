@@ -32,9 +32,12 @@
   <%= @purchasing.total %>
 </p>
 <p>	
-  <b>已付款（￥）:</b>
-  <%= @purchasing.payment_logs.sum("amount") %>
-
+  <b>已申请付款额（￥）:</b>
+  <%= number_with_precision(@purchasing.payment_logs.sum("amount"), :precision => 2) %>
+</p>
+<p>	
+  <b>已支付额（￥）:</b>
+  <%= number_with_precision(@purchasing.payment_logs.where('paid = ?', true).sum("amount"), :precision => 2) %>
 </p>
 <p>
   <b>制造商:</b>
