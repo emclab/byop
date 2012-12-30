@@ -6,14 +6,20 @@
   <p>
     总金额￥：<%=@purchasing.total%>, 数量(<%=@purchasing.unit%>)：<%=@purchasing.qty%>, 单价：<%=@purchasing.unit_price%>
   </p>
-  <p>已付款（￥）：<%= @purchasing.payment_logs.sum("amount")%></p>
+  <p>已付款（￥）：<%= number_with_precision(@purchasing.payment_logs.where('paid = ?', true).sum("amount"), :precision => 2) %></p>
+  <% unless @purchasing.payment_logs.where('paid = ?', true).sum("amount").nil? || @purchasing.total.nil? %>
+    <p>差额（￥）：<%= number_with_precision(@purchasing.total - @purchasing.payment_logs.where('paid = ?', true).sum("amount"), :precision => 2) %></p> 
+  <% end %>  
 <% elsif @sourcing %>
   <h1>外协计划付款Log - <%=@sourcing.prod_name %></h1>
   <p>项目名称：<%=@sourcing.project.name%></p>
   <p>
     总金额￥：<%=@sourcing.total%>, 数量(<%=@sourcing.unit%>)：<%=@sourcing.qty%>, 单价：<%=@sourcing.unit_price%>
   </p> 
-  <p>已付款（￥）：<%= @sourcing.payment_logs.sum("amount")%></p> 
+  <p>已付款（￥）：<%= number_with_precision(@sourcing.payment_logs.where('paid = ?', true).sum("amount"), :precision => 2) %></p> 
+  <% unless @sourcing.payment_logs.where('paid = ?', true).sum("amount").nil? || @sourcing.total.nil? %>
+    <p>差额（￥）：<%= number_with_precision(@sourcing.total - @sourcing.payment_logs.where('paid = ?', true).sum("amount"), :precision => 2) %></p> 
+  <% end %>
 <% else %>
   <h1>外购/外协计划付款记录</h1>
 <% end %>
