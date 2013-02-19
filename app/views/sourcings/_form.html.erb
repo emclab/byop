@@ -1,6 +1,6 @@
 <%= simple_form_for([@project, @sourcing]) do |f| %>    
 
-  <div style="padding-left:68px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
+  <%= f.input :pro_name, :label => '项目名称：', :readonly => true, :required => false, :input_html => {:value => @project.name} %>
   <%= f.input :prod_name, :label => '名称：' %> 
   <%= f.input :part_num, :label => '产品#：' %>
   <%= f.input :spec, :label => '规格：', :input_html => {:rows => 4} %>  
@@ -12,17 +12,16 @@
   <%= f.input :eng_id, :label => '责任工程师:', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng'), :label_method => :name, :value_method => :id %>
   <%= f.input :src_eng_id, :label => '外协工程师：', :collection => return_employee('src_eng'), :label_method => :name, :value_method => :id %>
   <%= f.input :proj_module_id, :label => '分系统：', :collection => return_proj_module(@project), :label_method => :name, :value_method => :id %>
-  <%= f.input :completed, :label => '完成:', :as => :radio_buttons %>
+  <%= f.input :completed, :label => '完成:', :collection => [['是', true], ['否', false]] %>
   <%= f.input :start_date, :label => '开工日期：', :as => :string %> 
   <%= f.input :finish_date, :label => '完成日期：', :as => :string %> 
-
-  <div style="padding-left:68px">盖章？：&nbsp;&nbsp;<%= @sourcing.stamped %></div> <p></p>
-  <div style="padding-left:68px">工程付总批准：&nbsp;&nbsp;<%= @sourcing.approved_by_vp_eng %></div> 
-  <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @sourcing.approve_vp_eng.name if @sourcing.approve_vp_eng_id.present?  %></div> 
-  <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @sourcing.approve_date_vp_eng.strftime("%Y/%m/%d") if @sourcing.approve_date_vp_eng.present? %></div>  
-  <div style="padding-left:68px">厂长批准：&nbsp;&nbsp;<%= @sourcing.approved_by_ceo %></div> 
-  <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @sourcing.approve_ceo.name if @sourcing.approve_ceo_id.present?  %></div> 
-  <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @sourcing.approve_date_ceo.strftime("%Y/%m/%d") if @sourcing.approve_date_ceo.present? %></div>   
+  <%= f.input :stamped, :label => '盖章？：', :readonly => true, :required => false, :input_html => {:value => yes_no_cn(@sourcing.stamped)} %>
+  <%= f.input :approved_by_vp_eng, :label => '工程付总批准：', :readonly => true, :required => false, :as => :string,:input_html => {:value => yes_no_cn(@sourcing.approved_by_vp_eng)} %>
+  <%= f.input :approve_vp_eng_id, :label => '审批人：', :readonly => true, :required => false, :input_html => {:value => @sourcing.approve_vp_eng.name} if @sourcing.approve_vp_eng_id.present?  %> 
+  <%= f.input :approve_date_vp_eng, :label => '审批日期：', :readonly => true, :required => false, :input_html => {:value => @sourcing.approve_date_vp_eng.strftime("%Y/%m/%d")} if @sourcing.approve_date_vp_eng.present? %>  
+  <%= f.input :approved_by_ceo, :label => '厂长批准：', :readonly => true, :required => false,:as => :string, :input_html => {:value => yes_no_cn(@sourcing.approved_by_ceo)} %>
+  <%= f.input :approve_ceo_id, :label => '审批人：', :readonly => true, :required => false, :input_html => {:value => @sourcing.approve_ceo.name} if @sourcing.approve_ceo_id.present? %> 
+  <%= f.input :approve_date_ceo, :label => '审批日期：', :readonly => true, :required => false, :input_html => {:value => @sourcing.approve_date_ceo.strftime("%Y/%m/%d")} if @sourcing.approve_date_ceo.present? %> 
        
   <%= f.button :submit, '保存' %>  
 <% end %>  

@@ -1,8 +1,8 @@
 <%= simple_form_for @project do |f| %>    
  
-  <div style="padding-left:68px">客户：&nbsp;&nbsp;<%= @project.customer.name %></div>
-  <div style="padding-left:68px">项目名称：&nbsp;&nbsp;<%= @project.name %></div>
-  <div style="padding-left:68px">项目状态：&nbsp;&nbsp;<%= @project.status %></div>
+  <%= f.input :customer_id, :label => '客户:', :readonly => true, :required => false, :input_html => {:value => @project.customer.name} %>
+  <%= f.input :name, :label => '项目名称：', :readonly => true, :required => false, :input_html => {:value => @project.name} %>  
+  <%= f.input :status, :label => '项目状态：', :readonly => true, :required => false, :input_html => {:value => @project.status} %>
   <%= f.input :install_start_date, :label => '安装开始日期：', :as => :string %>   
   <%= f.input :turn_over_requirement, :label => '验收交付：', :input_html => { :rows => 4} %>         
   

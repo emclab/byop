@@ -1,5 +1,6 @@
 # encoding: utf-8
 class Production < ActiveRecord::Base
+  attr_accessor :proj_name
   attr_accessible :name, :eng_id, :project_id, :start_date, :finish_date, 
                   :as => :role_new
   attr_accessible :name, :eng_id, :completed, :start_date, :finish_date,

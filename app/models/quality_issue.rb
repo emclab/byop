@@ -1,5 +1,6 @@
 # encoding: utf-8
 class QualityIssue < ActiveRecord::Base
+  attr_accessor :proj_name, :customer_name
   attr_accessible :name, :project_id, :production_id, :installation_id, :sourcing_id, :purchasing_id, :report_date, 
                   :report_by_id, :issue_desp, :root_cause, :customer_feedback, :preventative_action, :quick_fix,
                   :solution, :close_date, 

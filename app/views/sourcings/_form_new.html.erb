@@ -1,6 +1,6 @@
 <%= simple_form_for([@project, @sourcing]) do |f| %>    
 
-  <div style="padding-left:68px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
+  <%= f.input :pro_name, :label => '项目名称：', :readonly => true, :required => false, :input_html => {:value => @project.name} %>
   <%= f.input :prod_name, :label => '名称：' %> 
   <%= f.input :part_num, :label => '产品#：' %>
   <%= f.input :spec, :label => '规格：', :input_html => {:rows => 4} %>  

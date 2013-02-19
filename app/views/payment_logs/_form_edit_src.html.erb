@@ -1,7 +1,7 @@
 <%= simple_form_for([@sourcing, @payment_log]) do |f| %>
     
-  <div style="padding-left:98px">项目：&nbsp;&nbsp;<%= @payment_log.sourcing.project.name %></div> <p></p>
-  <div style="padding-left:98px">外协：&nbsp;&nbsp;<%= @payment_log.sourcing.prod_name %></div> <p></p>
+  <%= f.input :proj_name, :label => '项目：', :readonly => true, :required => false, :input_html => {:value => @payment_log.sourcing.project.name} %> 
+  <%= f.input :sourcing_prod_name, :label => '外购：', :readonly => true, :required => false, :input_html => {:value => @payment_log.sourcing.prod_name} %>
   <%= f.input :pay_date, :label => "付款日期 ：", :as => :string %> 
   <%= f.input :amount, :label => "金额￥：" %>
   <%= f.input :short_note, :label => "简注 ：" %>   

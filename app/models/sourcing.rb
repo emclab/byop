@@ -1,6 +1,8 @@
 # encoding: utf-8
 class Sourcing < ActiveRecord::Base
   
+  attr_accessor :proj_name
+  
   attr_accessor   :project_id_search, :start_date_search, :end_date_search, :approved_by_vp_eng_search, :completed_search,
                   :approved_by_ceo_search, :eng_id_search, :src_plant_id_search, :src_eng_id_search, :customer_id_search
                   

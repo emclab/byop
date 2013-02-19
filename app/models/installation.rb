@@ -1,5 +1,6 @@
 # encoding: utf-8
 class Installation < ActiveRecord::Base
+  attr_accessor :proj_name, :proj_install_address
   attr_accessible :install_name, :inst_eng_id, :project_id, :start_date, :finish_date, 
                   :as => :role_new
   attr_accessible :install_name, :inst_eng_id, :completed, :start_date, :finish_date, 

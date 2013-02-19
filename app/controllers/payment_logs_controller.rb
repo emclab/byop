@@ -82,7 +82,7 @@ class PaymentLogsController < ApplicationController
   def approve
     @payment_log = PaymentLog.find(params[:id])
     if has_approve_right?
-      if ceo?
+      if ceo? || acct?
         @payment_log.approved_by_ceo = true
         @payment_log.approve_ceo_id = session[:user_id]
         @payment_log.approve_date_ceo = Date.current
@@ -91,6 +91,8 @@ class PaymentLogsController < ApplicationController
         else
           redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=记录批准未保存！")
         end
+      else
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")  
       end
     end
   end
@@ -106,6 +108,8 @@ class PaymentLogsController < ApplicationController
       else
         redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=记录付清未保存！")
       end
+    else
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！") 
     end
   end
 

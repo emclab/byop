@@ -3,7 +3,7 @@
   <%= f.input :name, :label => '物料名称：' %> 
   <%= f.input :spec, :label => '规格：' %>
   <%= f.input :in_date, :label => '入库日期：', :as => :string %> 
-  <div style="padding-left:67px">入库数量：&nbsp;&nbsp;<%= @part.in_qty %></div>
+  <%= f.input :in_qyt, :label => '入库数量：', :readonly => true, :required => false, :input_html => {:value => @part.in_qty} %> 
   <%= f.input :unit, :label => '单位：', :collection => return_unit, :selected => @part.unit %>
   <%= f.input :stock_qty, :label => '库存数量：' %> 
   <%= f.input :supplier, :label => '供应商：' %>

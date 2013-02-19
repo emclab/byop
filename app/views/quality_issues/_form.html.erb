@@ -1,7 +1,7 @@
 <%= simple_form_for([@project, @quality_issue]) do |f| %>    
 
-  <div style="padding-left:68px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
-  <div style="padding-left:68px">客户：&nbsp;&nbsp;<%= @project.customer.name %></div>
+  <%= f.input :customer_name, :label => '客户:', :readonly => true, :required => false, :input_html => {:value => @project.customer.name} %>
+  <%= f.input :proj_name, :label => '项目名称：', :readonly => true, :required => false, :input_html => {:value => @project.name} %> 
   <%= f.input :report_by_id, :label => '报告工程师：', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng', 'pur_eng'), :label_method => :name, :value_method => :id %>  
   <%= f.input :report_date, :label => '报告日期：', :as => :string %> 
   <%= f.input :name, :label => '问题名称：' %> 
@@ -15,7 +15,7 @@
     <%= f.input :case_closed, :label => '问题解决：', :collection => return_yes_no, :selected => @quality_issue.case_closed %>
     <%= f.input :close_date, :label => '解决日期：', :as => :string %>     
   <% else %>
-    <div style="padding-left:68px">问题解决：&nbsp;&nbsp;<%= @quality_issue.case_closed %></div> 
+    <%= f.input :case_closed, :label => '问题解决：', :readonly => true, :required => false, :as => :string,:input_html => {:value => yes_no_cn(@quality_issue.case_closed)} %> 
     <%= f.input :close_date, :label => '解决日期：', :as => :string, :input_html => {:readonly => true} %>
   <% end %>           
 

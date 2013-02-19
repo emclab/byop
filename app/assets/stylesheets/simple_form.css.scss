@@ -9,6 +9,11 @@
   margin: 2px 10px;
 }
 
+.simple_form input.readonly {
+  background: transparent; 
+  border: 0;
+}
+
 div.boolean, .simple_form input[type='submit'] {
   margin-left: 120px;
 }

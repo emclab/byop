@@ -1,6 +1,6 @@
 <%= simple_form_for([@project, @purchasing]) do |f| %>    
 
-  <div style="padding-left:68px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
+  <%= f.input :proj_name, :label => '项目名称：', :readonly => true, :required => false, :input_html => {:value => @project.name} %>
   <%= f.input :prod_name, :label => '名称：' %> 
   <%= f.input :part_num, :label => '产品#：' %>
   <%= f.input :spec, :label => '规格：', :input_html => {:rows => 4} %>  
@@ -17,21 +17,21 @@
   <%= f.input :order_date, :label => '订购日期：', :as => :string %> 
   <%= f.input :delivery_date, :label => '预定到货日期：', :as => :string %> 
   <%= f.input :actual_receiving_date, :label => '实际到货日期：', :as => :string %> 
-
-  <div style="padding-left:68px">盖章？：&nbsp;&nbsp;<%= @purchasing.stamped %></div> <p></p>
-  <div style="padding-left:68px">工程师批准：&nbsp;&nbsp;<%= @purchasing.approved_by_eng %></div> <p></p>
-  <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @purchasing.approve_eng.name if @purchasing.approve_eng_id.present? %></div>  <p></p>
-  <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @purchasing.approve_date_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_eng.present? %></div>   <p></p>
-  <div style="padding-left:68px">工程付总批准：&nbsp;&nbsp;<%= @purchasing.approved_by_vp_eng %></div> <p></p>
-  <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @purchasing.approve_vp_eng.name if @purchasing.approve_vp_eng_id.present?  %></div> <p></p>
-  <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @purchasing.approve_date_vp_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_vp_eng.present? %></div> <p></p> 
-  <div style="padding-left:68px">采购批准：&nbsp;&nbsp;<%= @purchasing.approved_by_pur_eng %></div> <p></p>
-  <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @purchasing.pur_eng.name if @purchasing.approve_pur_eng_id.present? %></div> <p></p>
-  <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @purchasing.approve_date_pur_eng.strftime("%Y/%m/%d") if @purchasing.approve_date_pur_eng.present? %></div>  <p></p>
-  <div style="padding-left:68px">厂长批准：&nbsp;&nbsp;<%= @purchasing.approved_by_ceo %></div> <p></p>
-  <div style="padding-left:68px">审批人：&nbsp;&nbsp;<%= @purchasing.approve_ceo.name if @purchasing.approve_ceo_id.present?  %></div> <p></p>
-  <div style="padding-left:68px">审批日期：&nbsp;&nbsp;<%= @purchasing.approve_date_ceo.strftime("%Y/%m/%d") if @purchasing.approve_date_ceo.present? %></div>  <p></p> 
   
+  <%= f.input :stamped, :label => '盖章？：', :readonly => true, :required => false, :as => :string, :input_html => {:value => yes_no_cn(@purchasing.stamped)} %>
+  <%= f.input :approved_by_eng, :label => '工程师批准：', :readonly => true, :required => false, :as => :string, :input_html => {:value => yes_no_cn(@purchasing.approved_by_eng)} %>
+  <%= f.input :approve_eng_id, :label => '审批人：', :readonly => true, :required => false, :input_html => {:value => @purchasing.approve_eng.name} if @purchasing.approve_eng_id.present? %>
+  <%= f.input :approve_date_eng, :label => '审批日期：', :readonly => true, :required => false, :input_html => {:value => @purchasing.approved_date_eng} if @purchasing.approve_date_eng.present? %>
+  <%= f.input :approved_by_vp_eng, :label => '工程付总批准：', :readonly => true, :required => false,:as => :string, :input_html => {:value => yes_no_cn(@purchasing.approved_by_vp_eng)} %>
+  <%= f.input :approve_vp_eng_id, :label => '审批人：', :readonly => true, :required => false, :input_html => {:value => @purchasing.approve_vp_eng.name} if @purchasing.approve_vp_eng_id.present?  %> 
+  <%= f.input :approve_date_vp_eng, :label => '审批日期：', :readonly => true, :required => false, :input_html => {:value => @purchasing.approve_date_vp_eng.strftime("%Y/%m/%d")} if @purchasing.approve_date_vp_eng.present? %>  
+  <%= f.input :approved_by_pur_eng, :label => '采购批准：', :readonly => true, :required => false,:as => :string, :input_html => {:value => yes_no_cn(@purchasing.approved_by_pur_eng)} %>
+  <%= f.input :approve_pur_eng_id, :label => '审批人：', :readonly => true, :required => false, :input_html => {:value => @purchasing.approve_pur_eng.name}  if @purchasing.approve_pur_eng_id.present? %>
+  <%= f.input :approve_date_pur_eng, :label => '审批日期：', :readonly => true, :required => false, :input_html => {:value => @purchasing.approve_date_pur_eng}  if @purchasing.approve_date_pur_eng.present? %>
+  <%= f.input :approved_by_ceo, :label => '厂长批准：', :readonly => true, :required => false, :as => :string, :input_html => {:value => yes_no_cn(@purchasing.approved_by_ceo)} %>
+  <%= f.input :approve_ceo_id, :label => '审批人：', :readonly => true, :required => false, :input_html => {:value => @purchasing.approve_ceo.name} if @purchasing.approve_ceo_id.present? %> 
+  <%= f.input :approve_date_ceo, :label => '审批日期：', :readonly => true, :required => false, :input_html => {:value => @purchasing.approve_date_ceo.strftime("%Y/%m/%d")} if @purchasing.approve_date_ceo.present? %> 
+
   <%= f.button :submit, '保存' %>  
 <% end %>  
 

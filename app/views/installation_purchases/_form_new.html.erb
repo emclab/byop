@@ -1,6 +1,6 @@
 <%= simple_form_for([@installation, @installation_purchase]) do |f| %>    
 
-  <div style="padding-left:68px">安装项目名称：&nbsp;&nbsp;<%= @installation.install_name %></div> 
+  <%= f.input :installation_name, :label => '安装项目名称：', :readonly => true, :required => false, :input_html => {:value => @installation.install_name} %>  
   <%= f.input :part_name, :label => '物料名称：' %> 
   <%= f.input :spec, :label => '规格：' %>
   <%= f.input :for_what, :lable => '用途：', :input_html => {:rows => 4 } %>

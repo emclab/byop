@@ -1,7 +1,7 @@
 <%= simple_form_for @project do |f| %>    
  
-  <div style="padding-left:68px">客户：&nbsp;&nbsp;<%= @project.customer.name %></div>
-  <%= f.input :name, :label => '项目名称：', :input_html => {:readonly => true} %>  
+  <%= f.input :customer_id, :label => '客户:', :readonly => true, :required => false, :input_html => {:value => @project.customer.name} %>
+  <%= f.input :name, :label => '项目名称：', :readonly => true, :required => false, :input_html => {:value => @project.name} %>  
   <%= f.input :customer_contact_info, :label => '联系信息：', :hint => '联系人及电话', :input_html => { :rows => 4, :readonly => true} %> 
   <%= f.input :awarded, :label => '签合同了？：', :collection => return_yes_no, :include_blank => true %>   
   <%= f.input :status, :label => '项目状态：', :collection => return_project_status %>
@@ -16,7 +16,7 @@
   <%= f.input :install_start_date, :label => '安装开始日期：', :as => :string, :input_html => {:readonly => true} %>   
   <%= f.input :turn_over_requirement, :label => '验收交付：', :input_html => { :rows => 4} %>  
   <%= f.input :completed, :label => '完成？：', :as => :radio %> 
-  <div style="padding-left:68px">项目取消？：&nbsp;&nbsp;<%= @project.cancelled %> </div>          
+  <%= f.input :cancelled, :label => '项目取消？:', :readonly => true, :required => false, :as => :string,:input_html => {:value => yes_no_cn(@project.cancelled)} %>        
   <%= f.input :note, :label => '注释：', :input_html => { :rows => 4} %>
   <%= f.input :review_after, :label => '项目总结：', :input_html => {:rows => 6} %>          
   

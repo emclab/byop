@@ -1,7 +1,7 @@
 <%= simple_form_for([@project, @installation]) do |f| %>    
 
-  <div style="padding-left:68px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
-  <div style="padding-left:68px">安装地址：&nbsp;&nbsp;<%= @project.install_address %></div> 
+  <%= f.input :proj_name, :label => '项目名称:', :readonly => true, :required => false, :input_html => {:value => @project.name} %> 
+  <%= f.input :proj_install_address, :label => '安装地址：', :readonly => true, :required => false, :input_html => {:value => @project.install_address} %>  
   <%= f.input :install_name, :label => '名称：' %> 
   <%= f.input :inst_eng_id, :label => '安装工程师：', :collectionc=> return_employee('inst_eng'), :label_method => :name, :value_method => :id %>
   <%= f.input :completed, :collection => return_yes_no, :label => '完成', :as => :radio_buttons %>

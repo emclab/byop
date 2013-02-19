@@ -1,6 +1,6 @@
 <%= simple_form_for([@project, @production]) do |f| %>    
 
-  <div style="padding-left:68px">项目名称：&nbsp;&nbsp;<%= @project.name %></div> 
+  <%= f.input :proj_name, :label => '项目名称:', :readonly => true, :required => false, :input_html => {:value => @project.name} %>
   <%= f.input :name, :label => '名称：' %> 
   <%= f.input :desp, :label => '内容：', :input_html => {:rows => 3} %>  
   <%= f.input :eng_id, :label => '责任工程师：', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'pur_eng'), :label_method => :name, :value_method => :id %>

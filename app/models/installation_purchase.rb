@@ -1,5 +1,7 @@
 # encoding: utf-8
 class InstallationPurchase < ActiveRecord::Base
+  
+  attr_accessor :installation_name
   attr_accessible :installation_id, :applicant_id, :qty, :unit, :unit_price, :total, :for_what,
                   :part_name, :spec, :need_date, 
                   :as => :role_new

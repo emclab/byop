@@ -1,6 +1,9 @@
 # encoding: utf-8
 class Purchasing < ActiveRecord::Base
   
+  #for simple-form display fields
+  attr_accessor   :proj_name     
+  
   attr_accessor   :project_id_search, :start_date_search, :end_date_search, :approved_by_eng_search, :approved_by_vp_eng_search, 
                   :approved_by_pur_eng_search, :approved_by_ceo_search, :mfg_id_search, :eng_id_search, :customer_id_search,
                   :supplier_id_search, :delivered_search, :time_frame, :keyword_prod_name_s
