@@ -150,6 +150,14 @@ describe ProjectsController do
     end
   end
   
+  describe "GET search" do
+    it "should search" do
+      session[:ceo] = true
+      get 'search'
+      response.should be_success
+    end
+  end
+  
   describe "seach result" do
     it "should do search for coo" do
       session[:coo] = true

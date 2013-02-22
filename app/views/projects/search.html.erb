@@ -1,6 +1,6 @@
 <div id="main_body">
 <h1>项目搜索</h1>
-<%= simple_form_for @project, :method => :put, :url => { :action => 'search_results' } do |f| %>    
+<%= simple_form_for @project, :method => :put, :url => search_results_projects_path do |f| %>    
   <%= f.input :start_date_search, :label => "生成开始日期 ：", :as => :string, :input_html => {:size => 40} %>
   <%= f.input :end_date_search, :label => "生成结束日期 ：", :as => :string, :input_html => {:size => 40} %>
   <%= f.input :customer_id_search, :collection => Customer.active_cust.order('name'), :label_method => :name, :value_method => :id, :prompt => "选客户", :label => "客户 ："  %>
