@@ -1,5 +1,9 @@
 ---
-by-logo.jpg: by-logo-8ab0b5fb9fc8821dcf01bb6b5a7993fd.jpg
-rails.png: rails-be8732dac73d845ac5b142c8fb5f9fb0.png
-application.js: application-1a0009b32fe2e7b507f32f54a0df7774.js
-application.css: application-a3378a509005a34b42811f1b6ba67409.css
+by-logo.jpg: by-logo-289ca23784fa9f8778538e503c364423.jpg
+by-logo/index.jpg: by-logo-289ca23784fa9f8778538e503c364423.jpg
+rails.png: rails-a3386665c05a2d82f711a4aaa72d247c.png
+rails/index.png: rails-a3386665c05a2d82f711a4aaa72d247c.png
+application.js: application-2679ac8f4b46b0b40fa3286414dea784.js
+application/index.js: application-2679ac8f4b46b0b40fa3286414dea784.js
+application.css: application-9375dfc91efeb57043a92dbd20af38c1.css
+application/index.css: application-9375dfc91efeb57043a92dbd20af38c1.css
