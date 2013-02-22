@@ -23,6 +23,10 @@
   <%= @installation_purchase.unit_price %>
 </p>
 <p>
+  <b>总金额（￥）:</b>
+  <%= number_with_precision(@installation_purchase.unit_price * @installation_purchase.qty, :precision => 2) %>
+</p>
+<p>
   <b>实际购买数量：</b>
   <%= @installation_purchase.qty_purchased %>
 </p>
