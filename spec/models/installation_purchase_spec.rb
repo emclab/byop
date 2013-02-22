@@ -61,5 +61,10 @@ describe InstallationPurchase do
     s = FactoryGirl.build(:installation_purchase, :purchased => true, :qty_in_stock => nil)
     s.should_not be_valid
   end
+  
+  it "should reject nil unit_price" do
+    s = FactoryGirl.build(:installation_purchase, :purchased => true, :unit_price => nil)
+    s.should_not be_valid
+  end
     
 end

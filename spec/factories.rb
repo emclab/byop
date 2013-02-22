@@ -93,7 +93,7 @@ FactoryGirl.define do
     input_by_id              1
     delivered                false  
     eng_id                   1
-    total                    120.20
+    unit_price                    120.20
   end
   
   factory :payment_log do
@@ -144,7 +144,8 @@ FactoryGirl.define do
     input_by_id              1 
     purchased                false   
     total                    65.90  
-    warehoused               false      
+    warehoused               false  
+    unit_price               10.12    
   end
 
   factory :installation_purchase_log do 
@@ -218,6 +219,7 @@ FactoryGirl.define do
     storage_location        'shelf A, 304'
     unit                    'piece'
     in_date                 '2012-2-3'
+    unit_price              12.23
   end
 
   factory :out_log do 

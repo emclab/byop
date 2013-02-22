@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121227171529) do
+ActiveRecord::Schema.define(:version => 20130222170105) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(:version => 20121227171529) do
     t.integer  "qty"
     t.string   "unit"
     t.decimal  "unit_price"
-    t.decimal  "total"
     t.text     "for_what"
     t.integer  "qty_purchased"
     t.decimal  "total_paid"
@@ -139,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20121227171529) do
     t.datetime "updated_at"
     t.string   "unit"
     t.string   "supplier"
+    t.decimal  "unit_price",       :precision => 10, :scale => 2
   end
 
   create_table "pay_status_logs", :force => true do |t|
@@ -258,7 +258,7 @@ ActiveRecord::Schema.define(:version => 20121227171529) do
     t.integer  "supplier_id"
     t.date     "order_date"
     t.date     "delivery_date"
-    t.boolean  "delivered",                                            :default => false
+    t.boolean  "delivered",             :default => false
     t.integer  "proj_module_id"
     t.integer  "input_by_id"
     t.boolean  "approved_by_eng"
@@ -276,9 +276,8 @@ ActiveRecord::Schema.define(:version => 20121227171529) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "eng_id"
-    t.decimal  "total",                 :precision => 10, :scale => 2
     t.date     "actual_receiving_date"
-    t.boolean  "stamped",                                              :default => false
+    t.boolean  "stamped",               :default => false
   end
 
   create_table "quality_issues", :force => true do |t|

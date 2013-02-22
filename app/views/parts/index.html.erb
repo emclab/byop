@@ -9,6 +9,7 @@
     <th>入库日期</th>
     <th>入库数量</th>
     <th>库存量</th>
+    <th>单价￥</th>
     <th>存放地点</th> 
     <th>供应商</th>
     <th></th>
@@ -21,7 +22,8 @@
     <td><%= part.spec %></td>
     <td><%= part.in_date.strftime("%Y/%m/%d") %></td>
     <td><%= part.in_qty%><%= part.unit %></td> 
-    <td><%= part.stock_qty%><%= part.unit %></td>   
+    <td><%= part.stock_qty%><%= part.unit %></td>  
+    <td><%= number_with_precision(part.unit_price, :precision => 2) if part.unit_price.present? %></td> 
     <td><%= part.storage_location %></td>
     <td><%= part.supplier %></td>
     <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_part_path(part)}" if has_update_right? %></td>

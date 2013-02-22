@@ -57,5 +57,10 @@ describe Part do
   it "should reject nil spec" do
     s = FactoryGirl.build(:part, :spec => nil)
     s.should_not be_valid    
-  end  
+  end 
+  
+  it "should reject nil unit_price" do
+    s = FactoryGirl.build(:part, :unit_price => nil)
+    s.should_not be_valid 
+  end 
 end

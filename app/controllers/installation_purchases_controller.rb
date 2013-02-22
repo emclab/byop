@@ -93,9 +93,10 @@ class InstallationPurchasesController < ApplicationController
       @part.in_qty = @installation_purchase.qty_in_stock
       @part.stock_qty = @installation_purchase.qty_in_stock
       @part.unit = @installation_purchase.unit
+      @part.unit_price = @installation_purchase.unit_price
       @part.input_by_id = session[:user_id]
       @part.transaction do
-        if @part.save! && @installation_purchase.update_attribute(:warehoused, true)  #update_attribute skips validation, will raise exception if a connection or remote service error.
+        if @part.save && @installation_purchase.update_attribute(:warehoused, true)  #update_attribute skips validation, will raise exception if a connection or remote service error.
           redirect_to installation_installation_purchase_path(@installation_purchase.installation, @installation_purchase), :notice => "物料已入库！"
         else
           redirect_to installation_installation_purchase_path(@installation_purchase.installation, @installation_purchase), :notice => "数据错误，无法入库！"

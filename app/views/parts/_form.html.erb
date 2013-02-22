@@ -6,6 +6,9 @@
   <%= f.input :in_qyt, :label => '入库数量：', :readonly => true, :required => false, :input_html => {:value => @part.in_qty} %> 
   <%= f.input :unit, :label => '单位：', :collection => return_unit, :selected => @part.unit %>
   <%= f.input :stock_qty, :label => '库存数量：' %> 
+  <%= f.input :unit_price, :label => '单价：' %>
+  <%= f.input :total, :label => '总金额￥：', :readonly => true, :required => false, 
+              :input_html => {:value => number_with_precision(@part.unit_price*@part.stock_qty, :precision => 2), :id => 'part_total_edit'} %>
   <%= f.input :supplier, :label => '供应商：' %>
   <%= f.input :manufacturer, :label => '制造商：' %>  
   <%= f.input :inspection, :label => '验收记录：' %>

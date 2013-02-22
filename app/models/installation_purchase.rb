@@ -1,7 +1,7 @@
 # encoding: utf-8
 class InstallationPurchase < ActiveRecord::Base
   
-  attr_accessor :installation_name
+  attr_accessor :installation_name, :total
   attr_accessible :installation_id, :applicant_id, :qty, :unit, :unit_price, :total, :for_what,
                   :part_name, :spec, :need_date, 
                   :as => :role_new
@@ -22,11 +22,12 @@ class InstallationPurchase < ActiveRecord::Base
   validates :for_what, :presence => true
   validates_numericality_of :installation_id, :greater_than => 0
   validates_numericality_of :applicant_id, :greater_than => 0
+  validates_numericality_of :unit_price, :greater_than => 0
   validates :need_date, :presence => true
   validates :qty, :presence => true, :numericality => {:only_integer => true}
   validates :qty_purchased, :numericality => {:only_integer => true }, :if => "purchased"
   validates :unit, :presence => true
-  validates :total, :presence => true
+  #validates :total, :presence => true
   validates_numericality_of :qty_in_stock, :greater_than => 0, :only_integer => true, :if => "purchased"
   validates_numericality_of :total_paid, :greater_than => 0, :if => "purchased"
 end

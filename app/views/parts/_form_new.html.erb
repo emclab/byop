@@ -5,6 +5,8 @@
   <%= f.input :in_date, :label => '入库日期：', :as => :string %> 
   <%= f.input :in_qty, :label => '入库数量：', :required => true %>
   <%= f.input :unit, :label => '单位：', :collection => return_unit %>
+  <%= f.input :unit_price, :label => '单价：' %>
+  <%= f.input :total, :label => '总金额￥：', :readonly => true, :required => false %>
   <%= f.input :supplier, :label => '供应商：' %>
   <%= f.input :manufacturer, :label => '制造商：' %> 
   <%= f.input :inspection, :label => '验收记录：' %>
