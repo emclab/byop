@@ -9,8 +9,12 @@
   <%= f.input :qty, :label => '申请数量：' %>
   <%= f.input :unit, :label => '单位：', :collection => return_unit, :selected => @installation_purchase.unit %>
   <%= f.input :unit_price, :label => '单价（￥）：' %>
-  <%= f.input :total, :label => '总额（￥）：', :readonly => true, :required => false, 
-              :input_html => {:value => number_with_precision(@installation_purchase.unit_price * @installation_purchase.qty, :precision => 2)}  if @installation_purchase.unit_price.present? && @installation_purchase.qty.present? %>
+  <% if @installation_purchase.unit_price.present? && @installation_purchase.qty.present? %>
+    <%= f.input :total, :label => '总额（￥）：', :readonly => true, :required => false, 
+                :input_html => {:value => number_with_precision(@installation_purchase.unit_price * @installation_purchase.qty, :precision => 2)}  %>
+  <% else %>
+    <%= f.input :total, :label => '总额（￥）：', :readonly => true, :required => false %>
+  <% end %>
   <%= f.input :qty_purchased, :label => '实际购买数量：' %>
   <%= f.input :total_paid, :label => '实付总额（￥）：' %>
   <%= f.input :storage_location, :label => '存放地点：' %>
