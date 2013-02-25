@@ -24,7 +24,7 @@
 </p>
 <p>
   <b>总金额（￥）:</b>
-  <%= number_with_precision(@installation_purchase.unit_price * @installation_purchase.qty, :precision => 2) %>
+  <%= number_with_precision(@installation_purchase.unit_price * @installation_purchase.qty, :precision => 2) if @installation_purchase.unit_price.present? && @installation_purchase.qty.present? %>
 </p>
 <p>
   <b>实际购买数量：</b>

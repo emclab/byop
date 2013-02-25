@@ -32,7 +32,7 @@
 </p>
 <p>
   <b>库存总额￥:</b>
-  <%= number_with_precision(@part.unit_price * @part.stock_qty, :precision => 2) %>
+  <%= number_with_precision(@part.unit_price * @part.stock_qty, :precision => 2) if @part.unit_price.present? && @part.stock_qty.present? %>
 </p>
 <p>
   <b>供应商:</b>

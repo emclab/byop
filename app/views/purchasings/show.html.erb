@@ -29,7 +29,7 @@
 </p>
 <p>
   <b>总金额（￥）:</b>
-  <%= number_with_precision(@purchasing.unit_price * @purchasing.qty, :precision => 2) %>
+  <%= number_with_precision(@purchasing.unit_price * @purchasing.qty, :precision => 2) if @purchasing.unit_price.present? && @purchasing.qty.present? %>
 </p>
 <p>	
   <b>已支付额（￥）:</b>
