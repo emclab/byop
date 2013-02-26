@@ -73,7 +73,7 @@
 </p>
 <p>
   <b>审批人:</b>
-  <%= @purchasing.approve_eng.name if @purchasing.approve_eng_id.present? %>
+  <%= @purchasing.approve_eng.name if @purchasing.approve_eng_id.present? && @purchasing.approve_eng_id > 0 %>
 </p>
 <p>
   <b>审批日期:</b>
@@ -85,7 +85,7 @@
 </p>
 <p>
   <b>审批人:</b>
-  <%= @purchasing.approve_vp_eng.name if @purchasing.approve_vp_eng_id.present? %>
+  <%= @purchasing.approve_vp_eng.name if @purchasing.approve_vp_eng_id.present? && @purchasing.approve_vp_eng_id > 0 %>
 </p>
 <p>
   <b>审批日期:</b>
