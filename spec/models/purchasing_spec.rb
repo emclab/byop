@@ -29,10 +29,45 @@ describe Purchasing do
     s.should_not be_valid
   end  
   
-  #it "should reject nil eng id" do
-  #  s = FactoryGirl.build(:purchasing, :eng_id => nil)
-  #  s.should_not be_valid
-  #end  
+  it "should be OK with nil approve_eng_id" do
+    s = FactoryGirl.build(:purchasing, :approve_eng_id => nil)
+    s.should be_valid
+  end 
+  
+  it "should reject 0 approve_eng_id" do
+    s = FactoryGirl.build(:purchasing, :approve_eng_id => 0)
+    s.should_not be_valid
+  end 
+  
+  it "should be OK with nil approve_pur_eng_id" do
+    s = FactoryGirl.build(:purchasing, :approve_pur_eng_id => nil)
+    s.should be_valid
+  end 
+  
+  it "should reject 0 approve_pur_eng_id" do
+    s = FactoryGirl.build(:purchasing, :approve_pur_eng_id => 0)
+    s.should_not be_valid
+  end 
+  
+  it "should be OK with nil approve_vp_eng_id" do
+    s = FactoryGirl.build(:purchasing, :approve_vp_eng_id => nil)
+    s.should be_valid
+  end 
+  
+  it "should reject 0 approve_vp_eng_id" do
+    s = FactoryGirl.build(:purchasing, :approve_vp_eng_id => 0)
+    s.should_not be_valid
+  end 
+  
+  it "should be OK with nil approve_ceo_id" do
+    s = FactoryGirl.build(:purchasing, :approve_ceo_id => nil)
+    s.should be_valid
+  end 
+  
+  it "should reject 0 approve_ceo_id" do
+    s = FactoryGirl.build(:purchasing, :approve_ceo_id => 0)
+    s.should_not be_valid
+  end 
 
   #it "should reject nil manufacturer id" do
   #  s = FactoryGirl.build(:purchasing, :manufacturer_id => nil)

@@ -13,7 +13,7 @@ class Part < ActiveRecord::Base
   validates :name, :presence => true
   validates :spec, :presence => true
   validates_numericality_of :in_qty, :only_integer => true, :greater_than => 0
-  validates_numericality_of :unit_price, :greater_than => 0
+  validates_numericality_of :unit_price, :greater_than => 0, :message => '输入单价（非零）！'
   validates :unit, :presence => true
   validates_numericality_of :stock_qty, :less_than_or_equal_to => :in_qty, :if => Proc.new { |part| !part.in_qty.nil? }
   validates :stock_qty, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}

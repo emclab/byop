@@ -22,7 +22,7 @@ class OutLogsController < ApplicationController
       @part.stock_qty = @part.stock_qty - params[:out_log][:out_qty].to_i      
       #start transaction
       @out_log.transaction do
-        if @out_log.save! && @part.save!
+        if @out_log.save && @part.save
           redirect_to part_path(@part), :notice => "记录已保存！"
         else
           flash.now[:error] = "无法保存出库记录！"

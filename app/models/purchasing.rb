@@ -39,8 +39,10 @@ class Purchasing < ActiveRecord::Base
   
   validates :prod_name, :presence => true, :uniqueness => {:scope => :project_id, :message => '同一项目外购件不能重名！' }
   validates_numericality_of :project_id, :greater_than => 0
-  #validates_numericality_of :eng_id, :greater_than => 0  #removed for upload helper program
-  #validates_numericality_of :manufacturer_id, :greater_than => 0
+  validates_numericality_of :approve_eng_id, :greater_than => 0, :unless => "approve_eng_id.blank?" 
+  validates_numericality_of :approve_pur_eng_id, :greater_than => 0, :unless => "approve_pur_eng_id.blank?"
+  validates_numericality_of :approve_vp_eng_id, :greater_than => 0, :unless => "approve_vp_eng_id.blank?"
+  validates_numericality_of :approve_ceo_id, :greater_than => 0, :unless => "approve_ceo_id.blank?" 
   validates :qty, :numericality => { :only_integer => true } 
   validates :unit, :presence => true
   validates :order_date, :presence => true  #removed for parts upload helper program

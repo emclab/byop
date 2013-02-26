@@ -93,7 +93,7 @@ class PurchasingsController < ApplicationController
     @project = Project.find(params[:project_id])
     @purchasing = @project.purchasings.find(params[:id])
     if need_approve?(@purchasing)
-      if is_tech_eng? && @purchasing.eng_id == session[:user_id]
+      if is_tech_eng? #&& @purchasing.eng_id == session[:user_id]
         @purchasing.update_attributes({:approved_by_eng => true, :approve_eng_id => session[:user_id],
                                        :approve_date_eng => Time.now}, :as => :role_update)
       elsif vp_eng?
@@ -182,6 +182,9 @@ class PurchasingsController < ApplicationController
   protected
   
   def need_approve?(purchasing)
+    if purchasing.id == 583
+      purchasing.id = 583
+    end
     if is_tech_eng? && purchasing.eng_id == session[:user_id] && purchasing.approved_by_vp_eng.nil? && purchasing.approved_by_pur_eng.nil? && purchasing.approved_by_ceo.nil?
       return true
     elsif vp_eng? && purchasing.approved_by_eng && purchasing.approved_by_pur_eng.nil? && purchasing.approved_by_ceo.nil?
