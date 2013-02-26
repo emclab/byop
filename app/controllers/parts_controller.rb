@@ -8,9 +8,9 @@ class PartsController < ApplicationController
   def index
     @title = '物料一览'
     if comp_sec? || vp_eng? || pur_eng? || ceo? || coo?
-      @parts = Part.order("stock_qty DESC, in_date DESC").paginate(:per_page => 40, :page => params[:page])    
+      @parts = Part.order("id DESC").paginate(:per_page => 40, :page => params[:page])    
     else
-      @parts = Part.where("stock_qty > ?", 0).order("in_date DESC").paginate(:per_page => 40, :page => params[:page])
+      @parts = Part.where("stock_qty > ?", 0).order("id DESC").paginate(:per_page => 40, :page => params[:page])
     end
   end
 
