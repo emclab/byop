@@ -117,21 +117,24 @@ class PurchasingsController < ApplicationController
     @project = Project.find(params[:project_id])
     @purchasing = @project.purchasings.find(params[:id])
     if need_approve?(@purchasing)
-      if is_tech_eng? && @purchasing.eng_id == session[:user_id]
+      if is_tech_eng? #&& @purchasing.eng_id == session[:user_id]
         @purchasing.update_attributes({:approved_by_eng => false, :approve_eng_id => session[:user_id],
                                        :approve_date_eng => Time.now}, :as => :role_update)
+
       elsif vp_eng?
         @purchasing.update_attributes({:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
                                        :approve_date_vp_eng => Time.now}, :as => :role_update)  
+                              
       elsif pur_eng?
         @purchasing.update_attributes({:approved_by_pur_eng => false, :approve_pur_eng_id => session[:user_id],
-                                       :approve_date_pur_eng => Time.now}, :as => :role_update)   
+                                       :approve_date_pur_eng => Time.now}, :as => :role_update) 
+                                
       elsif ceo?
         @purchasing.update_attributes({:approved_by_ceo => false, :approve_ceo_id => session[:user_id],
-                                       :approve_date_ceo => Time.now}, :as => :role_update) 
+                                       :approve_date_ceo => Time.now}, :as => :role_update)
+                               
       end
-    
-      redirect_to project_purchasings_path(@project, @purchasing), :notice => '外购已否决！'
+      redirect_to project_purchasings_path(@project, @purchasing), :notice => '外购已否决！'   
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!") 
     end
