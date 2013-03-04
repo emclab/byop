@@ -72,11 +72,11 @@ class InstallationPurchasesController < ApplicationController
     if need_approve?(@installation_purchase)  
       if vp_eng?
         @installation_purchase.update_attributes(:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
-                                    :approve_date_vp_eng => Date.today, :as => :role_update) 
+                                    :approve_date_vp_eng => Date.today, :as => :role_approve) 
      
       elsif ceo?
         @installation_purchase.update_attributes(:approved_by_ceo => true, :approve_ceo_id => session[:user_id],
-                                    :approve_date_ceo => Time.now, :as => :role_update) 
+                                    :approve_date_ceo => Time.now, :as => :role_approve) 
       end   
       redirect_to installation_installation_purchase_path(@installation, @installation_purchase)
     else

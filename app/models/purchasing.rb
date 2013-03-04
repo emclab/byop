@@ -2,7 +2,7 @@
 class Purchasing < ActiveRecord::Base
   
   #for simple-form display fields
-  attr_accessor   :proj_name, :total, :approve_eng_name, :approve_vp_eng_name, :approve_pur_eng_name, :approve_ceo_name   
+  attr_accessor   :proj_name, :total   
   
   attr_accessor   :project_id_search, :start_date_search, :end_date_search, :approved_by_eng_search, :approved_by_vp_eng_search, 
                   :approved_by_pur_eng_search, :approved_by_ceo_search, :mfg_id_search, :eng_id_search, :customer_id_search,
@@ -13,16 +13,17 @@ class Purchasing < ActiveRecord::Base
                   :supplier_id_search, :delivered_search, :keyword_prod_name_s, :as => :role_search_stats
                     
   attr_accessible :prod_name, :part_num, :spec, :project_id, :qty, :unit, :unit_price, :pur_eng_id, :manufacturer_id, :supplier_id,
-                  :order_date, :delivery_date, :proj_module_id, :eng_id, :total, 
+                  :order_date, :delivery_date, :proj_module_id, :eng_id, :total, :from_warehouse,
                   :as => :role_new
   attr_accessible :prod_name, :part_num, :spec, :qty, :unit, :unit_price, :pur_eng_id, :manufacturer_id, :supplier_id, :eng_id, 
-                  :order_date, :delivery_date, :proj_module_id, :delivered, :approved_by_eng, :approve_eng_id, :approve_date_eng,
+                  :order_date, :delivery_date, :proj_module_id, :delivered, :approve_date_ceo, :total, :actual_receiving_date,
+                  :from_warehouse, :checked_out_from_warehouse,
+                  :as => :role_update                  
+  attr_accessible :approved_by_eng, :approve_eng_id, :approve_date_eng, 
                   :approved_by_vp_eng, :approve_vp_eng_id, :approve_date_vp_eng, :approved_by_pur_eng, :approve_pur_eng_id,
-                  :approve_date_pur_eng, :approved_by_ceo, :approve_ceo_id, :approve_date_ceo, :total, :actual_receiving_date,
-                  :stamped, 
-                  :as => :role_update
+                  :approve_date_pur_eng, :approved_by_ceo, :approve_ceo_id, :approve_date_ceo, :stamped, 
+                  :as => :role_approve_disapprove_stamped
                    
-  #has_and_belongs_to_many :categories
   belongs_to :input_by, :class_name => 'User' 
   belongs_to :eng, :class_name => 'User', :foreign_key => "eng_id"
   belongs_to :pur_eng, :class_name => 'User', :foreign_key => 'pur_eng_id'

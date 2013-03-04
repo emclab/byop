@@ -85,7 +85,8 @@ describe InstallationPurchasesController do
         get 'create', :installation_id => inst.id, :installation_purchase => pur
         response.should render_template('new')
       end.should change(InstallationPurchase, :count).by(0)
-    end      
+    end  
+      
   end
 
   describe "'edit'" do
@@ -124,6 +125,21 @@ describe InstallationPurchasesController do
       get 'update', :installation_id => inst.id, :id => pur.id, :installation_purchase => {:need_date => nil}
       response.should render_template('edit')
     end
+    
+    it "should not update the approved_by_vp_eng, approved_by_ceo when updating" do
+      inst = FactoryGirl.create(:installation)
+      session[:vp_eng] = true
+      u = FactoryGirl.create(:user)
+      pur = FactoryGirl.create(:installation_purchase, :input_by_id => u.id, :installation_id => inst.id, :approved_by_vp_eng => nil, :approve_vp_eng_id => nil, 
+                               :approved_by_ceo => nil, :approve_ceo_id => nil)
+      get 'update', :installation_id => inst.id, :id => pur.id, :installation_purchase => {:part_name => 'new new name'}
+      response.should redirect_to URI.escape("/view_handler?index=0&msg=申请已更改！")
+      pur.reload.approved_by_ceo.should eq nil 
+      pur.reload.approve_ceo_id.should eq nil
+      pur.reload.approved_by_vp_eng.should eq nil 
+      pur.reload.approve_vp_eng_id.should eq nil     
+    end 
+    
   end
 
   describe "'show'" do

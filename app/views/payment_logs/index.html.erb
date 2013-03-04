@@ -71,7 +71,7 @@
 </table>
 
   <%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
-  <%= link_to "输入外购付款记录", new_purchasing_payment_log_path(@purchasing, :format => :js), :remote => true, :id => 'new_log_link' if has_create_right? && @purchasing %>
+  <%= link_to "输入外购付款记录", new_purchasing_payment_log_path(@purchasing, :format => :js), :remote => true, :id => 'new_log_link' if has_create_right? && @purchasing && !@purchasing.from_warehouse %>
   <%= link_to "输入外协付款记录", new_sourcing_payment_log_path(@sourcing, :format => :js), :remote => true, :id => 'new_log_link' if has_create_right? && @sourcing %>
   <%= link_to '搜索', search_payment_logs_path if has_stats_right? %>
   <%= link_to '统计', stats_payment_logs_path, :id => 'stats_link' if has_stats_right? %>

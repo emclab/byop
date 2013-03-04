@@ -7,9 +7,12 @@ class InstallationPurchase < ActiveRecord::Base
                   :as => :role_new
   attr_accessible :applicant_id, :qty, :unit, :unit_price, :total, :for_what, :need_date, 
                   :part_name, :spec, :total_paid, :purchased, :qty_purchased, :qty_in_stock,
-                  :approved_by_vp_eng, :approve_vp_eng_id, :approve_date_vp_eng, :approved_by_ceo,
-                  :approve_by_ceo_id, :approve_date_ceo, :storage_location, 
-                  :as => :role_update
+                  :storage_location, 
+                  :as => :role_update                  
+  attr_accessible :approved_by_vp_eng, :approve_vp_eng_id, :approve_date_vp_eng, :approved_by_ceo,
+                  :approve_by_ceo_id, :approve_date_ceo,
+                  :as => :role_approve
+                  
                    
   #has_and_belongs_to_many :categories
   belongs_to :input_by, :class_name => 'User' 

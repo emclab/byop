@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222170105) do
+ActiveRecord::Schema.define(:version => 20130304190546) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -258,7 +258,7 @@ ActiveRecord::Schema.define(:version => 20130222170105) do
     t.integer  "supplier_id"
     t.date     "order_date"
     t.date     "delivery_date"
-    t.boolean  "delivered",             :default => false
+    t.boolean  "delivered",                  :default => false
     t.integer  "proj_module_id"
     t.integer  "input_by_id"
     t.boolean  "approved_by_eng"
@@ -277,7 +277,9 @@ ActiveRecord::Schema.define(:version => 20130222170105) do
     t.datetime "updated_at"
     t.integer  "eng_id"
     t.date     "actual_receiving_date"
-    t.boolean  "stamped",               :default => false
+    t.boolean  "stamped",                    :default => false
+    t.boolean  "from_warehouse",             :default => false
+    t.boolean  "checked_out_from_warehouse", :default => false
   end
 
   create_table "quality_issues", :force => true do |t|

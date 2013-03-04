@@ -3,7 +3,7 @@ class PurchasingsController < ApplicationController
   before_filter :require_employee  
   
   helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?, :has_stats_right?, :has_delete_right?, :has_reorder_right?,
-                :need_approve?, :approved?
+                :need_approve?, :approved?, :display_approve?, :display_dis_approve?
                 
   def index
     @title = '外购计划'
@@ -93,21 +93,35 @@ class PurchasingsController < ApplicationController
     @project = Project.find(params[:project_id])
     @purchasing = @project.purchasings.find(params[:id])
     if need_approve?(@purchasing)
-      if is_tech_eng? #&& @purchasing.eng_id == session[:user_id]
-        @purchasing.update_attributes({:approved_by_eng => true, :approve_eng_id => session[:user_id],
-                                       :approve_date_eng => Time.now}, :as => :role_update)
+      if is_tech_eng? && @purchasing.eng_id == session[:user_id]
+        if @purchasing.update_attributes({:approved_by_eng => true, :approve_eng_id => session[:user_id],
+                                       :approve_date_eng => Time.now}, :as => :role_approve_disapprove_stamped)
+          redirect_to project_purchasing_path(@project, @purchasing), :notice => '外购已批准！'
+        else
+          redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=数据错误。外购未批准!")
+        end
       elsif vp_eng?
-        @purchasing.update_attributes({:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
-                                       :approve_date_vp_eng => Time.now}, :as => :role_update)  
+        if @purchasing.update_attributes({:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
+                                       :approve_date_vp_eng => Time.now}, :as => :role_approve_disapprove_stamped)  
+          redirect_to project_purchasing_path(@project, @purchasing), :notice => '外购已批准！'
+        else
+          redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=数据错误。外购未批准!")
+        end                             
       elsif pur_eng?
-        @purchasing.update_attributes({:approved_by_pur_eng => true, :approve_pur_eng_id => session[:user_id],
-                                       :approve_date_pur_eng => Time.now}, :as => :role_update)   
+        if @purchasing.update_attributes({:approved_by_pur_eng => true, :approve_pur_eng_id => session[:user_id],
+                                       :approve_date_pur_eng => Time.now}, :as => :role_approve_disapprove_stamped) 
+          redirect_to project_purchasing_path(@project, @purchasing), :notice => '外购已批准！'
+        else
+          redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=数据错误。外购未批准!")
+        end                               
       elsif ceo?
-        @purchasing.update_attributes({:approved_by_ceo => true, :approve_ceo_id => session[:user_id],
-                                       :approve_date_ceo => Time.now}, :as => :role_update) 
-      end
-    
-      redirect_to project_purchasings_path(@project, @purchasing), :notice => '外购已批准！'
+        if @purchasing.update_attributes({:approved_by_ceo => true, :approve_ceo_id => session[:user_id],
+                                       :approve_date_ceo => Time.now}, :as => :role_approve_disapprove_stamped) 
+          redirect_to project_purchasing_path(@project, @purchasing), :notice => '外购已批准！'
+        else
+          redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=数据错误。外购未批准!")
+        end                             
+      end     
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!") 
     end
@@ -117,24 +131,35 @@ class PurchasingsController < ApplicationController
     @project = Project.find(params[:project_id])
     @purchasing = @project.purchasings.find(params[:id])
     if need_approve?(@purchasing)
-      if is_tech_eng? #&& @purchasing.eng_id == session[:user_id]
-        @purchasing.update_attributes({:approved_by_eng => false, :approve_eng_id => session[:user_id],
-                                       :approve_date_eng => Time.now}, :as => :role_update)
-
+      if is_tech_eng? && @purchasing.eng_id == session[:user_id]
+        if @purchasing.update_attributes({:approved_by_eng => false, :approve_eng_id => session[:user_id],
+                                       :approve_date_eng => Time.now}, :as => :role_approve_disapprove_stamped)
+          redirect_to project_purchasing_path(@project, @purchasing), :notice => '外购已否决！' 
+        else
+          redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=数据错误。外购未否决!")
+        end
       elsif vp_eng?
-        @purchasing.update_attributes({:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
-                                       :approve_date_vp_eng => Time.now}, :as => :role_update)  
-                              
+        if @purchasing.update_attributes({:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
+                                       :approve_date_vp_eng => Time.now}, :as => :role_approve_disapprove_stamped)  
+          redirect_to project_purchasing_path(@project, @purchasing), :notice => '外购已否决！' 
+        else
+          redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=数据错误。外购未否决!")
+        end                    
       elsif pur_eng?
-        @purchasing.update_attributes({:approved_by_pur_eng => false, :approve_pur_eng_id => session[:user_id],
-                                       :approve_date_pur_eng => Time.now}, :as => :role_update) 
-                                
+        if @purchasing.update_attributes({:approved_by_pur_eng => false, :approve_pur_eng_id => session[:user_id],
+                                       :approve_date_pur_eng => Time.now}, :as => :role_approve_disapprove_stamped) 
+           redirect_to project_purchasing_path(@project, @purchasing), :notice => '外购已否决！' 
+        else
+          redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=数据错误。外购未否决!")
+        end                     
       elsif ceo?
-        @purchasing.update_attributes({:approved_by_ceo => false, :approve_ceo_id => session[:user_id],
-                                       :approve_date_ceo => Time.now}, :as => :role_update)
-                               
-      end
-      redirect_to project_purchasings_path(@project, @purchasing), :notice => '外购已否决！'   
+        if @purchasing.update_attributes({:approved_by_ceo => false, :approve_ceo_id => session[:user_id],
+                                       :approve_date_ceo => Time.now}, :as => :role_approve_disapprove_stamped)
+          redirect_to project_purchasing_path(@project, @purchasing), :notice => '外购已否决！' 
+        else
+          redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=数据错误。外购未否决!")
+        end                     
+      end       
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!") 
     end
@@ -149,9 +174,9 @@ class PurchasingsController < ApplicationController
                                        :approved_by_vp_eng => nil, :approve_vp_eng_id => nil, :approve_date_vp_eng => nil,
                                        :approved_by_pur_eng => nil, :approve_pur_eng_id => nil, :approve_date_pur_eng => nil,
                                        :approved_by_ceo => nil, :approve_ceo_id => nil, :approve_date_ceo => nil},
-                                       :as => :role_update)
+                                       :as => :role_approve_disapprove_stamped)
     
-      redirect_to project_purchasings_path(@project, @purchasing), :notice => '外购需要重新批准！'
+      redirect_to project_purchasing_path(@project, @purchasing), :notice => '外购需要重新批准！'
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!") 
     end
@@ -161,7 +186,7 @@ class PurchasingsController < ApplicationController
     @project = Project.find(params[:project_id])
     @purchasing = @project.purchasings.find(params[:id])
     if comp_sec?
-      @purchasing.update_attributes({:stamped => true}, :as => :role_update)
+      @purchasing.update_attributes({:stamped => true}, :as => :role_approve_disapprove_stamped)
       redirect_to project_purchasing_path(@project, @purchasing)
     else
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足!")       
@@ -182,9 +207,6 @@ class PurchasingsController < ApplicationController
   protected
   
   def need_approve?(purchasing)
-    if purchasing.id == 583
-      purchasing.id = 583
-    end
     if is_tech_eng? && purchasing.eng_id == session[:user_id] && purchasing.approved_by_vp_eng.nil? && purchasing.approved_by_pur_eng.nil? && purchasing.approved_by_ceo.nil?
       return true
     elsif vp_eng? && purchasing.approved_by_eng && purchasing.approved_by_pur_eng.nil? && purchasing.approved_by_ceo.nil?
@@ -192,6 +214,32 @@ class PurchasingsController < ApplicationController
     elsif pur_eng? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng && purchasing.approved_by_ceo.nil?
       return true
     elsif ceo? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng && purchasing.approved_by_pur_eng 
+      return true
+    end
+    return false
+  end
+ 
+  def display_approve?(purchasing)
+    if is_tech_eng? && purchasing.eng_id == session[:user_id] && (purchasing.approved_by_eng.nil? || !purchasing.approved_by_eng)
+      return true
+    elsif vp_eng? && (purchasing.approved_by_vp_eng.nil? || !purchasing.approved_by_vp_eng)
+      return true
+    elsif pur_eng? && (purchasing.approved_by_pur_eng.nil? || !purchasing.approved_by_pur_eng)
+      return true
+    elsif ceo? && (purchasing.approved_by_ceo.nil? || !purchasing.approved_by_ceo)
+      return true
+    end
+    return false
+  end
+  
+  def display_dis_approve?(purchasing)
+    if is_tech_eng? && purchasing.eng_id == session[:user_id] && (purchasing.approved_by_eng.nil? || purchasing.approved_by_eng)
+      return true
+    elsif vp_eng? && (purchasing.approved_by_vp_eng.nil? || purchasing.approved_by_vp_eng)
+      return true
+    elsif pur_eng? && (purchasing.approved_by_pur_eng.nil? || purchasing.approved_by_pur_eng)
+      return true
+    elsif ceo? && (purchasing.approved_by_ceo.nil? || purchasing.approved_by_ceo)
       return true
     end
     return false

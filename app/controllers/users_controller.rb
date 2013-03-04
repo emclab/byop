@@ -2,8 +2,9 @@
 class UsersController < ApplicationController
   
   before_filter :require_signin
+  before_filter :require_admin
   before_filter :require_employee 
-  before_filter :require_admin  
+   
   
   helper_method :return_user_positions
     

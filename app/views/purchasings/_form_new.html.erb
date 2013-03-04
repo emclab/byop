@@ -13,6 +13,7 @@
   <%= f.input :eng_id, :label => '责任工程师:', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng','vp_eng'), :label_method => :name, :value_method => :id %>
   <%= f.input :pur_eng_id, :label => '外购工程师：', :collection => return_employee('pur_eng'), :label_method => :name, :value_method => :id %>
   <%= f.input :proj_module_id, :label => '分系统：', :collection => return_proj_module(@project), :label_method => :name, :value_method => :id %>
+  <%= f.input :from_warehouse, :label => '来自库存：', :collection => return_yes_no, :selected => false %>
   <%= f.input :order_date, :label => '订购日期：', :as => :string %> 
   <%= f.input :delivery_date, :label => '到货日期：', :as => :string %> 
    

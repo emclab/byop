@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe User do
   it "should be OK" do
-    u = FactoryGirl.build(:user)
+    ul = FactoryGirl.build(:user_level)
+    u = FactoryGirl.build(:user, :user_levels => [ul])
     u.should be_valid
   end
   

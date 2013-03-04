@@ -26,18 +26,22 @@ class ApplicationController < ActionController::Base
   
   def require_employee
     if !employee? 
-      flash.now[:error] = "Access denied!"
-      redirect_to root_path
+      #flash.now[:error] = "Access denied!"
+      redirect_to root_path, :notice => "Access denied!"
     end
   end
     
   def require_admin
-    admin?
+    unless admin?
+      sign_out
+      #flash.now[:error] = "必须登录为系统管理员!"
+      redirect_to signin_path, :notice => "必须登录为系统管理员!"
+    end
   end
   
   def require_signin
     if !signed_in?  
-      flash.now.alert = "必须登录!"
+      flash.now[:error] = "必须登录!"
       redirect_to signin_path
     end
   end   

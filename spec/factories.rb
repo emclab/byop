@@ -94,6 +94,7 @@ FactoryGirl.define do
     delivered                false  
     eng_id                   1
     unit_price                    120.20
+    from_warehouse           false
   end
   
   factory :payment_log do

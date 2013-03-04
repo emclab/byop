@@ -11,6 +11,7 @@
     <th>实际到货日期</th>
     <th>批准？</th>
     <th>到货?</th>
+    <th>来自库存</th>
     <th>部件工程师</th>
     <th>外购工程师</th>
     <th></th>
@@ -28,10 +29,11 @@
     <td><%= pur.actual_receiving_date.strftime("%Y/%m/%d") if pur.actual_receiving_date.present? %></td>
     <td><%= yes_no_cn(approved?(pur)) %></td>
     <td><%= yes_no_cn(pur.delivered) %></td>
+    <td><%= yes_no_cn(pur.from_warehouse) %></td>
     <td><%= pur.eng.name unless pur.eng_id.blank? %></td> 
     <td><%= pur.pur_eng.name unless pur.pur_eng_id.blank? %></td> 
     <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_purchasing_path(@project, pur)}" if has_update_right? %></td>
-    <td><%= link_to '批准', approve_project_purchasing_path(@project, pur), :method => :put if need_approve?(pur) %></td>
+    <td><%= link_to '批准', approve_project_purchasing_path(@project, pur), :method => :put if need_approve?(pur) && display_approve?(pur) %></td>
     <td><%= link_to '状态', SUBURI + "/view_handler?index=1&url=#{purchasing_purchasing_logs_path(pur)}" %></td>
   </tr>
 <% end %>

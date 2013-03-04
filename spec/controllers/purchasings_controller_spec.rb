@@ -118,7 +118,20 @@ describe PurchasingsController do
       get 'update', :project_id => proj.id, :id => pur.id, :purchasing => {:prod_name => nil}
       response.should render_template('edit')
     end
-        
+      
+    it "should not update approved_by_eng while updating other fields" do
+      proj = FactoryGirl.create(:project)
+      session[:ceo] = true
+      u = FactoryGirl.create(:user)
+      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :project_id => proj.id, :approved_by_eng => nil, :approved_by_ceo => nil, :approved_by_vp_eng => nil,
+                               :approved_by_pur_eng => nil, :stamped => nil)
+      get 'update', :project_id => proj.id, :id => pur.id, :purchasing => {:name => 'new new name'}
+      response.should redirect_to URI.escape("/view_handler?index=0&msg=计划已更改！")
+      pur.reload.approved_by_ceo.should eq nil 
+      pur.reload.approved_by_eng.should eq nil
+      pur.reload.approved_by_pur_eng.should eq nil
+      pur.reload.approved_by_vp_eng.should eq nil 
+    end  
   end
   
   describe "destroy" do
@@ -161,7 +174,7 @@ describe PurchasingsController do
       pur.reload.approved_by_eng.should be_true
       pur.reload.approve_eng_id.should eq session[:user_id]
       pur.reload.approve_date_eng.strftime("%Y/%m/%d").should eq Time.now.utc.strftime("%Y/%m/%d")
-      response.should redirect_to project_purchasings_path(proj, pur)      
+      response.should redirect_to project_purchasing_path(proj, pur)      
     end    
 
    it "should approve for vp eng" do
@@ -172,7 +185,7 @@ describe PurchasingsController do
       pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :project_id => proj.id)
       get 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
                                                                           :approve_date_vp_eng => Time.now }
-      response.should redirect_to project_purchasings_path(proj, pur) 
+      response.should redirect_to project_purchasing_path(proj, pur) 
       pur.reload.approved_by_vp_eng.should eq true
       pur.reload.approve_vp_eng_id.should eq session[:user_id]
       pur.reload.approve_date_vp_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
@@ -187,7 +200,7 @@ describe PurchasingsController do
       pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :approved_by_vp_eng => true, :project_id => proj.id)
       get 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_pur_eng => true, :approve_pur_eng_id => session[:user_id],
                                                                           :approve_date_pur_eng => Time.now }
-      response.should redirect_to project_purchasings_path(proj, pur)  
+      response.should redirect_to project_purchasing_path(proj, pur)  
       pur.reload.approved_by_pur_eng.should eq true
       pur.reload.approve_pur_eng_id.should eq session[:user_id]
       pur.reload.approve_date_pur_eng.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
@@ -202,7 +215,7 @@ describe PurchasingsController do
       pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :approved_by_pur_eng => true, :approved_by_vp_eng => true, :project_id => proj.id)
       get 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_ceo => true, :approve_ceo_id => session[:user_id],
                                                                           :approve_date_ceo => Time.now }
-      response.should redirect_to project_purchasings_path(proj, pur)  
+      response.should redirect_to project_purchasing_path(proj, pur)  
       pur.reload.approved_by_ceo.should eq true
       pur.reload.approve_ceo_id.should eq session[:user_id]
       pur.reload.approve_date_ceo.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
@@ -223,7 +236,7 @@ describe PurchasingsController do
       pur.reload.approved_by_eng.should eq false
       pur.reload.approve_eng_id.should eq session[:user_id]
       pur.reload.approve_date_eng.strftime("%Y/%m/%d").should eq Time.now.utc.strftime("%Y/%m/%d")
-      response.should redirect_to project_purchasings_path(proj, pur)      
+      response.should redirect_to project_purchasing_path(proj, pur)      
     end    
 
    it "should dis_approve for vp eng" do
@@ -234,7 +247,7 @@ describe PurchasingsController do
       pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :project_id => proj.id)
       get 'dis_approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
                                                                           :approve_date_vp_eng => Time.now }
-      response.should redirect_to project_purchasings_path(proj, pur) 
+      response.should redirect_to project_purchasing_path(proj, pur) 
       pur.reload.approved_by_vp_eng.should eq false
       pur.reload.approve_vp_eng_id.should eq session[:user_id]
       pur.reload.approve_date_vp_eng.strftime("%Y/%m/%d").should eq Time.now.utc.strftime("%Y/%m/%d")
@@ -249,7 +262,7 @@ describe PurchasingsController do
       pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :approved_by_vp_eng => true, :project_id => proj.id)
       get 'dis_approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_pur_eng => false, :approve_pur_eng_id => session[:user_id],
                                                                           :approve_date_pur_eng => Time.now }
-      response.should redirect_to project_purchasings_path(proj, pur)  
+      response.should redirect_to project_purchasing_path(proj, pur)  
       pur.reload.approved_by_pur_eng.should eq false
       pur.reload.approve_pur_eng_id.should eq session[:user_id]
       pur.reload.approve_date_pur_eng.strftime("%Y/%m/%d").should eq Time.now.utc.strftime("%Y/%m/%d")
@@ -264,7 +277,7 @@ describe PurchasingsController do
       pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :approved_by_pur_eng => true, :approved_by_vp_eng => true, :project_id => proj.id)
       get 'dis_approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_ceo => false, :approve_ceo_id => session[:user_id],
                                                                           :approve_date_ceo => Time.now }
-      response.should redirect_to project_purchasings_path(proj, pur)  
+      response.should redirect_to project_purchasing_path(proj, pur)  
       pur.reload.approved_by_ceo.should eq false
       pur.reload.approve_ceo_id.should eq session[:user_id]
       pur.reload.approve_date_ceo.strftime("%Y/%m/%d").should == Time.now.utc.strftime("%Y/%m/%d")
@@ -283,7 +296,7 @@ describe PurchasingsController do
                                                                             :approved_by_pur_eng => nil, :approve_pur_eng_id => nil, :approve_date_pur_eng => nil,
                                                                             :approved_by_eng => nil, :approve_eng_id => nil, :approve_date_eng => nil, 
                                                                             :approved_by_vp_eng => nil, :approve_vp_eng_id => nil, :approve_date_vp_eng => nil   }
-      response.should redirect_to project_purchasings_path(proj, pur)  
+      response.should redirect_to project_purchasing_path(proj, pur)  
       pur.reload.approved_by_ceo.should eq nil 
       pur.reload.approved_by_eng.should eq nil
       pur.reload.approved_by_pur_eng.should eq nil
