@@ -17,7 +17,7 @@ class Part < ActiveRecord::Base
   validates :unit, :presence => true
   validates_numericality_of :stock_qty, :less_than_or_equal_to => :in_qty, :if => Proc.new { |part| !part.in_qty.nil? }
   validates :stock_qty, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
-  validates :in_date, :presence => true
+  #validates :in_date, :presence => true  #not wanted by customer
   validates :storage_location, :presence => true
 
 end

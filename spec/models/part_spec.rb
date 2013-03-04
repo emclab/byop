@@ -13,11 +13,6 @@ describe Part do
     s = FactoryGirl.build(:part, :name => nil)
     s.should_not be_valid
   end
-
-  it "should reject nil in_date" do
-    s = FactoryGirl.build(:part, :in_date => nil)
-    s.should_not be_valid
-  end
     
   it "should reject nil in_qty" do
     s = FactoryGirl.build(:part, :in_qty => nil)
