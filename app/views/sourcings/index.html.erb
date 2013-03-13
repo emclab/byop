@@ -30,7 +30,7 @@
     <td><%= src.eng.name unless src.eng_id.blank? %></td>
     <td><%= src.src_eng.name unless src.src_eng_id.blank? %></td>  
     <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_sourcing_path(@project, src)}" if has_update_right? %></td>
-    <td><%= link_to '批准', approve_project_sourcing_path(@project, src), :method => :put if need_approve?(src) %></td>
+    <td><%= link_to '批准', approve_project_sourcing_path(@project, src), :method => :put if need_approve?(src) && display_approve?(src) %></td>
     <td><%= link_to '状态', SUBURI + "/view_handler?index=1&url=#{sourcing_sourcing_logs_path(src)}" %></td>
   </tr>
 <% end %>
