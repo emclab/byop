@@ -12,7 +12,8 @@ class User < ActiveRecord::Base
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
   validates :name,  :presence => true,
-                    :length   => { :maximum => 50 }
+                    :length   => { :maximum => 50 },
+                    :uniqueness => {:case_sensitive => false}
   validates :login, :presence => true,
                     :length   => {:minimum => 6},
                     :uniqueness => { :scope => :status, :case_sensitive => false, :message => '登录名已占用！' }

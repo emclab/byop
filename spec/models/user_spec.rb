@@ -13,6 +13,12 @@ describe User do
     u.should_not be_valid
   end
   
+  it "should rejct duplicate login" do
+    u0 = FactoryGirl.create(:user, :name => 'loginname')
+    u = FactoryGirl.build(:user, :name => 'Loginname')
+    u.should_not be_valid
+  end
+  
   it "should reject nil login" do
     u = FactoryGirl.build(:user, :login => nil)
     u.should_not be_valid

@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Sourcing < ActiveRecord::Base
   
-  attr_accessor :proj_name
+  attr_accessor :proj_name, :total
   
   attr_accessor   :project_id_search, :start_date_search, :end_date_search, :approved_by_vp_eng_search, :completed_search,
                   :approved_by_ceo_search, :eng_id_search, :src_plant_id_search, :src_eng_id_search, :customer_id_search
@@ -14,8 +14,11 @@ class Sourcing < ActiveRecord::Base
   attr_accessible :prod_name, :part_num, :spec, :qty, :unit, :unit_price, :proj_module_id, :src_plant_id, :start_date, :finish_date, :src_eng_id, :project_id, :total,
                   :as => :role_new
   attr_accessible :prod_name, :part_num, :spec, :qty, :unit, :unit_price, :proj_module_id, :src_plant_id, :start_date, :finish_date, :src_eng_id,
-                  :completed, :approved_by_vp_eng, :approve_vp_eng_id, :approve_date_vp_eng, :approved_by_ceo, :approve_ceo_id, :total, :src_plant_id,
-                  :approve_date_ceo, :stamped, :as => :role_update                 
+                  :completed, :total, :src_plant_id,  
+                  :as => :role_update 
+  attr_accessible :approved_by_vp_eng, :approve_vp_eng_id, :approve_date_vp_eng, 
+                  :approved_by_ceo, :approve_ceo_id, :approve_date_ceo, :stamped,
+                  :as => :role_approve_stamp               
                   
   #has_and_belongs_to_many :categories
   belongs_to :input_by, :class_name => 'User' 

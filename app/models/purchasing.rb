@@ -16,7 +16,7 @@ class Purchasing < ActiveRecord::Base
                   :order_date, :delivery_date, :proj_module_id, :eng_id, :total, :from_warehouse,
                   :as => :role_new
   attr_accessible :prod_name, :part_num, :spec, :qty, :unit, :unit_price, :pur_eng_id, :manufacturer_id, :supplier_id, :eng_id, 
-                  :order_date, :delivery_date, :proj_module_id, :delivered, :approve_date_ceo, :total, :actual_receiving_date,
+                  :order_date, :delivery_date, :proj_module_id, :delivered, :total, :actual_receiving_date,
                   :from_warehouse, :checked_out_from_warehouse,
                   :as => :role_update                  
   attr_accessible :approved_by_eng, :approve_eng_id, :approve_date_eng, 

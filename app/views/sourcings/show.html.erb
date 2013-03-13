@@ -25,7 +25,7 @@
 </p>
 <p>
   <b>总金额（￥）:</b>
-  <%= @sourcing.total %>
+  <%= number_with_precision(@sourcing.unit_price * @sourcing.qty, :precision => 2) if @sourcing.unit_price.present? && @sourcing.qty.present? %>
 </p>
 <p>	
   <b>已支付额（￥）:</b>
@@ -62,11 +62,11 @@
 </p>
 <p>
   <b>审批人:</b>
-  <%= @sourcing.approve_vp_eng.name unless @sourcing.approved_by_vp_eng.nil? %>
+  <%= @sourcing.approve_vp_eng.name if @sourcing.approve_vp_eng_id.present? && @sourcing.approve_vp_eng_id > 0 %>
 </p>
 <p>
   <b>审批日期:</b>
-  <%= @sourcing.approve_date_vp_eng.strftime("%Y/%m/%d") unless @sourcing.approved_by_vp_eng.nil? %>
+  <%= @sourcing.approve_date_vp_eng.strftime("%Y/%m/%d") unless @sourcing.approve_date_vp_eng.nil? %>
 </p>
 <p>
   <b>厂长批准:</b>
@@ -74,11 +74,11 @@
 </p>
 <p>
   <b>审批人:</b>
-  <%= @sourcing.approve_ceo.name unless @sourcing.approved_by_ceo.nil? %>
+  <%= @sourcing.approve_ceo.name if @sourcing.approve_ceo_id.present? && @sourcing.approve_ceo_id > 0 %>
 </p>
 <p>
   <b>审批日期:</b>
-  <%= @sourcing.approve_date_ceo.strftime("%Y/%m/%d") unless @sourcing.approved_by_ceo.nil? %>
+  <%= @sourcing.approve_date_ceo.strftime("%Y/%m/%d") unless @sourcing.approve_date_ceo.nil? %>
 </p>
 <p>
   <b>输入/更改人:</b>
@@ -96,8 +96,8 @@
 </p>
 
 <%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
-<%= link_to '批准', approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_approve', :confirm => '批准外协' + @sourcing.prod_name + '?' if need_approve?(@sourcing) %>
-<%= link_to '否决', dis_approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_dis_approve', :confirm => '否决外协' + @sourcing.prod_name + '?' if need_approve?(@sourcing) %>
+<%= link_to '批准', approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_approve', :confirm => '批准外协' + @sourcing.prod_name + '?' if need_approve?(@sourcing) && display_approve?(@sourcing) %>
+<%= link_to '否决', dis_approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_dis_approve', :confirm => '否决外协' + @sourcing.prod_name + '?' if need_approve?(@sourcing) && display_dis_approve?(@sourcing) %>
 <%= link_to '盖章', stamp_project_sourcing_path(@project, @sourcing), :method => :put , :id => 'sourcing_stamp', :confirm => '盖章外协' + @sourcing.prod_name + '?' if comp_sec? && !@sourcing.stamped %>
 <%= link_to '重新外协', re_approve_project_sourcing_path(@project, @sourcing), :method => :put, :id => 'sourcing_need_re_approve', :confirm => '重新外协' + @sourcing.prod_name + '?' if ceo? %>
 <%= link_to '付款记录', sourcing_payment_logs_path(@sourcing), :id => 'sourcing_payment_log' if src_eng? || comp_sec? || vp_eng? || coo? || vp_sales? || ceo? %>

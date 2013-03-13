@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304190546) do
+ActiveRecord::Schema.define(:version => 20130313035142) do
 
   create_table "comm_logs", :force => true do |t|
     t.string   "subject"
@@ -329,7 +329,7 @@ ActiveRecord::Schema.define(:version => 20130304190546) do
     t.integer  "src_plant_id"
     t.date     "start_date"
     t.date     "finish_date"
-    t.boolean  "completed",                                          :default => false
+    t.boolean  "completed",           :default => false
     t.integer  "src_eng_id"
     t.integer  "input_by_id"
     t.boolean  "approved_by_vp_eng"
@@ -342,8 +342,7 @@ ActiveRecord::Schema.define(:version => 20130304190546) do
     t.datetime "updated_at"
     t.integer  "project_id"
     t.integer  "eng_id"
-    t.decimal  "total",               :precision => 10, :scale => 2
-    t.boolean  "stamped",                                            :default => false
+    t.boolean  "stamped",             :default => false
   end
 
   create_table "src_plants", :force => true do |t|

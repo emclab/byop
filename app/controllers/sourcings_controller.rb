@@ -4,7 +4,7 @@ class SourcingsController < ApplicationController
   before_filter :require_employee  
   
   helper_method :has_create_right?, :has_show_right?, :has_update_right?, :has_log_right?,
-                :need_approve?, :has_stats_right?
+                :need_approve?, :has_stats_right?, :display_approve?, :display_dis_approve?
   
   def index
     @title = '外协计划'
@@ -74,11 +74,11 @@ class SourcingsController < ApplicationController
     if need_approve?(@sourcing)  
       if vp_eng?
         @sourcing.update_attributes({:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
-                                       :approve_date_vp_eng => Time.now}, :as => :role_update)
+                                       :approve_date_vp_eng => Time.now}, :as => :role_approve_stamp)
 
       elsif ceo?
         @sourcing.update_attributes({:approved_by_ceo => true, :approve_ceo_id => session[:user_id],
-                                    :approve_date_ceo => Time.now}, :as => :role_update) 
+                                    :approve_date_ceo => Time.now}, :as => :role_approve_stamp) 
       end
     
       redirect_to project_sourcing_path(@project, @sourcing), :notice => '外协已批准！'
@@ -94,11 +94,11 @@ class SourcingsController < ApplicationController
     if need_approve?(@sourcing)  
       if vp_eng?
         @sourcing.update_attributes({:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
-                                       :approve_date_vp_eng => Time.now}, :as => :role_update)
+                                       :approve_date_vp_eng => Time.now}, :as => :role_approve_stamp)
 
       elsif ceo?
         @sourcing.update_attributes({:approved_by_ceo => false, :approve_ceo_id => session[:user_id],
-                                    :approve_date_ceo => Time.now}, :as => :role_update) 
+                                    :approve_date_ceo => Time.now}, :as => :role_approve_stamp) 
       end
     
       redirect_to project_sourcing_path(@project, @sourcing), :notice => '外协已否决！'
@@ -114,7 +114,7 @@ class SourcingsController < ApplicationController
     if ceo?  
       @sourcing.update_attributes({:approved_by_vp_eng => nil, :approve_vp_eng_id => nil, :approve_date_vp_eng => nil, 
                                    :approved_by_ceo => nil, :approve_ceo_id => nil, :approve_date_ceo => nil},
-                                   :as => :role_update)
+                                   :as => :role_approve_stamp)
     
       redirect_to project_sourcing_path(@project, @sourcing), :notice => '外协需要重新批准！'
     else
@@ -126,7 +126,7 @@ class SourcingsController < ApplicationController
     @project = Project.find(params[:project_id])
     @sourcing = @project.sourcings.find(params[:id])
     if comp_sec?  
-      @sourcing.update_attributes({:stamped => true }, :as => :role_update)
+      @sourcing.update_attributes({:stamped => true }, :as => :role_approve_stamp)
     
       redirect_to project_sourcing_path(@project, @sourcing)
     else
@@ -154,7 +154,25 @@ class SourcingsController < ApplicationController
       return true
     end
     return false
-  end  
+  end 
+  
+  def display_approve?(sourcing)
+    if vp_eng? && (sourcing.approved_by_vp_eng.nil? || !sourcing.approved_by_vp_eng)
+      return true
+    elsif ceo? && (sourcing.approved_by_ceo.nil? || !sourcing.approved_by_ceo)
+      return true
+    end
+    return false
+  end
+  
+  def display_dis_approve?(sourcing)
+    if vp_eng? && (sourcing.approved_by_vp_eng.nil? || sourcing.approved_by_vp_eng)
+      return true
+    elsif ceo? && (sourcing.approved_by_ceo.nil? || sourcing.approved_by_ceo)
+      return true
+    end
+    return false
+  end 
   
   def has_approve_right?
     vp_eng? || ceo?

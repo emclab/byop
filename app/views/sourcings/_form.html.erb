@@ -7,7 +7,11 @@
   <%= f.input :qty, :label => '数量：' %>
   <%= f.input :unit, :label => '单位：', :collection => return_unit, :include_blank => true %>
   <%= f.input :unit_price, :label => '单价：' %>
-  <%= f.input :total, :label => '总金额￥：' %>
+  <% if @sourcing.unit_price.present? && @sourcing.qty.present? %>
+    <%= f.input :total, :label => '总金额￥：', :readonly => true, :required => false, :input_html => {:value => number_with_precision(@sourcing.unit_price * @sourcing.qty, :precision => 2) }  %>
+  <% else %>
+    <%= f.input :total, :label => '总金额￥：', :readonly => true, :required => false %>
+  <% end %>
   <%= f.input :src_plant_id, :label => '外协厂：', :collection => return_src_plant, :label_method => :name, :value_method => :id, :include_blank => true %>
   <%= f.input :eng_id, :label => '责任工程师:', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng'), :label_method => :name, :value_method => :id %>
   <%= f.input :src_eng_id, :label => '外协工程师：', :collection => return_employee('src_eng'), :label_method => :name, :value_method => :id %>
@@ -17,10 +21,10 @@
   <%= f.input :finish_date, :label => '完成日期：', :as => :string %> 
   <%= f.input :stamped, :label => '盖章？：', :readonly => true, :required => false, :input_html => {:value => yes_no_cn(@sourcing.stamped)} %>
   <%= f.input :approved_by_vp_eng, :label => '工程付总批准：', :readonly => true, :required => false, :as => :string,:input_html => {:value => yes_no_cn(@sourcing.approved_by_vp_eng)} %>
-  <%= f.input :approve_vp_eng_id, :label => '审批人：', :readonly => true, :required => false, :input_html => {:value => @sourcing.approve_vp_eng.name} if @sourcing.approve_vp_eng_id.present?  %> 
+  <%= f.input :approve_vp_eng_id, :label => '审批人：', :readonly => true, :required => false, :input_html => {:value => @sourcing.approve_vp_eng.name} if @sourcing.approve_vp_eng_id.present? && @sourcing.approve_vp_eng_id > 0  %> 
   <%= f.input :approve_date_vp_eng, :label => '审批日期：', :readonly => true, :required => false, :input_html => {:value => @sourcing.approve_date_vp_eng.strftime("%Y/%m/%d")} if @sourcing.approve_date_vp_eng.present? %>  
   <%= f.input :approved_by_ceo, :label => '厂长批准：', :readonly => true, :required => false,:as => :string, :input_html => {:value => yes_no_cn(@sourcing.approved_by_ceo)} %>
-  <%= f.input :approve_ceo_id, :label => '审批人：', :readonly => true, :required => false, :input_html => {:value => @sourcing.approve_ceo.name} if @sourcing.approve_ceo_id.present? %> 
+  <%= f.input :approve_ceo_id, :label => '审批人：', :readonly => true, :required => false, :input_html => {:value => @sourcing.approve_ceo.name} if @sourcing.approve_ceo_id.present? && @sourcing.approve_ceo_id > 0 %> 
   <%= f.input :approve_date_ceo, :label => '审批日期：', :readonly => true, :required => false, :input_html => {:value => @sourcing.approve_date_ceo.strftime("%Y/%m/%d")} if @sourcing.approve_date_ceo.present? %> 
        
   <%= f.button :submit, '保存' %>  
