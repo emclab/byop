@@ -1,5 +1,6 @@
 <%= simple_form_for([@sourcing, @payment_log]) do |f| %>    
  
+  <%= f.input :src_plant_name, :label => '外协厂：', :readonly => true, :input_html => {:value => @sourcing.src_plant.short_name} if @sourcing.src_plant_id.present? %>
   <%= f.input :pay_date, :label => "付款日期 ：", :as => :string %> 
   <%= f.input :amount, :label => "金额￥：" %>
   <%= f.input :short_note, :label => "简注 ：" %>   

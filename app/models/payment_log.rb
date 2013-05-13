@@ -9,7 +9,7 @@ class PaymentLog < ActiveRecord::Base
   belongs_to :applicantor, :class_name => 'User'
   has_many :pay_status_logs
   
-  attr_accessor :proj_name, :purchasing_prod_name, :sourcing_prod_name
+  attr_accessor :proj_name, :purchasing_prod_name, :sourcing_prod_name, :supplier_name, :src_plant_name
   attr_accessible :pay_date, :amount, :short_note, :as => :role_new_update
   
   attr_accessor :project_id_search, :purchasing_id_search, :sourcing_id_search, :start_date_search, :end_date_search,

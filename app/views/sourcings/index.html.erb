@@ -11,6 +11,7 @@
     <th>完成日期</th>
     <th>批准</th>
     <th>完成</th>
+    <th>外协厂</th>
     <th>部件工程师</th>
     <th>外协工程师</th>
     <th></th>
@@ -27,6 +28,7 @@
     <td><%= src.finish_date.strftime("%Y/%m/%d") %></td>
     <td><%= yes_no_cn(src.approved_by_vp_eng && src.approved_by_ceo) %></td>
     <td><%= yes_no_cn(src.completed) %></td>
+    <td><%= src.src_plant.short_name if src.src_plant_id.present? %></td>
     <td><%= src.eng.name unless src.eng_id.blank? %></td>
     <td><%= src.src_eng.name unless src.src_eng_id.blank? %></td>  
     <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_sourcing_path(@project, src)}" if has_update_right? %></td>

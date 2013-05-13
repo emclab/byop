@@ -32,7 +32,9 @@
   	  <th>项目</th>
       <th>客户</th>
   	  <th>外购</th>
+  	  <th>供应商</th>
   	  <th>外协</th>
+  	  <th>外协厂</th>
   	<% end %>
   	<th>厂长批准</th>
   	<th>付清</th>
@@ -50,13 +52,17 @@
   	  <% if log.purchasing_id.present? %>
   	    <td><%= log.purchasing.project.name%></td>
         <td><%= log.purchasing.project.customer.short_name %></td>
-  	    <td><%=log.purchasing.prod_name%></td>
+  	    <td><%= log.purchasing.prod_name%></td>
+  	    <td><%= log.purchasing.supplier.short_name if log.purchasing.supplier_id.present? %></td>
+  	    <td></td>
   	    <td></td>
   	  <% elsif log.sourcing_id.present? %>
   	    <td><%= log.sourcing.project.name%></td>
         <td><%= log.sourcing.project.customer.short_name %></td>
   	    <td></td>    	    
-  	    <td><%=log.sourcing.prod_name%></td>	  
+  	    <td></td>
+  	    <td><%= log.sourcing.prod_name %></td>	
+  	    <td><%= log.sourcing.src_plant.short_name if log.sourcing.src_plant_id.present? %></td>  
   	  <% end %>
   	<% end %> 
   	<td><%= yes_no_cn(log.approved_by_ceo) %></td>

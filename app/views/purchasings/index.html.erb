@@ -12,6 +12,7 @@
     <th>批准？</th>
     <th>到货?</th>
     <th>来自库存</th>
+    <th>供应商</th>
     <th>部件工程师</th>
     <th>外购工程师</th>
     <th></th>
@@ -30,6 +31,7 @@
     <td><%= yes_no_cn(approved?(pur)) %></td>
     <td><%= yes_no_cn(pur.delivered) %></td>
     <td><%= yes_no_cn(pur.from_warehouse) %></td>
+    <td><%= pur.supplier.short_name if pur.supplier_id.present? %></td>
     <td><%= pur.eng.name unless pur.eng_id.blank? %></td> 
     <td><%= pur.pur_eng.name unless pur.pur_eng_id.blank? %></td> 
     <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_purchasing_path(@project, pur)}" if has_update_right? %></td>
