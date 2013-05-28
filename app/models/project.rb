@@ -27,6 +27,7 @@ class Project < ActiveRecord::Base
   has_many :installations
   has_many :proj_modules
   has_many :quality_issues
+  has_many :shipments
   
   validates :name, :presence => true, :uniqueness => true
   validates_numericality_of :customer_id, :greater_than => 0

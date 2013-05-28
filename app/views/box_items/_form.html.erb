@@ -1,0 +1,12 @@
+<%= simple_form_for([@shipment_item, @box_item]) do |f| %>    
+ 
+  <%= f.input :name, :label => '货品名称：' %> 
+  <%= f.input :spec, :label => '规格：' %>
+  <%= f.input :qty, :label => '数量：' %> 
+  <%= f.input :unit, :label => '单位：', :collection => return_unit %>
+  <%= f.input :brief_note, :label => '简注：', :input_html => {:rows => 2}  %>
+   
+  <%= f.button :submit, '保存' %>  
+<% end %>  
+
+

@@ -1,0 +1,22 @@
+<%= simple_form_for([@project, @shipment]) do |f| %>    
+
+  <%= f.input :shipping_date, :label => "发货日期：", :as => :string %>
+  <%= f.input :proj_name, :label => '项目名称:', :readonly => true, :required => false, :input_html => {:value => @project.name} %>
+  <%= f.input :customer_name, :label => '客户：', :readonly => true, :required => false, :input_html => {:value => @project.customer.short_name}  %>
+  <%= f.input :delivery_address, :label => "发运地址 ：", :input_html => {:rows => 4}  %>
+  <%= f.input :freight_desp, :label => "货物：", :input_html => {:rows => 4}   %>
+  <%= f.input :weight, :label => "重量（kg） ：" %>  
+  <%= f.input :packing_desp, :label => "包装 ：", :input_html => {:rows => 4}  %>
+  <%= f.input :shipping_via, :label => "运输方式：", :collcection => return_shipping_via %>
+  <%= f.input :carrier, :label => "承运商：" %> 
+  
+    货物：
+  <div id='shipment_items'>
+  	<%= f.simple_fields_for :shipment_items do |builder| %>
+  	  <%= render 'first_shipment_items', :f => builder %>
+  	<% end %>
+    <p><%= link_to_add_fields "加货物", f, :shipment_items %></p>
+  </div>
+ 
+  <%= f.button :submit, '保存' %>  
+<% end %>

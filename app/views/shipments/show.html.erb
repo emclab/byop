@@ -1,0 +1,76 @@
+<div id="main_body">
+
+<h1>产品运输内容</h1>
+
+<p>
+  <b>发运日期:</b>
+  <%= @shipment.shipping_date.strftime("%Y/%m/%d") %>
+</p>
+<p>
+  <b>项目名称:</b>
+  <%= @project.name %>
+</p>
+<p>
+  <b>客户:</b>
+  <%= @project.customer.short_name %>
+</p>
+<p>
+  <b>发运地址:</b>
+  <%= @shipment.delivery_address %>
+</p>
+<p>
+  <b>货物信息:</b>
+  <%= @shipment.freight_desp %>
+</p>
+<p>
+  <b>运输方式:</b>
+  <%= @shipment.shipping_via %>
+</p>
+<p>	
+  <b>承运商:</b>
+  <%= @shipment.carrier %>
+</p>
+<p>
+  <b>取消：</b>
+  <%= yes_no_cn(@shipment.cancelled) %>
+</p>
+<p>
+  <b>包装信息:</b>
+  <%= @shipment.packing_desp %>
+</p>
+<p>
+  <b>产品重量（KG):</b>
+  <%= @shipment.weight %>
+</p>
+<p>
+  <b>送到日期：</b>
+  <%= @shipment.delivery_date.strftime("%Y/%m/%d") if @shipment.delivery_date.present? %>
+</p>
+<p>
+  <b>客户签收人:</b>
+  <%= @shipment.customer_signature_by %>
+</p>
+
+<p>
+  <b>厂长批准:</b>
+  <%= yes_no_cn(@shipment.approved_by_ceo) %>
+</p>
+<p>
+  <b>审批人:</b>
+  <%= User.find_by_id(@shipment.approve_ceo_id).name if @shipment.approve_ceo_id.present? && @shipment.approve_ceo_id > 0 %>
+</p>
+<p>
+  <b>审批日期:</b>
+  <%= @shipment.approve_date_ceo.strftime("%Y/%m/%d") unless @shipment.approve_date_ceo.nil? %>
+</p>
+<p>
+  <b>输入/更改人:</b>
+  <%= @shipment.input_by.name %>
+</p>
+
+
+<%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
+<%= link_to '批准', approve_project_shipment_path(@project, @shipment), :method => :put, :id => 'shipment_need_approve', :confirm => '批准发运' + @shipment.shipping_date.strftime("%Y/%m/%d") + '?' if ceo? && display_approve?(@shipment) %>
+<%= link_to '否决', dis_approve_project_shipment_path(@project, @shipment), :method => :put, :id => 'shipment_need_dis_approve', :confirm => '否决发运' + @shipment.shipping_date.strftime("%Y/%m/%d") + '?' if ceo? && display_dis_approve?(@shipment) %>
+
+</div>

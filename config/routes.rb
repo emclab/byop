@@ -12,6 +12,7 @@ Byop::Application.routes.draw do
   resources :src_plants
   resources :suppliers
   resources :quality_issues, :only  => [:index]
+  resources :shipment, :only => [:index]
   #start: project
   resources :projects do
     member do
@@ -26,6 +27,13 @@ Byop::Application.routes.draw do
     end
     resources :project_logs, :only => [:new, :create, :show, :destroy]
     resources :productions, :only => [:index, :new, :create, :edit, :update, :show]
+    resources :shipments, :only => [:new, :create, :edit, :update, :show] do
+      member do
+        put :approve
+        put :dis_approve
+      end
+    end
+    
     resources :sourcings, :only => [:index, :new, :create, :edit, :update, :show] do
       member do
         put :approve
@@ -109,6 +117,13 @@ Byop::Application.routes.draw do
     resources :out_logs, :only => [:new, :create, :show]
   end
   
+  resources :shipments do
+    resources :shipment_items, :only => [:index]
+  end
+  
+  resources :shipment_items do
+    resources :box_items
+  end
   #resources :sys_logs, :only => [:index]
   resources :sys_logs, :only => [:index] do
     collection do

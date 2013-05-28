@@ -134,6 +134,7 @@
 <%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
 <%= link_to '取消项目', cancel_project_path(@project), :method => :put if ceo? && !@project.cancelled %>
 <%= link_to '激活项目', re_activate_project_path(@project), :method => :put if ceo? && @project.cancelled %>
+<%= link_to '发运产品', new_project_shipment_path(@project), :id => 'new_shipment_link' if (src_eng? || pur_eng?) && !@project.cancelled %>
 <%= link_to '生成部件', new_project_proj_module_path(@project, :format => :js), :remote => true, :id => 'new_module_link' if vp_eng? %>
 <%= link_to '报告质量问题', new_project_quality_issue_path(@project) %>
 <%= link_to '输入Log', new_project_project_log_path(@project, :format => :js), :remote => true, :id => 'new_log_link' if has_log_right? %>

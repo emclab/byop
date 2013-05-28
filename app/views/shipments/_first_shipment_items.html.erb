@@ -1,0 +1,5 @@
+  <%= f.input :name, :label => '货物名称：' %> 
+  <%= f.input :spec, :label => '规格：' %>
+  <%= f.input :qty, :label => '数量：', :required => true %>
+  <%= f.input :unit, :label => '单位：', :collection => return_unit %>
+  <%= f.input :box, :label => '装箱' %>

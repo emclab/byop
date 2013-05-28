@@ -40,7 +40,7 @@
     <td><%= pur.prod_name %></td>
     <td><%= pur.project.name %></td>
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
-    <td><%= pur.delivery_date.strftime("%Y/%m/%d") %></td>
+    <td><%= pur.delivery_date.strftime("%Y/%m/%d") if pur.delivery_date.present? %></td>
     <td><%= pur.delivered %></td>
     <td><%= pur.eng.name unless pur.eng_id.blank? %></td> 
     <td><%= pur.pur_eng.name unless pur.pur_eng_id.blank? %></td> 

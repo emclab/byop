@@ -1,0 +1,38 @@
+<div id="main_body">
+<h1>发货运输</h1>
+<div class="byop_pagination"><%= will_paginate %></div>
+<table>
+  <tr>
+    <th>#</th>
+    <th>发运日期</th>
+    <th>项目名称</th>
+    <th>客户</th>
+    <th>货物</th>
+    <th>批准</th>
+    <th>发运地址</th>
+    <th>运输方式</th> 
+    <th>到货日期</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @shipments.each do |r| %>
+  <tr>
+  	<td><%= link_to r.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_shipment_path(r.project, r)}" if has_show_right? %></td>
+    <td><%= r.shipping_date.strftime("%Y/%m/%d") %></td>
+    <td><%= r.project.name %></td>
+    <td><%= r.project.customer.short_name %></td>
+    <td><%= r.freight_desp %></td> 
+    <td><%= yes_no_cn(r.approved_by_ceo) %></td>  
+    <td><%= r.delivery_address %></td> 
+    <td><%= r.shipping_via %></td>
+    <td><%= r.delivery_date.strftime("%Y/%m/%d") if r.delivery_date.present? %></td>
+    <td><%= link_to '装车内容', SUBURI + "/view_handler?index=1&url=#{shipment_shipment_items_path(r)}" %></td>
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_shipment_path(r.project, r)}" if has_update_right? %></td>
+  </tr>
+<% end %>
+</table>
+  <%= link_to 'Back', SUBURI + "/view_handler?index=0" %>
+
+</div>
+

@@ -1,0 +1,26 @@
+<div id="main_body">
+<h1>装车产品一览</h1>
+<table>
+  <tr>
+    <th>#</th>
+    <th>产品名称</th>
+    <th>规格</th>
+    <th>数量/单位</th>
+    <th>简注</th>
+    <th></th>
+  </tr>
+
+<% @shipment_items.each do |r| %>
+  <tr>
+  	<td><%= r.id %></td>
+    <td><%= r.name %></td>
+    <td><%= r.spec %></td>
+    <td><%= r.qty%><%= r.unit %></td>  
+    <td><%= r.brief_note %></td>
+    <td><%= link_to '装箱内容', SUBURI + "/view_handler?index=1&url=#{shipment_item_box_items_path(r)}" if r.box %></td>
+  </tr>
+<% end %>
+</table>
+  <%= link_to 'Back', SUBURI + "/view_handler?index=0" %>
+
+</div>

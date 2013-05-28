@@ -41,7 +41,7 @@ describe "LoginPages" do
 
     it "should render new user page" do
       visit new_user_path
-      save_and_open_page
+      #save_and_open_page
       page.body.should have_content("北冶 | 输入用户")
     end  
 
@@ -83,6 +83,58 @@ describe "LoginPages" do
       click_button '登录'
       visit users_path
       page.body.should have_content('Login')
+    end
+  end
+  
+  describe "shipment page" do
+    before(:each) do
+      cust = FactoryGirl.create(:customer)
+      @proj = FactoryGirl.create(:project, :customer_id => cust.id)
+      #@proj1 = FactoryGirl.create(:project, :name => 'a new name', :customer_id => cust.id)
+      @si1 = FactoryGirl.create(:shipment_item)
+      @si = FactoryGirl.create(:shipment_item, :name => 'box item', :box => true)
+      @sh = FactoryGirl.create(:shipment, :project_id => @proj.id, :shipping_date => Time.now, :shipment_items => [@si])
+      #@sh1 = FactoryGirl.create(:shipment, :project_id => @proj1.id, :shipping_date => Time.now - 100.days, :shipment_items => [@si])
+      @bi = FactoryGirl.create(:box_item, :shipment_item_id => @si.id)
+      
+      
+      
+      ul = FactoryGirl.build(:user_level, :position => 'src_eng')
+      @user = FactoryGirl.create(:user, :user_type => 'employee', :login => 'test12', :password => 'password', :password_confirmation => 'password', :user_levels => [ul])
+      visit '/'
+      fill_in "login", :with => @user.login
+      fill_in "password", :with => 'password'
+      click_button '登录'
+    end
+    
+    it "should display the index page for shipment" do
+      visit shipments_path
+      #save_and_open_page
+      page.body.should have_content('发货运输') 
+      click_link('1')
+      page.body.should have_content('发运日期')
+    end
+    
+    it "should has right Edit link on shipment index page" do
+      visit shipments_path
+      click_link('Edit')
+      page.body.should have_content('修改产品运输') 
+    end
+    
+    it "should have packing link on shipment_item index page" do
+      visit shipments_path
+      save_and_open_page
+      click_link('装车内容')
+      save_and_open_page
+      page.body.should have_content('装车产品一览') 
+      click_link('装箱内容')
+      save_and_open_page
+      page.body.should have_content('装箱货品一览')
+    end
+    
+    it "should launch new shipment page" do
+      visit new_project_shipment_path(@proj)
+      page.body.should have_content('发运地址')
     end
   end
   

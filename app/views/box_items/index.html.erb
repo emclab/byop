@@ -1,0 +1,29 @@
+<div id="main_body">
+<h1>装箱货品一览</h1>
+<table>
+  <tr>
+    <th>#</th>
+    <th>货品名称</th>
+    <th>规格</th>
+    <th>数量/单位</th>
+    <th>简注</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @box_items.each do |r| %>
+  <tr>
+  	<td><%= r.id %></td>
+    <td><%= r.name %></td>
+    <td><%= r.spec %></td>
+    <td><%= r.qty %><%= r.unit %></td>  
+    <td><%= r.brief_note %></td>
+    <td><%= link_to 'Edit', edit_shipment_item_box_item_path(@shipment_item, r, :format => :js), :remote => true, :id => 'edit_item_link' if has_update_right? %></td>
+    <td><%= link_to '删除', SUBURI + "/view_handler?index=1&url=#{shipment_item_box_item_path(@shipment_item, r, :method => :delete)}" if has_destroy_right? %></td>
+  </tr>
+<% end %>
+</table>
+  <%= link_to 'Back', SUBURI + "/view_handler?index=0", :id => 'close' %>
+  <%= link_to 'Edit', new_shipment_item_box_item_path(@shipment_item, :format => :js), :remote => true, :id => 'new_item_link' if has_create_right? %>
+
+</div>
