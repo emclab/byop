@@ -12,7 +12,7 @@
 	未交货个数： <%= @purchasings.where('delivered = ?', false).count  %>,
 	未交货金额￥： <%= number_with_delimiter(number_with_precision(@purchasings.where('delivered = ?', false).sum('unit_price * qty'), :precision => 2))  %>,		 
 <p>	已支付金额￥：<%= number_with_delimiter(number_with_precision(@purchasings.joins(:payment_logs).where('payment_logs.paid = ?', true).sum('payment_logs.amount'), :precision => 2)) %>
-	未支付金额￥：<%= number_with_delimiter(number_with_precision(@purchasings.joins(:payment_logs).where('payment_logs.paid = ?', false).sum('payment_logs.amount'), :precision => 2)) %>
+	未支付金额￥：<%=number_with_delimiter(number_with_precision(@purchasings.sum('unit_price * qty').to_f - @purchasings.joins(:payment_logs).where('payment_logs.paid = ?', true).sum('payment_logs.amount').to_f, :precision => 2)) %><%#= number_with_delimiter(number_with_precision(@purchasings.joins(:payment_logs).where('payment_logs.paid = ?', false).sum('payment_logs.amount'), :precision => 2)) %>
 	制造商个数： <%= @purchasings.select("DISTINCT(manufacturer_id)").count %>,          
 	供应商个数： <%= @purchasings.select("DISTINCT(supplier_id)").count %>, 
 </p>
