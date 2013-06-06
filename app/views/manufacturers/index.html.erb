@@ -6,21 +6,18 @@
   	<th>输入日期</th>
     <th>制造商名称</th>
     <th>产品</th>
-    <th>输入/更改人</th>
-    <th>更改日期</th>
+    <th>输入/更改人</th>    
     <th></th>     
  
   </tr>
 
 <% @mfgs.each do |mfg| %>
   <tr>
-    <td><%#= link_to mfg.id.to_s, SUBURI + "/view_handler?index=1&url=#{manufacturer_path(mfg)}" %></td>
     <td><%= mfg.id %></td>
     <td><%= mfg.created_at.strftime("%Y/%m/%d") %></td> 	
     <td><%= mfg.name %></td>
     <td><%= mfg.product %></td>
     <td><%= mfg.input_by.name %></td> 
-    <td><%= mfg.updated_at.strftime("%Y/%m/%d") %></td> 
     <td><%= link_to "Edit", SUBURI + "/view_handler?index=1&url=#{edit_manufacturer_path(mfg)}" if has_update_right? %></td>
   </tr>
 <% end %>
