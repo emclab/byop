@@ -2,7 +2,7 @@ Byop::Application.routes.draw do
 
   resource :session
   resources :user_menus, :only => [:index]
-  resources :manufacturers, :only => [:index, :new, :create, :edit, :update]
+  resources :manufacturers, :only => [:index, :new, :create, :edit, :update]  
   resources :users do
     resources :user_levels
   end

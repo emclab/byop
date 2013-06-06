@@ -14,7 +14,8 @@
 
 <% @mfgs.each do |mfg| %>
   <tr>
-    <td><%= link_to mfg.id.to_s, SUBURI + "/view_handler?index=1&url=#{manufacturer_path(mfg)}" %></td>
+    <td><%#= link_to mfg.id.to_s, SUBURI + "/view_handler?index=1&url=#{manufacturer_path(mfg)}" %></td>
+    <td><%= mfg.id %></td>
     <td><%= mfg.created_at.strftime("%Y/%m/%d") %></td> 	
     <td><%= mfg.name %></td>
     <td><%= mfg.product %></td>
