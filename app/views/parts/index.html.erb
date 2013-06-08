@@ -20,7 +20,7 @@
   	<td><%= link_to part.id.to_s, SUBURI + "/view_handler?index=1&url=#{part_path(part)}" if has_show_right? %></td>
     <td><%= part.name %></td>
     <td><%= part.spec %></td>
-    <td><%= part.in_date.strftime("%Y/%m/%d") %></td>
+    <td><%= part.in_date.strftime("%Y/%m/%d") if part.in_date.present? %></td>
     <td><%= part.in_qty%><%= part.unit %></td> 
     <td><%= part.stock_qty%><%= part.unit %></td>  
     <td><%= number_with_precision(part.unit_price, :precision => 2) if part.unit_price.present? %></td> 
