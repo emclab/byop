@@ -8,7 +8,7 @@
 </p>
 <p>
   <b>入库日期:</b>
-  <%= @part.in_date.strftime("%Y/%m/%d") %>
+  <%= @part.in_date.strftime("%Y/%m/%d") if @part.in_date.present? %>
 </p>
 <p>
   <b>物料名称:</b>
