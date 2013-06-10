@@ -21,6 +21,9 @@
   	<%= f.simple_fields_for :shipment_items do |builder| %>
   	  <%= render 'first_shipment_items', :f => builder %>
   	<% end %>
+  	<%= f.simple_fields_for :shipment_items, ShipmentItem.where(:shipment_id => @shipment.id).offset(1) do |builder| %>
+  	  <%= render 'shipment_items', :f => builder %>
+  	<% end if @shipment.shipment_items.size > 1 %>
     <p><%= link_to_add_fields "加货物", f, :shipment_items %></p>
   </div>
  
