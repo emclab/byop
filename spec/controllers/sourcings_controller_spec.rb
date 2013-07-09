@@ -15,14 +15,16 @@ describe SourcingsController do
     it "returns http success for eng" do
       session[:hydr_eng] = true
       u = FactoryGirl.create(:user)
-      proj = FactoryGirl.create(:project)
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
       src = FactoryGirl.create(:sourcing, :project_id => proj.id, :src_eng_id => u.id)
       get 'index', :project_id => proj.id
       response.should be_success
     end
     
     it "should OK for mech eng" do
-      proj = FactoryGirl.create(:project)
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
       u = FactoryGirl.create(:user)
       src = FactoryGirl.create(:sourcing, :project_id => proj.id, :src_eng_id => u.id)
       session[:mech_eng] = true
@@ -263,8 +265,9 @@ describe SourcingsController do
   describe "seach result" do
     it "should do search for coo" do
       session[:coo] = true
+      cust = FactoryGirl.create(:customer)
       eng = FactoryGirl.create(:user)
-      proj = FactoryGirl.create(:project)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
       src = FactoryGirl.create(:sourcing, :project_id => proj.id, :eng_id => eng.id, :src_eng_id => nil)
       p_search = FactoryGirl.attributes_for(:sourcing)
       get 'search_results', :sourcing => p_search 

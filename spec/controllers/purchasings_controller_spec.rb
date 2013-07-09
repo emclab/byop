@@ -14,7 +14,8 @@ describe PurchasingsController do
   describe "'index'" do
     it "returns http success for eng" do
       session[:hydr_eng] = true
-      proj = FactoryGirl.create(:project)
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
       u = FactoryGirl.create(:user)
       pur = FactoryGirl.create(:purchasing, :project_id => proj.id, :pur_eng_id => u.id, :eng_id => u.id)
       get 'index', :project_id => proj.id
@@ -23,7 +24,8 @@ describe PurchasingsController do
     end
     
     it "should OK for mech eng" do
-      proj = FactoryGirl.create(:project)
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
       u = FactoryGirl.create(:user)
       pur = FactoryGirl.create(:purchasing, :project_id => proj.id, :pur_eng_id => u.id)
       session[:mech_eng] = true
@@ -350,7 +352,8 @@ describe PurchasingsController do
     it "should do search for coo" do
       session[:coo] = true
       eng = FactoryGirl.create(:user)
-      proj = FactoryGirl.create(:project)
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
       pur = FactoryGirl.create(:purchasing, :project_id => proj.id, :eng_id => eng.id, :pur_eng_id => nil)
       p_search = FactoryGirl.attributes_for(:purchasing)
       get 'search_results', :purchasing => p_search 
