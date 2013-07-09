@@ -40,7 +40,7 @@
   	<td><%= (pur.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
     <td><%= pur.prod_name %></td>
     <td><%= pur.project.name %></td>
-    <td><%= pur.project.customer.name %></td>
+    <td><%= pur.project.customer.short_name %></td>
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.delivery_date.strftime("%Y/%m/%d") if pur.delivery_date.present? %></td>
     <td><%= pur.delivered %></td>

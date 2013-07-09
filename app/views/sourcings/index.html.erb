@@ -25,7 +25,7 @@
   	<td><%= link_to src.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_sourcing_path(@project, src)}" if has_show_right? %><%='*' if (src.created_at + 8.hours) > DAYS_OF_NEW.days.ago %></td>
   	<td><%= (src.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
     <td><%= src.prod_name %></td>
-    <td><%= src.project.customer.name %></td>
+    <td><%= src.project.customer.short_name %></td>
     <td><%= src.start_date.strftime("%Y/%m/%d") %></td>
     <td><%= src.finish_date.strftime("%Y/%m/%d") %></td>
     <td><%= yes_no_cn(src.approved_by_vp_eng && src.approved_by_ceo) %></td>
