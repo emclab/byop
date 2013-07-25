@@ -45,7 +45,7 @@
 </p>
 <p>
   <b>责任工程师:</b>
-  <%= @purchasing.eng.name %>
+  <%= @purchasing.eng.name if @purchasing.eng_id.present? %>
 </p>
 <p>
   <b>盖章？：</b>
