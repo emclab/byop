@@ -137,7 +137,8 @@ describe PaymentLogsController do
   describe "search" do
     it "should allow vp_eng to search sourcing" do
       session[:vp_eng] = true
-      proj = FactoryGirl.create(:project) 
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id) 
       src = FactoryGirl.create(:sourcing, :project_id => proj.id)
       pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil) 
       #p_search = FactoryGirl.attributes_for(:payment_log, :project_id_search => proj.id)
@@ -157,7 +158,8 @@ describe PaymentLogsController do
 
     it "should pull payment logs between dates" do
       session[:acct] = true
-      proj = FactoryGirl.create(:project)
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
       src = FactoryGirl.create(:sourcing, :project_id => proj.id)
       pur = FactoryGirl.create(:purchasing, :project_id => proj.id)
       pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil, :pay_date => '2012-2-10')
@@ -173,7 +175,8 @@ describe PaymentLogsController do
 
     it "should only pickup payment logs for the project " do
       session[:ceo] = true
-      proj = FactoryGirl.create(:project)
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
       src = FactoryGirl.create(:sourcing, :project_id => proj.id)
       pur = FactoryGirl.create(:purchasing, :project_id => proj.id)
       pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil, :pay_date => '2012-2-10')
