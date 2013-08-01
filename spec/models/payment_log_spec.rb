@@ -10,4 +10,14 @@ describe PaymentLog do
     p = FactoryGirl.build(:payment_log, :pay_date => nil)
     p.should_not be_valid
   end
+  
+  it "should reject nil amount" do
+    p = FactoryGirl.build(:payment_log, :amount => nil)
+    p.should_not be_valid
+  end
+  
+  it "should reject 0 amount" do
+    p = FactoryGirl.build(:payment_log, :amount => 0)
+    p.should_not be_valid
+  end
 end
