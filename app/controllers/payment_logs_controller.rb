@@ -173,7 +173,7 @@ class PaymentLogsController < ApplicationController
     cost_total, pay_total, total_num_payment, total_paid, cost_total_s, cost_total_p = 0.00, 0.00, 0, 0.00, 0.00,0.00
     if @payment_log_stats.present?
       @payment_log_stats_summary.each do |p|
-        pay_total += p.total_payment
+        pay_total += p.total_payment if p.total_payment.present?
         total_num_payment += 1
       end
       payment_log_stats_p = @payment_log_stats.where('payment_logs.purchasing_id > ?', 0).all(:select => 'sum(payment_logs.amount) AS total_p, payment_logs.purchasing_id AS purchasing_id', :group => 'payment_logs.purchasing_id')
