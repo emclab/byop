@@ -186,7 +186,7 @@ class PaymentLogsController < ApplicationController
       end if payment_log_stats_s.present?
       cost_total = cost_total_s + cost_total_p
       @payment_log_stats.where(:payment_logs => {:paid => true}).each do |p|
-        total_paid += p.amount
+        total_paid += p.amount if p.amount.present?
       end
       d_total = cost_total - pay_total if pay_total.present? && cost_total.present?
       d_total = pay_total if pay_total.present? && cost_total.nil?
