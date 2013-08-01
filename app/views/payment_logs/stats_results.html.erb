@@ -24,15 +24,15 @@
       <td><%= record.sourcing.prod_name if record.sourcing_id.present? %></td>
       <% if record.purchasing_id.present? %>
         <td><%= number_with_delimiter(record.purchasing.total) %></td>
-        <td><%= number_with_delimiter(record.total_payment - record.purchasing.total.to_f) %></td>
+        <td><%= number_with_delimiter(record.total_payment - record.purchasing.total.to_f) if record.total_payment.present? && record.purchasing.total.present? %></td>
       <% elsif record.sourcing_id.present? %>
         <td><%= number_with_delimiter(record.sourcing.total) %></td>
-        <td><%= number_with_delimiter(record.total_payment - record.sourcing.total.to_f) %></td>
+        <td><%= number_with_delimiter(record.total_payment - record.sourcing.total.to_f) if record.total_payment.present? && record.sourcing.total.present? %></td>
       <% end %>
       
       <td><%= number_with_delimiter(record.total_payment) %></td>
       <td width="10%"><%= record.purchasing.supplier.name if record.purchasing_id.present? && record.purchasing.supplier_id.present? %></td>
-      <td><%= record.sourcing.src_plant.name if record.sourcing_id.present? && record.sourcing.src_plant_id.present? %></td>
+      <td width="10%"><%= record.sourcing.src_plant.name if record.sourcing_id.present? && record.sourcing.src_plant_id.present? %></td>
       <td><%= record.num_payment %></td>
     </tr>
   <% end %>
