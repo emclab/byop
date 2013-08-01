@@ -190,7 +190,8 @@ describe PaymentLogsController do
 
     it "should allow ceo to pull stats for neither sourcing or purchasing" do
       session[:ceo] = true
-      proj = FactoryGirl.create(:project)
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
       src = FactoryGirl.create(:sourcing, :project_id => proj.id)
       pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil)
       #p_search = FactoryGirl.attributes_for(:payment_log, :project_id_search => proj.id)
@@ -200,7 +201,8 @@ describe PaymentLogsController do
 
     it "should allow ceo to pull stats for sourcing" do
       session[:ceo] = true
-      proj = FactoryGirl.create(:project) 
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id) 
       src = FactoryGirl.create(:sourcing, :project_id => proj.id)
       pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil) 
       #p_search = FactoryGirl.attributes_for(:payment_log, :project_id_search => proj.id)
@@ -210,7 +212,8 @@ describe PaymentLogsController do
 
     it "should allow ceo to pull stats for purchasing" do
       session[:ceo] = true
-      proj = FactoryGirl.create(:project)
+      cust = FactoryGirl.create(:customer)
+      proj = FactoryGirl.create(:project, :customer_id => cust.id)
       src = FactoryGirl.create(:sourcing, :project_id => proj.id)
       pay = FactoryGirl.create(:payment_log, :sourcing_id => src.id, :purchasing_id => nil)
       #p_search = FactoryGirl.attributes_for(:payment_log, :project_id_search => proj.id)

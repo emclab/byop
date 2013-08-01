@@ -26,11 +26,11 @@
   <tr>
   	<td><%= link_to log.id.to_s, SUBURI + "/view_handler?index=1&url=#{payment_log_path(log)}" %></td>
     <td><%= log.pay_date.strftime("%Y/%m/%d") %></td> 
-    <td><%= log.amount %></td>
+    <td><%= number_with_precision(log.amount, :precision => 2) %></td>
   	<% if @sourcing.blank? && @purchasing.blank?%>
   	  <% if log.purchasing_id.present? %>
   	    <td><%=log.purchasing.project.name%></td>
-  	    <td><%=log.purchasing.project.customer.short_name %></td>
+  	    <td width="10%"><%=log.purchasing.project.customer.short_name %></td>
   	    <td><%=log.purchasing.prod_name%></td>
   	    <td></td>
   	  <% elsif log.sourcing_id.present? %>

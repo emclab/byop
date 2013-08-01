@@ -5,6 +5,7 @@
   <tr>
     <th>最近付款日期</th>
     <th>项目</th>
+    <th>客户</th>
     <th>外购</th>
     <th>外协</th>
     <th>应付额（￥）</th>
@@ -14,10 +15,11 @@
     <th>外协厂</th>
     <th>付款次数</th>
   </tr>
-  <% @payment_log_stats.each do |record| %>
+  <% @payment_log_stats_summary.each do |record| %>
     <tr>
       <td><%= record.last_pay_date %></td> 
       <td><%= record.purchasing_id.present? ? record.purchasing.project.name : record.sourcing.project.name %></td>
+      <td width="10%"><%=record.purchasing_id.present? ? record.purchasing.project.customer.short_name : record.sourcing.project.customer.short_name %></td>
       <td><%= record.purchasing.prod_name if record.purchasing_id.present? %></td>       
       <td><%= record.sourcing.prod_name if record.sourcing_id.present? %></td>
       <% if record.purchasing_id.present? %>
@@ -29,7 +31,7 @@
       <% end %>
       
       <td><%= number_with_delimiter(record.total_payment) %></td>
-      <td><%= record.purchasing.supplier.name if record.purchasing_id.present? && record.purchasing.supplier_id.present? %></td>
+      <td width="10%"><%= record.purchasing.supplier.name if record.purchasing_id.present? && record.purchasing.supplier_id.present? %></td>
       <td><%= record.sourcing.src_plant.name if record.sourcing_id.present? && record.sourcing.src_plant_id.present? %></td>
       <td><%= record.num_payment %></td>
     </tr>

@@ -4,7 +4,7 @@
   <h1>外购计划付款记录 - <%=@purchasing.prod_name %></h1>
   <p>项目名称：<%=@purchasing.project.name%></p>
   <p>
-    总金额￥：<%=@purchasing.total%>, 数量(<%=@purchasing.unit%>)：<%=@purchasing.qty%>, 单价：<%=@purchasing.unit_price%>
+    总金额￥：<%=number_with_precision(@purchasing.unit_price * @purchasing.qty, :precision => 2) if @purchasing.unit_price.present? && @purchasing.qty.present? %>, 数量(<%=@purchasing.unit%>)：<%=@purchasing.qty%>, 单价：<%=@purchasing.unit_price%>
   </p>
   <p>已付款（￥）：<%= number_with_precision(@purchasing.payment_logs.where('paid = ?', true).sum("amount"), :precision => 2) %></p>
   <% unless @purchasing.payment_logs.where('paid = ?', true).sum("amount").nil? || @purchasing.total.nil? %>
@@ -51,18 +51,18 @@
   	<% if @sourcing.blank? && @purchasing.blank?%>
   	  <% if log.purchasing_id.present? %>
   	    <td><%= log.purchasing.project.name%></td>
-        <td><%= log.purchasing.project.customer.short_name %></td>
+        <td width='10%'><%= log.purchasing.project.customer.short_name %></td>
   	    <td><%= log.purchasing.prod_name%></td>
-  	    <td><%= log.purchasing.supplier.short_name if log.purchasing.supplier_id.present? %></td>
+  	    <td width="10%"><%= log.purchasing.supplier.short_name if log.purchasing.supplier_id.present? %></td>
   	    <td></td>
   	    <td></td>
   	  <% elsif log.sourcing_id.present? %>
   	    <td><%= log.sourcing.project.name%></td>
-        <td><%= log.sourcing.project.customer.short_name %></td>
+        <td width='10%'><%= log.sourcing.project.customer.short_name %></td>
   	    <td></td>    	    
   	    <td></td>
   	    <td><%= log.sourcing.prod_name %></td>	
-  	    <td><%= log.sourcing.src_plant.short_name if log.sourcing.src_plant_id.present? %></td>  
+  	    <td width="10%"><%= log.sourcing.src_plant.short_name if log.sourcing.src_plant_id.present? %></td>  
   	  <% end %>
   	<% end %> 
   	<td><%= yes_no_cn(log.approved_by_ceo) %></td>

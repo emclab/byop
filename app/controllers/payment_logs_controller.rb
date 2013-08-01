@@ -1,5 +1,6 @@
 # encoding: utf-8
 class PaymentLogsController < ApplicationController
+  include ActionView::Helpers::NumberHelper
   before_filter :require_employee  
   before_filter :load_sourcing
   before_filter :load_purchasing
@@ -156,29 +157,48 @@ class PaymentLogsController < ApplicationController
   def group_records(for_search)
       case for_search #params
       when '外购'
-        @payment_log_stats = @payment_log_stats.where("purchasing_id IS NOT NULL").all(:select => "max(pay_date) as last_pay_date, sum(amount) as total_payment, count(DISTINCT(payment_logs.id)) as num_payment, 
+        @payment_log_stats_summary = @payment_log_stats.where("purchasing_id IS NOT NULL").all(:select => "max(pay_date) as last_pay_date, sum(amount) as total_payment, count(DISTINCT(payment_logs.id)) as num_payment, 
                                 purchasing_id, sourcing_id", :group => "purchasing_id")
                           
       when '外协'
-        @payment_log_stats = @payment_log_stats.where("sourcing_id IS NOT NULL").all(:select => "max(pay_date) as last_pay_date, sum(amount) as total_payment, count(DISTINCT(payment_logs.id)) as num_payment, 
+        @payment_log_stats_summary = @payment_log_stats.where("sourcing_id IS NOT NULL").all(:select => "max(pay_date) as last_pay_date, sum(amount) as total_payment, count(DISTINCT(payment_logs.id)) as num_payment, 
                                 purchasing_id, sourcing_id", :group => "sourcing_id")
       else 
-        @payment_log_stats = @payment_log_stats.all(:select => "max(pay_date) as last_pay_date, sum(amount) as total_payment, count(DISTINCT(payment_logs.id)) as num_payment, 
+        @payment_log_stats_summary = @payment_log_stats.all(:select => "max(pay_date) as last_pay_date, sum(amount) as total_payment, count(DISTINCT(payment_logs.id)) as num_payment, 
                                 purchasing_id, sourcing_id", :group => "purchasing_id, sourcing_id")                            
       end   
   end
   
   def add_summary_to_stats_params
-    cost_total, pay_total, total_num_payment = 0.00, 0.00, 0.00
-    @payment_log_stats.each do |p|
-      cost_total += p.sourcing.total if p.sourcing_id.present? && p.sourcing.total.present?
-      cost_total += p.purchasing.total if p.purchasing_id.present? && p.purchasing.total.present?
-      pay_total += p.total_payment
-      total_num_payment += p.num_payment
+    cost_total, pay_total, total_num_payment, total_paid, cost_total_s, cost_total_p = 0.00, 0.00, 0, 0.00, 0.00,0.00
+    if @payment_log_stats.present?
+      @payment_log_stats_summary.each do |p|
+        pay_total += p.total_payment
+        total_num_payment += 1
+      end
+      payment_log_stats_p = @payment_log_stats.where('payment_logs.purchasing_id > ?', 0).all(:select => 'sum(payment_logs.amount) AS total_p, payment_logs.purchasing_id AS purchasing_id', :group => 'payment_logs.purchasing_id')
+      payment_log_stats_s = @payment_log_stats.where('payment_logs.sourcing_id > ?', 0).all(:select => 'sum(payment_logs.amount) AS total_s, payment_logs.sourcing_id AS sourcing_id', :group => 'payment_logs.sourcing_id')
+      payment_log_stats_p.each do |p|
+        cost_total_p += p.purchasing.qty * p.purchasing.unit_price if p.purchasing.qty.present? && p.purchasing.unit_price.present?
+      end if payment_log_stats_p.present?
+      payment_log_stats_s.each do |s|
+        cost_total_s += s.sourcing.qty * s.sourcing.unit_price if s.sourcing.qty.present? && s.sourcing.unit_price.present?
+      end if payment_log_stats_s.present?
+      cost_total = cost_total_s + cost_total_p
+      @payment_log_stats.where(:payment_logs => {:paid => true}).each do |p|
+        total_paid += p.amount
+      end
+      d_total = cost_total - pay_total if pay_total.present? && cost_total.present?
+      d_total = pay_total if pay_total.present? && cost_total.nil?
     end
-    d_total = pay_total - cost_total if pay_total.present? && cost_total.present?
-    d_total = pay_total if pay_total.present? && cost_total.nil?
-    @stats_params += "\n" + ", 应付总额: ￥" + cost_total.to_s + ", 已付总额: ￥" + pay_total.to_s + ", 总差额: ￥" + d_total.to_s + ", 付款总次数: " + total_num_payment.to_s
+    @stats_params =    ", 应付总额: ￥" + number_with_precision(cost_total, :precision => 2).to_s +
+                            ", 请款总额: ￥" + number_with_precision(pay_total, :precision => 2).to_s + 
+                            ", 总差额: ￥" + number_with_precision(d_total, :precision => 2).to_s + 
+                            ", 已付款额： ￥" + number_with_precision(total_paid, :precision => 2).to_s +
+                            ", 待付款额： ￥" + number_with_precision((pay_total - total_paid), :precision => 2).to_s +
+                            ", 外购款总额： ￥" + number_with_precision(cost_total_p, :precision => 2).to_s +
+                            ", 外协款总额： ￥" + number_with_precision(cost_total_s, :precision => 2).to_s +
+                            ", 付款总次数: " + total_num_payment.to_s
   end
 
   def search_params

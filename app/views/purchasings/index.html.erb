@@ -26,14 +26,14 @@
   	<td><%= link_to pur.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_purchasing_path(@project, pur)}" if has_show_right? %><%='*' if (pur.created_at + 8.hours) > DAYS_OF_NEW.days.ago %></td>
   	<td><%= (pur.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
     <td><%= pur.prod_name %></td>
-    <td><%= pur.project.customer.short_name %></td>
+    <td width='10%'><%= pur.project.customer.short_name %></td>
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.delivery_date.strftime("%Y/%m/%d") if pur.delivery_date.present? %></td>
     <td><%= pur.actual_receiving_date.strftime("%Y/%m/%d") if pur.actual_receiving_date.present? %></td>
     <td><%= yes_no_cn(approved?(pur)) %></td>
     <td><%= yes_no_cn(pur.delivered) %></td>
     <td><%= yes_no_cn(pur.from_warehouse) %></td>
-    <td><%= pur.supplier.short_name if pur.supplier_id.present? %></td>
+    <td width="10%"><%= pur.supplier.short_name if pur.supplier_id.present? %></td>
     <td><%= pur.eng.name unless pur.eng_id.blank? %></td> 
     <td><%= pur.pur_eng.name unless pur.pur_eng_id.blank? %></td> 
     <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_project_purchasing_path(@project, pur)}" if has_update_right? %></td>
