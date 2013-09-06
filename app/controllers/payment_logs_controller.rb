@@ -139,6 +139,7 @@ class PaymentLogsController < ApplicationController
       @stats_params = "参数： 分类：" + params[:payment_log][:for_search] + '，统计条数：' + @payment_log_stats.count.to_s 
       group_records(params[:payment_log][:for_search]) #result in record_stats & @stats_params
       @stats_params += ', 项目：' + Project.find_by_id(params[:payment_log][:project_id_search]).name if params[:payment_log][:project_id_search].present?
+      @stats_params += ', 客户：' + Customer.find_by_id(params[:payment_log][:customer_id_search]).name if params[:payment_log][:customer_id_search].present?
       @stats_params += ' 开始日期：' + params[:payment_log][:start_date_search] if params[:payment_log][:start_date_search].present?
       @stats_params += ', 厂长批准：' + params[:payment_log][:approved_by_ceo_s] if params[:payment_log][:approved_by_ceo_s].present?
       @stats_params += ' 已支付：' + params[:payment_log][:paid_s] if params[:payment_log][:paid_s].present?
@@ -207,6 +208,7 @@ class PaymentLogsController < ApplicationController
     search_params += ', 结束日期：' + params[:payment_log][:end_date_search] if params[:payment_log][:end_date_search].present?
     search_params += ', 分类：' + params[:payment_log][:for_search] if params[:payment_log][:for_search].present?
     search_params += ', 项目 ：' + Project.find_by_id(params[:payment_log][:project_id_search].to_i).name if params[:payment_log][:project_id_search].present?   
+    search_params += ', 客户：' + Customer.find_by_id(params[:payment_log][:customer_id_search]).name if params[:payment_log][:customer_id_search].present?
     search_params += ', 外协厂：' + SrcPlant.find_by_id(params[:payment_log][:src_plant_id_search].to_i).name if params[:payment_log][:src_plant_id_search].present?
     search_params += ', 供应商：' + Supplier.find_by_id(params[:payment_log][:supplier_id_search].to_i).name if params[:payment_log][:supplier_id_search].present?
     search_params += ', 厂长批准 ：' + params[:payment_log][:approved_by_ceo_s] if params[:payment_log][:approved_by_ceo_s].present?

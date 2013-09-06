@@ -8,6 +8,7 @@
   <%= f.input :paid_s, :label => "已支付 ：", :collection => [['是',true], ['否', false]], :include_blank => true %>
   <%= f.input :project_id_search, :label => '项目：', :collection => Project.where("completed = ? AND cancelled = ?", false, false).order('id DESC'), 
               :label_method => :name, :value_method => :id, :prompt => "选项目" %>
+  <%= f.input :customer_id_search, :collection => Customer.order('name'), :label_method => :name, :value_method => :id, :prompt => "选客户", :label => "客户 ："  %>
   <%= f.input :src_plant_id_search, :label => "外协厂 ：", :collection => return_active_plant, :include_blank => true %> 
   <%= f.input :supplier_id_search, :label => "供应商 ：", :collection => return_active_supplier, :include_blank => true %>   
 
