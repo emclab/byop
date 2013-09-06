@@ -13,9 +13,9 @@ class PaymentLog < ActiveRecord::Base
   attr_accessible :pay_date, :amount, :short_note, :as => :role_new_update
   
   attr_accessor :project_id_search, :purchasing_id_search, :sourcing_id_search, :start_date_search, :end_date_search,
-                :src_plant_id_search, :supplier_id_search, :for_search, :approved_by_ceo_s, :paid_s
+                :src_plant_id_search, :supplier_id_search, :for_search, :approved_by_ceo_s, :paid_s, :customer_id_search
   attr_accessible :project_id_search, :purchasing_id_search, :sourcing_id_search, :start_date_search, :end_date_search,
-                  :src_plant_id_search, :supplier_id_search, :for_search, :approved_by_ceo_s, :paid_s,
+                  :src_plant_id_search, :supplier_id_search, :for_search, :approved_by_ceo_s, :paid_s, :customer_id_search, 
                   :as => :role_search_stats
   
   validates :pay_date, :presence => true
@@ -33,11 +33,18 @@ class PaymentLog < ActiveRecord::Base
     payment_logs = payment_logs.where("payment_logs.sourcing_id IS NOT NULL") if for_search.present? && for_search == '外协'
     payment_logs = payment_logs.where("
             payment_logs.sourcing_id IN   (
-                                           SELECT id FROM sourcings WHERE sourcings.project_id = ? 
+                                           SELECT id FROM sourcings WHERE sourcings.project.customer_id = ? 
                                           ) 
          OR payment_logs.purchasing_id IN (
-                                           SELECT id FROM purchasings WHERE purchasings.project_id = ? 
-                                          )", project_id_search, project_id_search) if project_id_search.present?
+                                           SELECT id FROM purchasings WHERE purchasings.project.customer_id = ? 
+                                          )", customer_id_search, customer_id_search) if customer_id_search.present?
+    payment_logs = payment_logs.where("
+            payment_logs.sourcing_id IN   (
+                                           SELECT id FROM sourcings WHERE sourcings.project.customer_id = ? 
+                                          ) 
+         OR payment_logs.purchasing_id IN (
+                                           SELECT id FROM purchasings WHERE purchasings.project.customer_id = ? 
+                                          )", customer_id_search, customer_id_search) if customer_id_search.present?
     payment_logs = payment_logs.joins(:sourcing).where("sourcings.src_plant_id = ?", src_plant_id_search) if src_plant_id_search.present?
     payment_logs = payment_logs.joins(:purchasing).where("purchasings.supplier_id = ?", supplier_id_search) if supplier_id_search.present?
     payment_logs = payment_logs.order("pay_date DESC, purchasing_id DESC, sourcing_id DESC")
