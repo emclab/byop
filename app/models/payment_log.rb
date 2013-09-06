@@ -19,7 +19,7 @@ class PaymentLog < ActiveRecord::Base
                   :as => :role_search_stats
   
   validates :pay_date, :presence => true
-  validates_numericality_of :amount, :greater_than => 0
+  validates_numericality_of :amount, :greater_than_or_equal_to => 0.0
   
   def find_payment_logs
     payment_logs = PaymentLog.where("payment_logs.pay_date > ?", 1000.days.ago)
