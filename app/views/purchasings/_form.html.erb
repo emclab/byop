@@ -1,20 +1,21 @@
 <%= simple_form_for([@project, @purchasing]) do |f| %>    
 
   <%= f.input :proj_name, :label => '项目名称：', :readonly => true, :required => false, :input_html => {:value => @project.name} %>
-  <%= f.input :prod_name, :label => '名称：' %> 
-  <%= f.input :part_num, :label => '产品#：' %>
-  <%= f.input :spec, :label => '规格：', :input_html => {:rows => 4} %>  
-  <%= f.input :qty, :label => '数量：' %> 
+  <%= f.input :prod_name, :label => '名称：', :readonly => (!mech_eng? and !hydr_eng? and !inst_eng? and elec_eng?) %> 
+  <%= f.input :part_num, :label => '产品#：', :readonly => (!mech_eng? and !hydr_eng? and !inst_eng? and elec_eng?) %>
+  <%= f.input :spec, :label => '规格：', :input_html => {:rows => 4}, :readonly => (!mech_eng? and !hydr_eng? and !inst_eng? and elec_eng?) %>  
+  <%= f.input :qty, :label => '数量：' , :readonly => (!mech_eng? and !hydr_eng? and !inst_eng? and elec_eng?)%> 
   <%= f.input :unit, :label => '单位：', :collection => return_unit, :selected => @purchasing.unit %>
-  <%= f.input :unit_price, :label => '单价（￥）：' %>
+  <%= f.input :eng_id, :label => '责任工程师：', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng', 'vp_eng'), :label_method => :name, :value_method => :id %>
+  <%= f.input :delivery_date, :label => '预定到货日期：', :as => :string, :readonly => !vp_eng? %> 
+  <%= f.input :unit_price, :label => '单价（￥）：', :readonly => @purchasing.delivery_date.nil? or !pur_eng? %>
   <% if @purchasing.unit_price.present? && @purchasing.qty.present? %>
     <%= f.input :total, :label => '总金额￥：', :readonly => true, :required => false, :input_html => {:value => number_with_precision(@purchasing.unit_price * @purchasing.qty, :precision => 2) }  %>
   <% else %>
     <%= f.input :total, :label => '总金额￥：', :readonly => true, :required => false %>
   <% end %>
   <%= f.input :manufacturer_id, :label => '制造厂家：', :collection => return_mfg, :label_method => :name, :value_method => :id, :include_blank => true %>
-  <%= f.input :supplier_id, :label => '供应商：', :collection => return_supplier, :label_method => :name, :value_method => :id, :include_blank => true %>
-  <%= f.input :eng_id, :label => '责任工程师：', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng', 'vp_eng'), :label_method => :name, :value_method => :id %>
+  <%= f.input :supplier_id, :label => '供应商：', :collection => return_supplier, :label_method => :name, :value_method => :id, :include_blank => true %>  
   <%= f.input :pur_eng_id, :label => '外购工程师：', :collection => return_employee('pur_eng'), :label_method => :name, :value_method => :id %>
   <%= f.input :proj_module_id, :label => '部件：', :collection => return_proj_module(@project), :label_method => :name, :value_method => :id %>
   <%= f.input :delivered, :label => '到货？：', :collection => [['是',true],['否',false]], :selected => @purchasing.delivered %>
@@ -26,9 +27,8 @@
     <%= f.input :checked_out_from_warehouse, :label => '已经出库：', :input_html => {:value => yes_no_cn(@purchasing.checked_out_from_warehouse)}, :readonly => true, 
                 :required => false, :as => :string %>
   <% end %>
-  <%= f.input :order_date, :label => '订购日期：', :as => :string %> 
-  <%= f.input :delivery_date, :label => '预定到货日期：', :as => :string %> 
-  <%= f.input :actual_receiving_date, :label => '实际到货日期：', :as => :string %> 
+  <%= f.input :order_date, :label => '订购日期：', :as => :string, :readonly => !pur_eng? %> 
+  <%= f.input :actual_receiving_date, :label => '实际到货日期：', :as => :string, :readonly => !pur_eng? %> 
   
   <%= f.input :stamped, :label => '盖章？：', :readonly => true, :required => false, :as => :string, :input_html => {:value => yes_no_cn(@purchasing.stamped)} %>
   <%= f.input :approved_by_eng, :label => '工程师批准：', :readonly => true, :required => false, :as => :string, :input_html => {:value => yes_no_cn(@purchasing.approved_by_eng)} %>

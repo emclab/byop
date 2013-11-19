@@ -16,8 +16,8 @@ describe PaymentLog do
     p.should_not be_valid
   end
   
-  it "should reject 0 amount" do
+  it "should allow 0 amount" do
     p = FactoryGirl.build(:payment_log, :amount => 0)
-    p.should_not be_valid
+    p.should be_valid
   end
 end

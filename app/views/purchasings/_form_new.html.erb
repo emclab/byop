@@ -3,14 +3,15 @@
   <%= f.input :proj_name, :label => '项目名称:', :readonly => true, :required => false, :input_html => {:value => @project.name} %> 
   <%= f.input :prod_name, :label => '名称：' %> 
   <%= f.input :part_num, :label => '产品#：' %>
-  <%= f.input :spec, :label => '规格：', :input_html => {:rows => 4} %>  
-  <%= f.input :qty, :label => '数量：' %>
+  <%= f.input :spec, :label => '规格：' %>  
+  <%= f.input :qty, :label => '数量：' %>  
   <%= f.input :unit, :label => '单位：', :collection => return_unit, :include_blank => true %>
+  <%= f.input :eng_id, :label => '责任工程师:', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng','vp_eng'), :label_method => :name, :value_method => :id %>
+  <%= f.input :delivery_date, :label => '预定到货日期：', :as => :string, :readonly => !vp_eng? %> 
   <%= f.input :unit_price, :label => '单价：' %>
   <%= f.input :total, :label => '总金额￥：', :readonly => true, :required => false %>
   <%= f.input :manufacturer_id, :label => '制造厂家：', :collection => return_mfg, :label_method => :name, :value_method => :id, :include_blank => true %>
-  <%= f.input :supplier_id, :label => '供应商：', :collection => return_supplier, :label_method => :name, :value_method => :id, :include_blank => true %>
-  <%= f.input :eng_id, :label => '责任工程师:', :collection => return_employee('mech_eng', 'hydr_eng', 'inst_eng', 'elec_eng', 'src_eng','vp_eng'), :label_method => :name, :value_method => :id %>
+  <%= f.input :supplier_id, :label => '供应商：', :collection => return_supplier, :label_method => :name, :value_method => :id, :include_blank => true %>  
   <%= f.input :pur_eng_id, :label => '外购工程师：', :collection => return_employee('pur_eng'), :label_method => :name, :value_method => :id %>
   <%= f.input :proj_module_id, :label => '分系统：', :collection => return_proj_module(@project), :label_method => :name, :value_method => :id %>
   <%= f.input :from_warehouse, :label => '来自库存：', :collection => return_yes_no, :selected => false %>

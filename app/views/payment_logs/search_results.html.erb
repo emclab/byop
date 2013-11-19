@@ -5,6 +5,7 @@
        应付金额￥：<%=@payment_logs.sum("amount") %>
   </p>
   <p>已付款（￥）：<%= @payment_logs.where("paid = ?", true).sum("amount")%></p>
+  <p>未付款（￥）：<%= @payment_logs.where("paid = ?", false).sum("amount")%></p>
 <table>
   <tr>
   	<th>#</th>

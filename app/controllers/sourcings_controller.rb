@@ -42,6 +42,10 @@ class SourcingsController < ApplicationController
     if !has_update_right?
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
+    if @sourcing.approved_by_ceo 
+      flash.now[:error] = '外协已批准，无法更新!'
+      render 'edit'
+    end
   end
 
   def update
@@ -49,10 +53,15 @@ class SourcingsController < ApplicationController
       @project = Project.find(params[:project_id])
       @sourcing = @project.sourcings.find(params[:id])
       @sourcing.input_by_id = session[:user_id]
-      if @sourcing.update_attributes(params[:sourcing], :as => :role_update)
-        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已更改！")
+      unless @sourcing.approved_by_ceo 
+        if @sourcing.update_attributes(params[:sourcing], :as => :role_update)
+           redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已更改！")
+        else
+          flash.now[:error] = '数据错误，无法保存!'
+          render 'edit'
+        end
       else
-        flash.now[:error] = '数据错误，无法保存!'
+        flash.now[:error] = '外协已批准，无法更新!'
         render 'edit'
       end
     end

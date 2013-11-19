@@ -11,7 +11,9 @@
 <p>	已交货个数： <%= @sourcings.where('sourcings.completed = ?', true).count  %>,
 	已交货金额￥： <%= number_with_delimiter(number_with_precision(@sourcings.where('sourcings.completed = ?', true).sum('unit_price * qty'), :precision => 2))  %>,	
 	未交货个数： <%= @sourcings.where('sourcings.completed = ?', false).count  %>,
-	未交货金额￥： <%= number_with_delimiter(number_with_precision(@sourcings.where('sourcings.completed = ?', false).sum('unit_price * qty'), :precision => 2))  %>,		 
+	未交货金额￥： <%= number_with_delimiter(number_with_precision(@sourcings.where('sourcings.completed = ?', false).sum('unit_price * qty'), :precision => 2))  %>,
+	已支付金额￥：<%= number_with_delimiter(number_with_precision(@sourcings.joins(:payment_logs).where('payment_logs.paid = ?', true).sum('payment_logs.amount'), :precision => 2)) %>
+	未支付金额￥：<%=number_with_delimiter(number_with_precision(@sourcings.sum('unit_price * qty').to_f - @sourcings.joins(:payment_logs).where('payment_logs.paid = ?', true).sum('payment_logs.amount').to_f, :precision => 2)) %>		 
 <p>	外协厂个数： <%= @sourcings.select("DISTINCT(src_plant_id)").count %>,          
 </p>
 <% end %>

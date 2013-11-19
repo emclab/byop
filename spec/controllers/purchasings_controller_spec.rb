@@ -184,8 +184,8 @@ describe PurchasingsController do
       u = FactoryGirl.create(:user)
       session[:vp_eng] = true
       session[:user_id] = u.id
-      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :project_id => proj.id)
-      get 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
+      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :approved_by_pur_eng => true, :project_id => proj.id)
+      get 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
                                                                           :approve_date_vp_eng => Time.now }
       response.should redirect_to project_purchasing_path(proj, pur) 
       pur.reload.approved_by_vp_eng.should eq true
@@ -199,8 +199,8 @@ describe PurchasingsController do
       u = FactoryGirl.create(:user)
       session[:pur_eng] = true
       session[:user_id] = u.id
-      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :approved_by_vp_eng => true, :project_id => proj.id)
-      get 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_pur_eng => true, :approve_pur_eng_id => session[:user_id],
+      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :project_id => proj.id)
+      get 'approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_pur_eng => false, :approve_pur_eng_id => session[:user_id],
                                                                           :approve_date_pur_eng => Time.now }
       response.should redirect_to project_purchasing_path(proj, pur)  
       pur.reload.approved_by_pur_eng.should eq true
@@ -246,7 +246,7 @@ describe PurchasingsController do
       u = FactoryGirl.create(:user)
       session[:vp_eng] = true
       session[:user_id] = u.id
-      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :project_id => proj.id)
+      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :approved_by_pur_eng => true, :project_id => proj.id)
       get 'dis_approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
                                                                           :approve_date_vp_eng => Time.now }
       response.should redirect_to project_purchasing_path(proj, pur) 
@@ -261,7 +261,7 @@ describe PurchasingsController do
       u = FactoryGirl.create(:user)
       session[:pur_eng] = true
       session[:user_id] = u.id
-      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :approved_by_vp_eng => true, :project_id => proj.id)
+      pur = FactoryGirl.create(:purchasing, :input_by_id => u.id, :approved_by_eng => true, :project_id => proj.id)
       get 'dis_approve', :project_id => proj.id, :id => pur.id, :purchasing => {:approved_by_pur_eng => false, :approve_pur_eng_id => session[:user_id],
                                                                           :approve_date_pur_eng => Time.now }
       response.should redirect_to project_purchasing_path(proj, pur)  

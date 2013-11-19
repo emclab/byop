@@ -41,17 +41,26 @@ class PurchasingsController < ApplicationController
     if !has_update_right?
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
+    if @purchasing.approved_by_ceo 
+      flash.now[:error] = '外购已批准，无法更新!'
+      render 'edit'
+    end
   end
 
   def update
-    if has_update_right?
+    if has_update_right? 
       @project = Project.find(params[:project_id])
       @purchasing = @project.purchasings.find(params[:id])
       @purchasing.input_by_id = session[:user_id]
-      if @purchasing.update_attributes(params[:purchasing], :as => :role_update)
-        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已更改！")
+      unless @purchasing.approved_by_ceo 
+        if @purchasing.update_attributes(params[:purchasing], :as => :role_update)
+          redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已更改！")
+        else
+          flash.now[:error] = '数据错误，无法保存!'
+          render 'edit'
+        end
       else
-        flash.now[:error] = '数据错误，无法保存!'
+        flash.now[:error] = '外购已批准，无法更新!'
         render 'edit'
       end
     end
@@ -209,9 +218,9 @@ class PurchasingsController < ApplicationController
   def need_approve?(purchasing)
     if is_tech_eng? && purchasing.eng_id == session[:user_id] && purchasing.approved_by_vp_eng.nil? && purchasing.approved_by_pur_eng.nil? && purchasing.approved_by_ceo.nil?
       return true
-    elsif vp_eng? && purchasing.approved_by_eng && purchasing.approved_by_pur_eng.nil? && purchasing.approved_by_ceo.nil?
+    elsif pur_eng? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng.nil? && purchasing.approved_by_ceo.nil?
       return true
-    elsif pur_eng? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng && purchasing.approved_by_ceo.nil?
+    elsif vp_eng? && purchasing.approved_by_eng && purchasing.approved_by_pur_eng && purchasing.approved_by_ceo.nil?
       return true
     elsif ceo? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng && purchasing.approved_by_pur_eng 
       return true
