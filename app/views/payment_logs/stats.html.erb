@@ -4,7 +4,7 @@
   <%= f.input :start_date_search, :label => "付款开始日期 ：", :as => :string, :input_html => {:size => 40} %>
   <%= f.input :end_date_search, :label => "付款结束日期 ：", :as => :string, :input_html => {:size => 40} %> 
   <%= f.input :for_search, :collection => ['外购','外协'], :prompt => "选分类", :label => "分类 ："  %>
-  <%= f.input :project_id_search, :label => '项目：', :collection => Project.where("completed = ? AND cancelled = ?", false, false).order('id DESC'), 
+  <%= f.input :project_id_search, :label => '项目：', :collection => Project.where("created_at > ? AND cancelled = ?", 4.years.ago, false).order('id DESC'), 
               :label_method => :name, :value_method => :id, :prompt => "选项目" %>
   <%= f.input :customer_id_search, :collection => Customer.order('name'), :label_method => :name, :value_method => :id, :prompt => "选客户", :label => "客户 ："  %>
   <%= f.input :src_plant_id_search, :label => "外协厂 ：", :collection => return_active_plant, :include_blank => true %> 
