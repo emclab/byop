@@ -2,7 +2,7 @@
 class Purchasing < ActiveRecord::Base
   
   #for simple-form display fields
-  attr_accessor   :proj_name, :total   
+  attr_accessor   :proj_name, :total, :manufacturer_id_noupdate, :supplier_id_noupdate, :eng_id_noupdate, :pur_eng_id_noupdate, :unit_noupdate   
   
   attr_accessor   :project_id_search, :start_date_search, :end_date_search, :approved_by_eng_search, :approved_by_vp_eng_search, 
                   :approved_by_pur_eng_search, :approved_by_ceo_search, :mfg_id_search, :eng_id_search, :customer_id_search,

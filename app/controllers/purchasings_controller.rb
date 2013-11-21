@@ -41,10 +41,7 @@ class PurchasingsController < ApplicationController
     if !has_update_right?
       redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=权限不足！")
     end
-    if @purchasing.approved_by_ceo 
-      flash.now[:error] = '外购已批准，无法更新!'
-      render 'edit'
-    end
+
   end
 
   def update
@@ -52,17 +49,13 @@ class PurchasingsController < ApplicationController
       @project = Project.find(params[:project_id])
       @purchasing = @project.purchasings.find(params[:id])
       @purchasing.input_by_id = session[:user_id]
-      unless @purchasing.approved_by_ceo 
-        if @purchasing.update_attributes(params[:purchasing], :as => :role_update)
-          redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已更改！")
-        else
-          flash.now[:error] = '数据错误，无法保存!'
-          render 'edit'
-        end
+      if @purchasing.update_attributes(params[:purchasing], :as => :role_update)
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=计划已更改！")
       else
-        flash.now[:error] = '外购已批准，无法更新!'
+        flash.now[:error] = '数据错误，无法保存!'
         render 'edit'
       end
+      
     end
   end
 
