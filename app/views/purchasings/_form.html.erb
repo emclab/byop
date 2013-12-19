@@ -11,7 +11,7 @@
               :label_method => :name, :value_method => :id unless @purchasing.approved_by_ceo %>
   <%= f.input :eng_id_noupdate, :label => '责任工程师：', :readonly => true, :input_html => {:value => @purchasing.eng.name}  if @purchasing.approved_by_ceo %>
   <%= f.input :delivery_date, :label => '预定到货日期：', :as => :string, :readonly => !vp_eng?  %> 
-  <%= f.input :unit_price, :label => '单价（￥）：', :readonly => @purchasing.delivery_date.nil? or !pur_eng? or @purchasing.approved_by_ceo %>
+  <%= f.input :unit_price, :label => '单价（￥）：', :readonly => (!pur_eng?) or @purchasing.approved_by_ceo %>
   <% if @purchasing.unit_price.present? && @purchasing.qty.present? %>
     <%= f.input :total, :label => '总金额￥：', :readonly => true, :required => false, :input_html => {:value => number_with_precision(@purchasing.unit_price * @purchasing.qty, :precision => 2) }  %>
   <% else %>
