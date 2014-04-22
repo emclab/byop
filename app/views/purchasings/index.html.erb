@@ -6,6 +6,7 @@
     <th>#</th>
     <th>生成日期</th>
     <th>产品名称</th>
+    <th>总额（￥）</th>
     <th>客户</th>
     <th>订购日期</th>
     <th>预定到货日期</th>
@@ -26,6 +27,7 @@
   	<td><%= link_to pur.id.to_s, SUBURI + "/view_handler?index=1&url=#{project_purchasing_path(@project, pur)}" if has_show_right? %><%='*' if (pur.created_at + 8.hours) > DAYS_OF_NEW.days.ago %></td>
   	<td><%= (pur.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
     <td><%= pur.prod_name %></td>
+    <td><%= number_with_precision(pur.total, precision: 2) if pur.total.present? %></td>
     <td width='10%'><%= pur.project.customer.short_name %></td>
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.delivery_date.strftime("%Y/%m/%d") if pur.delivery_date.present? %></td>
