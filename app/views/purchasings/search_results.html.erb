@@ -23,6 +23,7 @@
     <th>生成日期</th>
     <th>产品名称</th>
     <th>项目名称</th>
+    <th>总额（￥）</th>
     <th>客户</th>
     <th>订购日期</th>
     <th>到货日期</th>
@@ -40,6 +41,7 @@
   	<td><%= (pur.created_at + 8.hours).strftime("%Y/%m/%d")%></td>
     <td><%= pur.prod_name %></td>
     <td><%= pur.project.name %></td>
+    <td><%= number_with_precision(pur.unit_price * pur.qty, :precision => 2) if pur.unit_price.present? && pur.qty.present? %></td>
     <td width="10%"><%= pur.project.customer.short_name %></td>
     <td><%= pur.order_date.strftime("%Y/%m/%d") %></td>
     <td><%= pur.delivery_date.strftime("%Y/%m/%d") if pur.delivery_date.present? %></td>
