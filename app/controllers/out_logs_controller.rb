@@ -42,7 +42,7 @@ class OutLogsController < ApplicationController
   protected
   
   def has_create_right?
-    pur_eng? || vp_eng? || ceo?
+    pur_eng? || vp_eng? || ceo? || is_tech_eng?
   end
   
 end

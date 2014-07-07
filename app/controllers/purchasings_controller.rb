@@ -102,13 +102,15 @@ class PurchasingsController < ApplicationController
         else
           redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=数据错误。外购未批准!")
         end
+=begin
       elsif vp_eng?
         if @purchasing.update_attributes({:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
                                        :approve_date_vp_eng => Time.now}, :as => :role_approve_disapprove_stamped)  
           redirect_to project_purchasing_path(@project, @purchasing), :notice => '外购已批准！'
         else
           redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=数据错误。外购未批准!")
-        end                             
+        end
+=end                             
       elsif pur_eng?
         if @purchasing.update_attributes({:approved_by_pur_eng => true, :approve_pur_eng_id => session[:user_id],
                                        :approve_date_pur_eng => Time.now}, :as => :role_approve_disapprove_stamped) 
@@ -140,13 +142,15 @@ class PurchasingsController < ApplicationController
         else
           redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=数据错误。外购未否决!")
         end
+=begin
       elsif vp_eng?
         if @purchasing.update_attributes({:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
                                        :approve_date_vp_eng => Time.now}, :as => :role_approve_disapprove_stamped)  
           redirect_to project_purchasing_path(@project, @purchasing), :notice => '外购已否决！' 
         else
           redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=数据错误。外购未否决!")
-        end                    
+        end
+=end                    
       elsif pur_eng?
         if @purchasing.update_attributes({:approved_by_pur_eng => false, :approve_pur_eng_id => session[:user_id],
                                        :approve_date_pur_eng => Time.now}, :as => :role_approve_disapprove_stamped) 
@@ -173,10 +177,10 @@ class PurchasingsController < ApplicationController
     @purchasing = @project.purchasings.find(params[:id])
     if ceo?
         @purchasing.update_attributes({:approved_by_eng => nil, :approve_eng_id => nil,:approve_date_eng => nil,
-                                       :approved_by_vp_eng => nil, :approve_vp_eng_id => nil, :approve_date_vp_eng => nil,
                                        :approved_by_pur_eng => nil, :approve_pur_eng_id => nil, :approve_date_pur_eng => nil,
                                        :approved_by_ceo => nil, :approve_ceo_id => nil, :approve_date_ceo => nil},
                                        :as => :role_approve_disapprove_stamped)
+                                       #:approved_by_vp_eng => nil, :approve_vp_eng_id => nil, :approve_date_vp_eng => nil,
     
       redirect_to project_purchasing_path(@project, @purchasing), :notice => '外购需要重新批准！'
     else
@@ -209,13 +213,13 @@ class PurchasingsController < ApplicationController
   protected
   
   def need_approve?(purchasing)
-    if is_tech_eng? && purchasing.eng_id == session[:user_id] && purchasing.approved_by_vp_eng.nil? && purchasing.approved_by_pur_eng.nil? && purchasing.approved_by_ceo.nil?
+    if is_tech_eng? && purchasing.eng_id == session[:user_id] && purchasing.approved_by_pur_eng.nil? && purchasing.approved_by_ceo.nil?  #&& purchasing.approved_by_vp_eng.nil? 
       return true
-    elsif pur_eng? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng.nil? && purchasing.approved_by_ceo.nil?
+    elsif pur_eng? && purchasing.approved_by_eng  && purchasing.approved_by_ceo.nil? #&& purchasing.approved_by_vp_eng.nil?
       return true
-    elsif vp_eng? && purchasing.approved_by_eng && purchasing.approved_by_pur_eng && purchasing.approved_by_ceo.nil?
-      return true
-    elsif ceo? && purchasing.approved_by_eng && purchasing.approved_by_vp_eng && purchasing.approved_by_pur_eng 
+#    elsif vp_eng? && purchasing.approved_by_eng && purchasing.approved_by_pur_eng && purchasing.approved_by_ceo.nil?
+#      return true
+    elsif ceo? && purchasing.approved_by_eng  && purchasing.approved_by_pur_eng  #&& purchasing.approved_by_vp_eng
       return true
     end
     return false
@@ -224,8 +228,8 @@ class PurchasingsController < ApplicationController
   def display_approve?(purchasing)
     if is_tech_eng? && purchasing.eng_id == session[:user_id] && (purchasing.approved_by_eng.nil? || !purchasing.approved_by_eng)
       return true
-    elsif vp_eng? && (purchasing.approved_by_vp_eng.nil? || !purchasing.approved_by_vp_eng)
-      return true
+#    elsif vp_eng? && (purchasing.approved_by_vp_eng.nil? || !purchasing.approved_by_vp_eng)
+#      return true
     elsif pur_eng? && (purchasing.approved_by_pur_eng.nil? || !purchasing.approved_by_pur_eng)
       return true
     elsif ceo? && (purchasing.approved_by_ceo.nil? || !purchasing.approved_by_ceo)
@@ -237,8 +241,8 @@ class PurchasingsController < ApplicationController
   def display_dis_approve?(purchasing)
     if is_tech_eng? && purchasing.eng_id == session[:user_id] && (purchasing.approved_by_eng.nil? || purchasing.approved_by_eng)
       return true
-    elsif vp_eng? && (purchasing.approved_by_vp_eng.nil? || purchasing.approved_by_vp_eng)
-      return true
+#    elsif vp_eng? && (purchasing.approved_by_vp_eng.nil? || purchasing.approved_by_vp_eng)
+ #     return true
     elsif pur_eng? && (purchasing.approved_by_pur_eng.nil? || purchasing.approved_by_pur_eng)
       return true
     elsif ceo? && (purchasing.approved_by_ceo.nil? || purchasing.approved_by_ceo)
@@ -248,37 +252,37 @@ class PurchasingsController < ApplicationController
   end
   
   def approved?(pur)
-    return false if pur.approved_by_eng.nil? || pur.approved_by_vp_eng.nil? || pur.approved_by_pur_eng.nil? || pur.approved_by_ceo.nil?
-    return true if pur.approved_by_eng == true && pur.approved_by_vp_eng == true && pur.approved_by_pur_eng == true && pur.approved_by_ceo == true
+    return false if pur.approved_by_eng.nil? || pur.approved_by_pur_eng.nil? || pur.approved_by_ceo.nil?  # pur.approved_by_vp_eng.nil? ||
+    return true if pur.approved_by_eng == true && pur.approved_by_pur_eng == true && pur.approved_by_ceo == true  #&& pur.approved_by_vp_eng == true
     return false
   end
   
   def has_reorder_right?
-    pur_eng? || vp_eng? || ceo?  
+    pur_eng? || ceo?  #|| vp_eng?  
   end
   
   def has_show_right?
-    is_eng? || acct? || comp_sec? || vp_eng? || vp_sales? || coo? || ceo?
+    is_eng? || acct? || comp_sec? || vp_sales? || coo? || ceo?  #vp_eng? ||
   end
   
   def has_create_right?
-    mech_eng? || elec_eng? || vp_eng? || ceo? || coo?
+    mech_eng? || elec_eng? || ceo? || coo?  #|| vp_eng? 
   end
   
   def has_update_right?
-    mech_eng? || elec_eng? || pur_eng? || vp_eng? || ceo? || coo?
+    mech_eng? || elec_eng? || pur_eng? ||  ceo? || coo?  #vp_eng? ||
   end
   
   def has_log_right?
-    pur_eng? || vp_eng? || comp_sec? || vp_sales? || coo? || ceo?
+    pur_eng? ||  comp_sec? || vp_sales? || coo? || ceo?  #vp_eng? ||
   end
   
   def has_stats_right?  #show stats on search page
-    pur_eng? || vp_eng? || vp_sales? || coo? || ceo?
+    pur_eng? ||  vp_sales? || coo? || ceo?  #vp_eng? ||
   end
   
   def has_delete_right?
-    vp_eng? || ceo?
+     ceo?  #vp_eng? ||
   end
     
   def search_params
@@ -293,7 +297,7 @@ class PurchasingsController < ApplicationController
     search_params += ', 供应商：' + Supplier.find_by_id(params[:purchasing][:supplier_id_search].to_i).name if params[:purchasing][:supplier_id_search].present?
     search_params += ', 交货了？ ：' + params[:purchasing][:delivered_search] if params[:purchasing][:delivered_search].present?
     search_params += ', 工程师批了？ ：' + params[:purchasing][:approved_by_eng_search] if params[:purchasing][:approved_by_eng_search].present?
-    search_params += ', 副总批了？ ：' + params[:purchasing][:approved_by_vp_eng_search] if params[:purchasing][:approved_by_vp_eng_search].present?
+    #search_params += ', 副总批了？ ：' + params[:purchasing][:approved_by_vp_eng_search] if params[:purchasing][:approved_by_vp_eng_search].present?
     search_params += ', 采购批了？ ：' + params[:purchasing][:approved_by_pur_eng_search] if params[:purchasing][:approved_by_pur_eng_search].present?
     search_params += ', 厂长批了？ ：' + params[:purchasing][:approved_by_ceo_search] if params[:purchasing][:approved_by_ceo_search].present?
     search_params
