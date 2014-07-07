@@ -81,11 +81,11 @@ class SourcingsController < ApplicationController
     @project = Project.find(params[:project_id])
     @sourcing = @project.sourcings.find(params[:id])
     if need_approve?(@sourcing)  
-      if vp_eng?
-        @sourcing.update_attributes({:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
-                                       :approve_date_vp_eng => Time.now}, :as => :role_approve_stamp)
+      #if vp_eng?
+        #@sourcing.update_attributes({:approved_by_vp_eng => true, :approve_vp_eng_id => session[:user_id],
+         #                              :approve_date_vp_eng => Time.now}, :as => :role_approve_stamp)
 
-      elsif ceo?
+      if ceo?
         @sourcing.update_attributes({:approved_by_ceo => true, :approve_ceo_id => session[:user_id],
                                     :approve_date_ceo => Time.now}, :as => :role_approve_stamp) 
       end
@@ -100,12 +100,13 @@ class SourcingsController < ApplicationController
     
     @project = Project.find(params[:project_id])
     @sourcing = @project.sourcings.find(params[:id])
-    if need_approve?(@sourcing)  
+    if need_approve?(@sourcing) 
+=begin 
       if vp_eng?
         @sourcing.update_attributes({:approved_by_vp_eng => false, :approve_vp_eng_id => session[:user_id],
                                        :approve_date_vp_eng => Time.now}, :as => :role_approve_stamp)
-
-      elsif ceo?
+=end
+      if ceo?
         @sourcing.update_attributes({:approved_by_ceo => false, :approve_ceo_id => session[:user_id],
                                     :approve_date_ceo => Time.now}, :as => :role_approve_stamp) 
       end
@@ -121,9 +122,9 @@ class SourcingsController < ApplicationController
     @project = Project.find(params[:project_id])
     @sourcing = @project.sourcings.find(params[:id])
     if ceo?  
-      @sourcing.update_attributes({:approved_by_vp_eng => nil, :approve_vp_eng_id => nil, :approve_date_vp_eng => nil, 
-                                   :approved_by_ceo => nil, :approve_ceo_id => nil, :approve_date_ceo => nil},
+      @sourcing.update_attributes({:approved_by_ceo => nil, :approve_ceo_id => nil, :approve_date_ceo => nil},
                                    :as => :role_approve_stamp)
+                                   #:approved_by_vp_eng => nil, :approve_vp_eng_id => nil, :approve_date_vp_eng => nil, 
     
       redirect_to project_sourcing_path(@project, @sourcing), :notice => '外协需要重新批准！'
     else
@@ -157,54 +158,54 @@ class SourcingsController < ApplicationController
   protected
   
   def need_approve?(sourcing)
-    if vp_eng? && sourcing.approved_by_ceo.nil?
-      return true
-    elsif ceo? && sourcing.approved_by_vp_eng 
+    #if vp_eng? && sourcing.approved_by_ceo.nil?
+   #   return true
+    if ceo? #&& sourcing.approved_by_vp_eng 
       return true
     end
     return false
   end 
   
   def display_approve?(sourcing)
-    if vp_eng? && (sourcing.approved_by_vp_eng.nil? || !sourcing.approved_by_vp_eng)
-      return true
-    elsif ceo? && (sourcing.approved_by_ceo.nil? || !sourcing.approved_by_ceo)
+   # if vp_eng? && (sourcing.approved_by_vp_eng.nil? || !sourcing.approved_by_vp_eng)
+    #  return true
+    if ceo? && (sourcing.approved_by_ceo.nil? || !sourcing.approved_by_ceo)
       return true
     end
     return false
   end
   
   def display_dis_approve?(sourcing)
-    if vp_eng? && (sourcing.approved_by_vp_eng.nil? || sourcing.approved_by_vp_eng)
-      return true
-    elsif ceo? && (sourcing.approved_by_ceo.nil? || sourcing.approved_by_ceo)
+#    if vp_eng? && (sourcing.approved_by_vp_eng.nil? || sourcing.approved_by_vp_eng)
+#      return true
+    if ceo? && (sourcing.approved_by_ceo.nil? || sourcing.approved_by_ceo)
       return true
     end
     return false
   end 
   
   def has_approve_right?
-    vp_eng? || ceo?
+     ceo?  #vp_eng? ||
   end
     
   def has_show_right?
-    is_eng? || acct? || comp_sec? || vp_eng? || vp_sales? || coo? || ceo?
+    is_eng? || acct? || comp_sec? || vp_sales? || coo? || ceo? #|| vp_eng? 
   end
   
   def has_create_right?
-    src_eng? || vp_eng? || ceo?
+    src_eng?  || ceo? #|| vp_eng?
   end
   
   def has_update_right?
-    src_eng? || vp_eng? || ceo?
+    src_eng? || ceo? #|| vp_eng? 
   end
   
   def has_log_right?
-    src_eng? || vp_eng? || comp_sec? || vp_sales? || coo? || ceo?
+    src_eng? || comp_sec? || vp_sales? || coo? || ceo?  #|| vp_eng?
   end
 
   def has_stats_right?  #show stats on search page
-    src_eng? || vp_eng? || vp_sales? || coo? || ceo?
+    src_eng? || vp_sales? || coo? || ceo? #|| vp_eng? 
   end
   
   def search_params
@@ -217,7 +218,7 @@ class SourcingsController < ApplicationController
     search_params += ', 外协工程师：' + User.find_by_id(params[:sourcing][:src_eng_id_search].to_i).name if params[:sourcing][:src_eng_id_search].present?
     search_params += ', 外协厂：' + SrcPlant.find_by_id(params[:sourcing][:src_plant_id_search].to_i).name if params[:sourcing][:src_plant_id_search].present?
     search_params += ', 完成？ ：' + params[:sourcing][:completed_search] if params[:sourcing][:completed_search].present?
-    search_params += ', 副总批了？ ：' + params[:sourcing][:approved_by_vp_eng_search] if params[:sourcing][:approved_by_vp_eng_search].present?
+    #search_params += ', 副总批了？ ：' + params[:sourcing][:approved_by_vp_eng_search] if params[:sourcing][:approved_by_vp_eng_search].present?
     search_params += ', 厂长批了？ ：' + params[:sourcing][:approved_by_ceo_search] if params[:sourcing][:approved_by_ceo_search].present?
     search_params
   end
